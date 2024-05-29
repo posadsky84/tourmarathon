@@ -7,4 +7,9 @@
 .main-area {
   height: 100%;
   margin-top: 80px;
+  padding: 148px 132px;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
 }
