@@ -1,0 +1,53 @@
+.runner-info-block {
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+.runner-teams-block {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.runner-info-field {
+    border: solid;
+    background-color: beige;
+    margin-top: 10px;
+    width: 400px;
+}
+
+.runner-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #EAECF0;
+    font-size: 14px;
+
+}
+
+.runner-table-row {
+    display: grid;
+    grid-template-columns: 15fr 14fr 10fr 10fr 140px 140px 80px 110px;
+    row-gap: 1px;
+    background-color: #EAECF0;
+}
+
+.runner-table-cell {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    padding: 8px 12px;
+}
+
+.runner-table-head-cell {
+    background-color: #EAECF0;
+    font-weight: 500;
+}
+
+.runner-table-head-row {
+
+}
+
+.runner-table-detail-row {
+
+}

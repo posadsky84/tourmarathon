@@ -11,8 +11,11 @@ export const api = createApi({
       query: () => '/runners',
     }),
     getTeams: builder.query({
-      query: () => '/teams?populate=deep&sort=place',
+      query: () => '/teams?populate[0]=runners&populate[1]=runnersChildren&sort=place',
+    }),
+    getRunner: builder.query({
+      query: (runnerId) => `/runners/${runnerId}?populate[0]=teams.distance.race&populate[1]=teams.runners&populate[2]=teams.runnersChildren`,
     }),
   }),
 })
-export const { useGetRunnersQuery, useGetTeamsQuery } = api
+export const { useGetRunnersQuery, useGetTeamsQuery, useGetRunnerQuery } = api

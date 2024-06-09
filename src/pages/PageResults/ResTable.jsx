@@ -1,5 +1,5 @@
 import React from 'react';
-import './resTable.css'
+import './resTable.css';
 import { useGetTeamsQuery } from '../../redux/baseApi';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration'
@@ -40,7 +40,19 @@ const ResTable = () => {
                     return <div>
                         <Link to={`runners/${item.id}`}>{strRunner}</Link>
                     </div>;
-                })
+                })}
+                    {(!!item.attributes.runnersChildren.data.length) && <div>ДЕТИ: </div>}
+                    {(!!item.attributes.runnersChildren.data.length) &&
+                    item.attributes.runnersChildren.data.map(item => {
+                        let strRunner = `${item.attributes.lastName ? item.attributes.lastName : ""}`;
+                        strRunner += `${item.attributes.firstName ? " " + item.attributes.firstName : ""}`;
+                        let strInfo = `${item.attributes.year ? " " + item.attributes.year : ""}`;
+                        strInfo += `${item.attributes.location ? " " + item.attributes.location : ""}`;
+                        return <div>
+                            <Link to={`runners/${item.id}`}>{strRunner}</Link>
+                        </div>;
+                    })
+
                 }
                 </div>
                 <div className="table-cell">{item.attributes.start ? dayjs(item.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
