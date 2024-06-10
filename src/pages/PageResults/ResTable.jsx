@@ -4,6 +4,7 @@ import { useGetTeamsQuery } from '../../redux/baseApi';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration'
 import { Link } from 'react-router-dom';
+import Reward from '../../components/Reward/Reward';
 
 dayjs.extend(duration);
 
@@ -58,7 +59,7 @@ const ResTable = () => {
                 <div className="table-cell">{item.attributes.start ? dayjs(item.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
                 <div className="table-cell">{item.attributes.finish ? dayjs(item.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
                 <div className="table-cell">{item.attributes.finish ? dayjs.duration(dayjs(item.attributes.finish).diff(dayjs(item.attributes.start))).format('HH:mm'): ""}</div>
-                <div className="table-cell">{item.attributes.comm}</div>
+                <div className="table-cell"><Reward label={item.attributes.comm} /></div>
             </>
         })
     } else if (isError) {

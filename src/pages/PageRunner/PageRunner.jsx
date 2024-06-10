@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useGetRunnerQuery } from '../../redux/baseApi';
 import './pageRunner.css';
 import dayjs from 'dayjs';
+import Reward from '../../components/Reward/Reward';
 
 const PageRunner = () => {
 
@@ -43,11 +44,13 @@ const PageRunner = () => {
           <div className="runner-table-cell runner-table-head-cell">Название</div>
           <div className="runner-table-cell runner-table-head-cell">Гонка</div>
           <div className="runner-table-cell runner-table-head-cell">Дистанция</div>
+          <div className="runner-table-cell runner-table-head-cell">Место</div>
+          <div className="runner-table-cell runner-table-head-cell">Прим.</div>
           <div className="runner-table-cell runner-table-head-cell">Состав команды</div>
           <div className="runner-table-cell runner-table-head-cell">Старт</div>
           <div className="runner-table-cell runner-table-head-cell">Финиш</div>
           <div className="runner-table-cell runner-table-head-cell">Время</div>
-          <div className="runner-table-cell runner-table-head-cell">Прим.</div>
+
           {teamsData.toSorted((a, b) => {
             const ddate1 = new Date(a.attributes.distance.data.attributes.race.data.attributes.ddate);
             const ddate2 = new Date(b.attributes.distance.data.attributes.race.data.attributes.ddate);
@@ -62,11 +65,12 @@ const PageRunner = () => {
             <div className="runner-table-cell">{teamContent.name}</div>
             <div className="runner-table-cell">{raceContent.name}</div>
             <div className="runner-table-cell">{distanceContent.name}</div>
+            <div className="runner-table-cell">{teamContent.place}</div>
+            <div className="runner-table-cell"><Reward label={teamContent.comm} /></div>
             <div className="runner-table-cell"></div>
             <div className="runner-table-cell">{teamContent.start ? dayjs(teamContent.start).format('DD.MM.YYYY HH:mm') : ""}</div>
             <div className="runner-table-cell">{teamContent.finish ? dayjs(teamContent.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
-            <div className="runner-table-cell"></div>
-            <div className="runner-table-cell">{teamContent.comm}</div></>;
+            <div className="runner-table-cell"></div></>;
           })}
         </div>
       </div>

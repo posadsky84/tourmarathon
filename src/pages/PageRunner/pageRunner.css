@@ -27,7 +27,7 @@
 
 .runner-table-row {
     display: grid;
-    grid-template-columns: 15fr 14fr 10fr 10fr 140px 140px 80px 110px;
+    grid-template-columns: 10fr 10fr 10fr 60px 60px 10fr 140px 140px 80px;
     row-gap: 1px;
     background-color: #EAECF0;
 }
@@ -37,6 +37,7 @@
     flex-direction: column;
     background-color: #FFFFFF;
     padding: 8px 12px;
+    align-items: center;
 }
 
 .runner-table-head-cell {
