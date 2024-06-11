@@ -1,0 +1,55 @@
+.all-races-table {
+   display: grid;
+   grid-template-columns: 20fr 15fr 120px 20fr;
+   gap: 2px;
+
+}
+
+.all-races-cell {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    padding: 8px 12px;
+    align-items: center;
+}
+
+.caption-cell {
+    display: flex;
+    flex-direction: row;
+}
+
+.magnet-image {
+    height: 48px;
+    width: 48px;
+    margin-right: 10px;
+
+}
+
+.distances-cell {
+
+}
+
+.distance-sticker {
+
+}
+
+.distance-sticker.light {
+    background-color: seagreen;
+    color: black;
+}
+
+.distance-sticker.tourist {
+    background-color: cornflowerblue;
+    color: black;
+}
+
+.distance-sticker.ultra {
+    background-color: darkred;
+    color: white;
+}
+
+.distance-sticker.fuckReal {
+    background-color: black;
+    color: white;
+}
