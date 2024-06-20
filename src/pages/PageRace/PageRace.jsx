@@ -2,7 +2,7 @@ import React from 'react';
 import ResTable from "./ResTable";
 
 
-const PageResults = () => {
+const PageRace = () => {
 
     return (
         <div>
@@ -11,4 +11,4 @@ const PageResults = () => {
     );
 };
 
-export default PageResults;
+export default PageRace;

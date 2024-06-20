@@ -1,0 +1,44 @@
+.course-sticker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 0;
+}
+
+.course-sticker.lite {
+    background-color: olivedrab;
+    color: black;
+}
+
+.course-sticker.tourist {
+    background-color: #FF8718;
+    color: black;
+}
+
+.course-sticker.ultra {
+    background-color: red;
+    color: white;
+}
+
+.course-sticker.real {
+    background-color: black;
+    color: white;
+}
+
+.course-sticker-label {
+    line-height: 0.9;
+}
+
+.course-sticker-km {
+    line-height: 1;
+    align-self: flex-end;
+    font-size: 12px;
+    margin-left: 2px;
+    font-weight: 400;
+}

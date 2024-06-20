@@ -39,7 +39,7 @@ const ResTable = () => {
                   let strInfo = `${item.attributes.year ? " " + item.attributes.year : ""}`;
                     strInfo += `${item.attributes.location ? " " + item.attributes.location : ""}`;
                     return <div>
-                        <Link to={`runners/${item.id}`}>{strRunner}</Link>
+                        <Link to={`/runners/${item.id}`}>{strRunner}</Link>
                     </div>;
                 })}
                     {(!!item.attributes.runnersChildren.data.length) && <div>ДЕТИ: </div>}
@@ -50,7 +50,7 @@ const ResTable = () => {
                         let strInfo = `${item.attributes.year ? " " + item.attributes.year : ""}`;
                         strInfo += `${item.attributes.location ? " " + item.attributes.location : ""}`;
                         return <div>
-                            <Link to={`runners/${item.id}`}>{strRunner}</Link>
+                            <Link to={`/runners/${item.id}`}>{strRunner}</Link>
                         </div>;
                     })
 

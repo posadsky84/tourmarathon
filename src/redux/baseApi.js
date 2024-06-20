@@ -14,11 +14,15 @@ export const api = createApi({
       query: () => '/teams?populate[0]=runners&populate[1]=runnersChildren&sort=place',
     }),
     getRaces: builder.query({
-      query: () => '/races?populate=magnet&sort=ddate:desc',
+      query: () => '/races?populate[0]=magnet&populate[1]=distances&sort=ddate:desc',
     }),
     getRunner: builder.query({
       query: (runnerId) => `/runners/${runnerId}?populate[0]=teams.distance.race&populate[1]=teams.runners&populate[2]=teams.runnersChildren`,
     }),
+    getMain: builder.query({
+      query: () => `/races?filters[ddate][$gt]=${new Date().getFullYear()}-01-01&sort=ddate&populate[0]=distances&populate[1]=cardPicture`,
+    }),
+
   }),
 })
-export const { useGetRunnersQuery, useGetTeamsQuery, useGetRunnerQuery, useGetRacesQuery } = api
+export const { useGetRunnersQuery, useGetTeamsQuery, useGetRunnerQuery, useGetRacesQuery, useGetMainQuery } = api

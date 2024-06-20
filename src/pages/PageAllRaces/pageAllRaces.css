@@ -5,11 +5,21 @@
 
 }
 
-.all-races-cell {
+.year-divider {
+    display: flex;
+    grid-column: 1 / 5;
+    background-color: #EAECF0;
+    margin-top: 40px;
     height: 50px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.all-races-cell {
+    height: 40px;
     display: flex;
     flex-direction: column;
-    background-color: bisque;
+    background-color: #EAECF0;
     padding: 8px 12px;
     align-items: center;
 }
@@ -17,6 +27,10 @@
 .caption-cell {
     display: flex;
     flex-direction: row;
+}
+
+.race-caption {
+    width: 150px;
 }
 
 .magnet-image {
@@ -27,29 +41,6 @@
 }
 
 .distances-cell {
-
-}
-
-.distance-sticker {
-
-}
-
-.distance-sticker.light {
-    background-color: seagreen;
-    color: black;
-}
-
-.distance-sticker.tourist {
-    background-color: cornflowerblue;
-    color: black;
-}
-
-.distance-sticker.ultra {
-    background-color: darkred;
-    color: white;
-}
-
-.distance-sticker.fuckReal {
-    background-color: black;
-    color: white;
+    display: flex;
+    flex-direction: row;
 }

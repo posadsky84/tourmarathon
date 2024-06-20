@@ -3,6 +3,7 @@ import { useGetRunnerQuery } from '../../redux/baseApi';
 import './pageRunner.css';
 import dayjs from 'dayjs';
 import Reward from '../../components/Reward/Reward';
+import CourseSticker from '../../components/CourseSticker/CourseSticker';
 
 const PageRunner = () => {
 
@@ -64,7 +65,9 @@ const PageRunner = () => {
             return <>
             <div className="runner-table-cell">{teamContent.name}</div>
             <div className="runner-table-cell">{raceContent.name}</div>
-            <div className="runner-table-cell">{distanceContent.name}</div>
+            <div className="runner-table-cell">
+              <CourseSticker type={distanceContent.courseType} value={distanceContent.km} />
+            </div>
             <div className="runner-table-cell">{teamContent.place}</div>
             <div className="runner-table-cell"><Reward label={teamContent.comm} /></div>
             <div className="runner-table-cell"></div>

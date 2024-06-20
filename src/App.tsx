@@ -1,15 +1,13 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/Header";
-import PageResults from "./pages/PageResults/PageResults";
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import ErrorPage from "../src/components/ErrorPage"
 import PageRunner from "../src/pages/PageRunner/PageRunner";
 import { Outlet } from "react-router-dom";
 import PageAllRaces from "./pages/PageAllRaces/PageAllRaces";
+import PageMain from "./pages/PageMain/PageMain";
+import PageRace from "./pages/PageRace/PageRace";
 
 const App = () => {
   return (
@@ -32,9 +30,15 @@ export const router = createBrowserRouter([
                 element: <PageRunner/>,
             },
             {
+                path: "races/:raceId",
+                element: <div className="main-area">
+                    <PageRace />
+                </div>,
+            },
+            {
                 path: "/",
                 element: <div className="main-area">
-                    <PageResults />
+                    <PageMain />
                 </div>,
             },
             {

@@ -2,6 +2,8 @@ import React from 'react';
 import { useGetRacesQuery } from '../../redux/baseApi';
 import './pageAllRaces.css';
 import { getStrapiImageUrl } from '../../helper';
+import { Link } from 'react-router-dom';
+import CourseSticker from '../../components/CourseSticker/CourseSticker';
 
 
 const PageAllRaces = () => {
@@ -24,11 +26,28 @@ const PageAllRaces = () => {
       </div>
     )
   } else if (isSuccess) {
+    let curYear = 0;
     racesContent = allRaces.data.map(item => {
+      let divider;
+      const itemYear = new Date(item.attributes.ddate).getFullYear();
+      if (curYear !== itemYear) {
+        curYear = itemYear;
+        divider = (<div className="year-divider">Турмарафон {itemYear}</div>);
+      }
       return <>
+        {divider}
         <div className="all-races-cell caption-cell">
-          <img className="magnet-image" src={getStrapiImageUrl(item.attributes.magnet.data?.attributes.url)}></img>
-          {item.attributes.sname}
+          <img className="magnet-image" alt="" src={getStrapiImageUrl(item.attributes.magnet.data?.attributes.url)}></img>
+          <div className="race-caption">
+            <Link to={`/races/${item.id}`}>{item.attributes.sname}</Link>
+          </div>
+          <div className="distances-cell">
+            {item.attributes.distances.data.toSorted((a, b) => {
+              return a.attributes.km < b.attributes.km ? -1 : 1
+            }).map(item => {
+              return <CourseSticker type={item.attributes.courseType} value={item.attributes.km} />
+            })}
+          </div>
         </div>
         <div className="all-races-cell">{item.attributes.location}</div>
         <div className="all-races-cell">{item.attributes.ddate}</div>
