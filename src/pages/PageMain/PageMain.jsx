@@ -1,11 +1,13 @@
 import './pageMain.css';
 import { useGetMainQuery } from '../../redux/baseApi';
-import CourseSticker from '../../components/CourseSticker/CourseSticker';
-import { getStrapiImageUrl } from '../../helper';
 import React from 'react';
+import dayjs from 'dayjs';
+import {raceStatus} from '../../helper';
+import SeasonCardsBig from './SeasonCardsBig/SeasonCardsBig';
+import ActualRaceBefore from './ActualRaceBefore/ActualRaceBefore';
+import ActualRaceAfter from './ActualRaceAfter/ActualRaceAfter';
 
 const PageMain = () => {
-
   const {
     data: mainPageData,
     isLoading,
@@ -24,22 +26,18 @@ const PageMain = () => {
       </div>
     )
   } else if (isSuccess) {
-    content = (<>
-      {mainPageData.data.map(card => {
-        return <div className="tm-card">
-          <img className="tm-card-image" alt="" src={getStrapiImageUrl(card.attributes.cardPicture.data?.attributes.url)}></img>
-          <div className="tm-card-caption">{card.attributes.name}</div>
-          <div className="tm-card-ddate">{card.attributes.ddate}</div>
-          <div className="tm-card-distances">
-            {card.attributes.distances.data.toSorted((a, b) => {
-              return a.attributes.km < b.attributes.km ? -1 : 1
-            }).map(item => {
-              return <CourseSticker type={item.attributes.courseType} value={item.attributes.km}/>
-            })}
-          </div>
-        </div>
-      })}
-      </>);
+
+    const soonRace = mainPageData.data.find(card => card.attributes.status === raceStatus.locationAnnounced ||
+      card.attributes.status === raceStatus.registrationClosed);
+    const recentFinishedRace = mainPageData.data.find(card => card.attributes.status === raceStatus.resultsPublished);
+
+    if (soonRace) {
+       content = (<ActualRaceBefore race={soonRace} />);
+    } else if (recentFinishedRace) {
+       content = (<ActualRaceAfter race={recentFinishedRace} />);
+    } else {
+        content = (<SeasonCardsBig data={mainPageData} />);
+    }
 
 
   } else if (isError) {
@@ -49,6 +47,10 @@ const PageMain = () => {
       </div>
     )
   }
+
+
+
+
 
   return (
     <div className="page-main">

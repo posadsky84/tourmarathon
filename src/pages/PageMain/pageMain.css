@@ -1,37 +1,8 @@
 .page-main {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-}
-
-.tm-card {
     display: flex;
+    /*grid-template-columns: 1fr 1fr 1fr;*/
     flex-direction: column;
-    width: 250px;
-    height: 250px;
-    /*background-color: lime;*/
-    border-radius: 16px;
-    border: #EAECF0 solid;
-    transition: all 0.1s ease-in-out;
-    overflow: hidden;
-}
-
-.tm-card:hover {
-    box-shadow: 0 2px 9px 0 #00000024;
-}
-
-.tm-card-caption {
-    font-weight: 700;
-}
-
-.tm-card-ddate {
-    color: #808DA3;
-}
-
-.tm-card-image {
-
-}
-
-.tm-card-distances {
-    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 1000px;
 }

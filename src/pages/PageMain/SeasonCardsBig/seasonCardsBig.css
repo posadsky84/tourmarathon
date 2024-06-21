@@ -1,0 +1,50 @@
+.tm-card {
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    height: 250px;
+    border-radius: 16px;
+    border: #EAECF0 solid;
+    transition: all 0.1s ease-in-out;
+    overflow: hidden;
+}
+
+.tm-card:hover {
+    box-shadow: 0 2px 9px 0 #00000024;
+}
+
+.tm-card-image:hover {
+    transition: 0.2s;
+    transform: scale(1.1);
+}
+
+.tm-card-caption {
+    font-weight: 700;
+    margin-left: 24px;
+    margin-top: 24px;
+}
+
+.tm-card-ddate {
+    color: #808DA3;
+    margin-left: 24px;
+}
+
+.tm-card-image {
+    height: 130px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.tm-card-distances {
+    display: flex;
+    margin-left: 24px;
+    margin-top: 2px;
+}
+
+.tm-info-block {
+
+}
+
+.tm-card.actual .tm-card-caption {
+    background-color: yellowgreen;
+}
