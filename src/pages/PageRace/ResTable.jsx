@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './resTable.css';
-import { useGetTeamsQuery } from '../../redux/baseApi';
+import { useGetRaceQuery, useGetTeamsQuery } from '../../redux/baseApi';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Reward from '../../components/Reward/Reward';
 
 dayjs.extend(duration);
@@ -11,13 +11,41 @@ dayjs.extend(duration);
 
 const ResTable = () => {
 
+    let params = useParams();
+    let [selectedDistance, setSelectedDistance] = useState();
+
+    const {
+        data: raceData,
+        isLoading: raceIsLoading,
+        isSuccess: raceIsSuccess,
+    } = useGetRaceQuery(params.raceId);
+
+    useEffect(() => {
+        setSelectedDistance(raceData.distances.data[0].id);
+    }, [raceData]);
+
     const {
         data: teams,
         isLoading,
         isSuccess,
         isError,
         error,
-    } = useGetTeamsQuery();
+    } = useGetTeamsQuery(params.raceId);
+
+
+    let tabs;
+    if (raceIsLoading) {
+
+    } else if (raceIsSuccess) {
+        console.log(raceData);
+        tabs = (<div className="distance-bar">
+            {raceData.distances.data.map(item => {
+                return <div className={`distance-item ${item.id === selectedDistance ? 'selected' : ''}`}>
+                    {item.attributes.name}
+                </div>;
+            })}
+        </div>);
+    }
 
     let runnersContent;
     if (isLoading) {
@@ -74,6 +102,7 @@ const ResTable = () => {
 
     return (
         <div className="res-table">
+            {tabs}
             <div className="table-row">
                 <div className="table-cell table-head-cell">№</div>
                 <div className="table-cell table-head-cell">Название</div>

@@ -1,4 +1,7 @@
 .header {
+    display: grid;
+    grid-template-columns: 300px auto;
+    align-items: center;
     position: fixed;
     height: 80px;
     width: 100%;
@@ -9,4 +12,68 @@
     background-color: white;
 }
 
+
+.tm-logo {
+
+}
+
+.tm-logo:before {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    position: absolute;
+    content: "2024";
+    left: 230px;
+    top: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    background-color: magenta;
+    border-radius: 255px;
+}
+
+.menu-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.link-header {
+    position: relative;
+    display: block;
+    margin-right: 52px;
+    text-decoration: none;
+    padding-bottom: 4px;
+
+    color: #676D71;
+
+    line-height: 1.2;
+    font-size: 18px;
+    font-weight: 700;
+
+    overflow: hidden;
+
+}
+
+.link-header.active {
+    color: #222425;
+}
+
+.link-header::after {
+    position: absolute;
+    content: "";
+    background-color: #FF6B00;
+    height: 4px;
+    width: 100%;
+    left: 0;
+    bottom: -4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.link-header.active::after {
+    transform: translateY(-4px);
+}
+
+.link-header:hover::after {
+    transform: translateY(-4px);
+
+}
 

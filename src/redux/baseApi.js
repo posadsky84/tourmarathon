@@ -11,7 +11,7 @@ export const api = createApi({
       query: () => '/runners',
     }),
     getTeams: builder.query({
-      query: () => '/teams?populate[0]=runners&populate[1]=runnersChildren&sort=place',
+      query: (raceId) => `/teams?populate[0]=distance&populate[1]=distance.race&populate[2]=runners&populate[3]=runnersChildren&filters[distance][race][id][$eq]=${raceId}&sort=place`,
     }),
     getRaces: builder.query({
       query: () => '/races?populate[0]=magnet&populate[1]=distances&sort=ddate:desc',
@@ -22,7 +22,26 @@ export const api = createApi({
     getMain: builder.query({
       query: () => `/races?filters[ddate][$gt]=${new Date().getFullYear()}-01-01&sort=ddate&populate[0]=distances&populate[1]=cardPicture`,
     }),
+    getPageRaceBefore: builder.query({
+      query: () => '/hot-block',
+    }),
+    getRace: builder.query({
+      query: (raceId) => `/races/${raceId}?populate=distances`,
+      transformResponse: (response) => {
+        const res = response.data.attributes;
+        res.distances.data.sort((a,b) => a.attributes.km < b.attributes.km ? -1 : 1);
+        return res;
+      },
+    }),
 
   }),
 })
-export const { useGetRunnersQuery, useGetTeamsQuery, useGetRunnerQuery, useGetRacesQuery, useGetMainQuery } = api
+export const {
+  useGetRunnersQuery,
+  useGetTeamsQuery,
+  useGetRunnerQuery,
+  useGetRacesQuery,
+  useGetMainQuery,
+  useGetPageRaceBeforeQuery,
+  useGetRaceQuery,
+} = api

@@ -1,15 +1,22 @@
-.race-before-header {
-    background-color: papayawhip;
-}
-
-.race-before-header-caption {
+.rb-header {
 
 }
 
-.race-before-body {
-
+.rb-header-caption {
+    font-size: 32px;
+    font-weight: 700;
+}
+.rb-header-ddate-loc {
+    font-size: 16px;
+    color: #808DA3;
 }
 
-.race-before-text-field {
+.rb-body {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.rb-text-field {
 
 }

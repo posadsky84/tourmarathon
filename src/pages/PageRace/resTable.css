@@ -33,3 +33,19 @@
 .table-detail-row {
 
 }
+
+.distance-bar {
+    display: flex;
+
+}
+
+.distance-item {
+    height: 50px;
+    border: dashed;
+
+}
+
+.distance-item.selected {
+    font-weight: bold;
+    color: #3165C9;
+}

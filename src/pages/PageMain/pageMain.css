@@ -1,7 +1,7 @@
 .page-main {
     display: flex;
     /*grid-template-columns: 1fr 1fr 1fr;*/
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
     max-width: 1000px;
