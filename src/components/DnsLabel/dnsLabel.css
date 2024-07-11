@@ -1,0 +1,9 @@
+.dns-label {
+    display: flex;
+    border-radius: 4px;
+    background-color: #EAECF0;
+    width: 30px;
+    justify-content: center;
+    margin-left: 2px;
+    font-size: 10px;
+}

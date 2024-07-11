@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration'
 import { Link, useParams } from 'react-router-dom';
 import Reward from '../../components/Reward/Reward';
+import DnsLabel from '../../components/DnsLabel/DnsLabel';
+import { resultToStr } from '../../helper';
 
 dayjs.extend(duration);
 
@@ -21,7 +23,7 @@ const ResTable = () => {
     } = useGetRaceQuery(params.raceId);
 
     useEffect(() => {
-        setSelectedDistance(raceData.distances.data[0].id);
+         if (raceData) setSelectedDistance(raceData.distances.data[0].id);
     }, [raceData]);
 
     const {
@@ -30,19 +32,25 @@ const ResTable = () => {
         isSuccess,
         isError,
         error,
-    } = useGetTeamsQuery(params.raceId);
+    } = useGetTeamsQuery(selectedDistance, {skip: !selectedDistance});
 
 
     let tabs;
     if (raceIsLoading) {
 
     } else if (raceIsSuccess) {
-        console.log(raceData);
         tabs = (<div className="distance-bar">
             {raceData.distances.data.map(item => {
-                return <div className={`distance-item ${item.id === selectedDistance ? 'selected' : ''}`}>
+                return (
+                  <div
+                    className={`distance-item ${item.id === selectedDistance ? 'selected' : ''}`}
+                    {...(selectedDistance ? {
+                        onClick: () => setSelectedDistance(item.id),
+                    } : {})}
+                  >
                     {item.attributes.name}
-                </div>;
+                    </div>
+                );
             })}
         </div>);
     }
@@ -58,36 +66,43 @@ const ResTable = () => {
         )
     } else if (isSuccess) {
         runnersContent = teams.data.map((item) => {
+            const runners = item.attributes.members.filter(item => !item.child).sort((a,b) => a.id < b.id ? -1 : 1);
+            const runnersChildren = item.attributes.members.filter(item => item.child).sort((a,b) => a.id < b.id ? -1 : 1);
+            const cellClass = (!(item.attributes.place % 2) ? 'table-cell odd' : 'table-cell');
             return <>
-                <div className="table-cell">{item.attributes.place}</div>
-                <div className="table-cell">{item.attributes.name}</div>
-                <div className="table-cell">{item.attributes.runners.data.map(item => {
-                  let strRunner = `${item.attributes.lastName ? item.attributes.lastName : ""}`;
-                  strRunner += `${item.attributes.firstName ? " " + item.attributes.firstName : ""}`;
-                  let strInfo = `${item.attributes.year ? " " + item.attributes.year : ""}`;
-                    strInfo += `${item.attributes.location ? " " + item.attributes.location : ""}`;
-                    return <div>
-                        <Link to={`/runners/${item.id}`}>{strRunner}</Link>
+                <div className={cellClass}>{item.attributes.name}</div>
+                <div className={cellClass}>{runners.map(item => {
+                  const runner = item.runner.data.attributes;
+                  let strRunner = `${runner.lastName ? runner.lastName : ""}`;
+                  strRunner += `${runner.firstName ? " " + runner.firstName : ""}`;
+                  let strInfo = `${runner.year ? " " + runner.year : ""}`;
+                    strInfo += `${runner.location ? " " + runner.location : ""}`;
+                    return <div className="runner-item">
+                        <Link className={`runner-link ${item.dns ? "dns" : ""}`} PreventScrollReset={true} to={`/runners/${item.runner.data.id}`}>{strRunner}</Link>
+                        <div className="runner-info">{strInfo}</div>
+                        {!!item.dns && <DnsLabel />}
                     </div>;
                 })}
-                    {(!!item.attributes.runnersChildren.data.length) && <div>ДЕТИ: </div>}
-                    {(!!item.attributes.runnersChildren.data.length) &&
-                    item.attributes.runnersChildren.data.map(item => {
-                        let strRunner = `${item.attributes.lastName ? item.attributes.lastName : ""}`;
-                        strRunner += `${item.attributes.firstName ? " " + item.attributes.firstName : ""}`;
-                        let strInfo = `${item.attributes.year ? " " + item.attributes.year : ""}`;
-                        strInfo += `${item.attributes.location ? " " + item.attributes.location : ""}`;
+                    {(!!runnersChildren.length) && <div>ДЕТИ: </div>}
+                    {(!!runnersChildren.length) &&
+                      runnersChildren.map(item => {
+                        const runner = item.runner.data.attributes;
+                        let strRunner = `${runner.lastName ? runner.lastName : ""}`;
+                        strRunner += `${runner.firstName ? " " + runner.firstName : ""}`;
+                        let strInfo = `${runner.year ? " " + runner.year : ""}`;
+                        strInfo += `${runner.location ? " " + runner.location : ""}`;
                         return <div>
-                            <Link to={`/runners/${item.id}`}>{strRunner}</Link>
+                            <Link className="runner-link" to={`/runners/${item.runner.data.id}`}>{strRunner}</Link>
                         </div>;
                     })
 
                 }
                 </div>
-                <div className="table-cell">{item.attributes.start ? dayjs(item.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
-                <div className="table-cell">{item.attributes.finish ? dayjs(item.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
-                <div className="table-cell">{item.attributes.finish ? dayjs.duration(dayjs(item.attributes.finish).diff(dayjs(item.attributes.start))).format('HH:mm'): ""}</div>
-                <div className="table-cell"><Reward label={item.attributes.comm} /></div>
+                <div className={cellClass}>{item.attributes.start ? dayjs(item.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
+                <div className={cellClass}>{item.attributes.finish ? dayjs(item.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
+                <div className={cellClass}>{resultToStr(item.attributes.result)}</div>
+                <div className={cellClass}>{item.attributes.place}</div>
+                <div className={cellClass}><Reward label={item.attributes.comm} /></div>
             </>
         })
     } else if (isError) {
@@ -104,13 +119,13 @@ const ResTable = () => {
         <div className="res-table">
             {tabs}
             <div className="table-row">
-                <div className="table-cell table-head-cell">№</div>
-                <div className="table-cell table-head-cell">Название</div>
+                <div className="table-cell table-head-cell">Команда</div>
                 <div className="table-cell table-head-cell">Состав</div>
                 <div className="table-cell table-head-cell">Старт</div>
                 <div className="table-cell table-head-cell">Финиш</div>
                 <div className="table-cell table-head-cell">Время</div>
-                <div className="table-cell table-head-cell">Прим.</div>
+                <div className="table-cell table-head-cell">Место</div>
+                <div className="table-cell table-head-cell"></div>
                 {runnersContent}
             </div>
         </div>

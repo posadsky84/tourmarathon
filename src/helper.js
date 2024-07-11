@@ -24,3 +24,5 @@ const rMonth = [
 ];
 
 export const toFineDate = ddate => `${ddate.getDate()} ${rMonth[ddate.getMonth()]}`;
+
+export const resultToStr = val => val ? `${`0${Math.floor(val / 60)}`.slice(-2)}:${`0${val % 60}`.slice(-2)}` : "";
