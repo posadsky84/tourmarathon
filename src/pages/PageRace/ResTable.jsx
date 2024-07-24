@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import Reward from '../../components/Reward/Reward';
 import DnsLabel from '../../components/DnsLabel/DnsLabel';
 import { resultToStr } from '../../helper';
+import DnfLabel from '../../components/DnfLabel/DnfLabel';
 
 dayjs.extend(duration);
 
@@ -27,7 +28,7 @@ const ResTable = () => {
     }, [raceData]);
 
     const {
-        data: teams,
+        data: distanceData,
         isLoading,
         isSuccess,
         isError,
@@ -65,44 +66,56 @@ const ResTable = () => {
           </div>
         )
     } else if (isSuccess) {
-        runnersContent = teams.data.map((item) => {
-            const runners = item.attributes.members.filter(item => !item.child).sort((a,b) => a.id < b.id ? -1 : 1);
-            const runnersChildren = item.attributes.members.filter(item => item.child).sort((a,b) => a.id < b.id ? -1 : 1);
-            const cellClass = (!(item.attributes.place % 2) ? 'table-cell odd' : 'table-cell');
+        let rowNum = 0;
+        runnersContent = distanceData.data.attributes.teams.data.map((teamItem) => {
+            rowNum++;
+            const members = teamItem.attributes.members.data.filter(item => !item.attributes.child).sort((a,b) => a.id < b.id ? -1 : 1);
+            const runnersChildren = teamItem.attributes.members.data.filter(item => item.attributes.child).sort((a,b) => a.id < b.id ? -1 : 1);
+            const cellClass = (!(rowNum % 2) ? 'table-cell odd' : 'table-cell');
             return <>
-                <div className={cellClass}>{item.attributes.name}</div>
-                <div className={cellClass}>{runners.map(item => {
-                  const runner = item.runner.data.attributes;
+                <div className={cellClass}>
+                    <div className="cell-item">
+                        <div className={teamItem.attributes.dns ? "dns" : ""}>{teamItem.attributes.name}</div>
+                        {!!teamItem.attributes.dns && <DnsLabel />}
+                        {!!teamItem.attributes.dnf && <DnfLabel />}
+                    </div>
+                </div>
+                <div className={cellClass}>{members.map(memberItem => {
+                  const runner = memberItem.attributes.runner.data.attributes;
                   let strRunner = `${runner.lastName ? runner.lastName : ""}`;
                   strRunner += `${runner.firstName ? " " + runner.firstName : ""}`;
                   let strInfo = `${runner.year ? " " + runner.year : ""}`;
                     strInfo += `${runner.location ? " " + runner.location : ""}`;
-                    return <div className="runner-item">
-                        <Link className={`runner-link ${item.dns ? "dns" : ""}`} PreventScrollReset={true} to={`/runners/${item.runner.data.id}`}>{strRunner}</Link>
+                    return <div className="cell-item">
+                        <Link className={`runner-link ${memberItem.attributes.dns || teamItem.attributes.dns ? "dns" : ""}`} PreventScrollReset={true} to={`/runners/${memberItem.attributes.runner.data.id}`}>{strRunner}</Link>
                         <div className="runner-info">{strInfo}</div>
-                        {!!item.dns && <DnsLabel />}
+                        {!!memberItem.attributes.dns && <DnsLabel />}
+                        {!!memberItem.attributes.dnf && <DnfLabel />}
                     </div>;
                 })}
                     {(!!runnersChildren.length) && <div>ДЕТИ: </div>}
                     {(!!runnersChildren.length) &&
-                      runnersChildren.map(item => {
-                        const runner = item.runner.data.attributes;
+                      runnersChildren.map(runnerItem => {
+                        const runner = runnerItem.attributes.runner.data.attributes;
                         let strRunner = `${runner.lastName ? runner.lastName : ""}`;
                         strRunner += `${runner.firstName ? " " + runner.firstName : ""}`;
                         let strInfo = `${runner.year ? " " + runner.year : ""}`;
                         strInfo += `${runner.location ? " " + runner.location : ""}`;
-                        return <div>
-                            <Link className="runner-link" to={`/runners/${item.runner.data.id}`}>{strRunner}</Link>
+                        return <div className="cell-item">
+                            <Link className={`runner-link ${runnerItem.attributes.dns || teamItem.attributes.dns ? "dns" : ""}`} to={`/runners/${runnerItem.attributes.runner.data.id}`}>{strRunner}</Link>
+                            <div className="runner-info">{strInfo}</div>
+                            {!!runnerItem.attributes.dns && <DnsLabel />}
+                            {!!runnerItem.attributes.dnf && <DnfLabel />}
                         </div>;
                     })
 
                 }
                 </div>
-                <div className={cellClass}>{item.attributes.start ? dayjs(item.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
-                <div className={cellClass}>{item.attributes.finish ? dayjs(item.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
-                <div className={cellClass}>{resultToStr(item.attributes.result)}</div>
-                <div className={cellClass}>{item.attributes.place}</div>
-                <div className={cellClass}><Reward label={item.attributes.comm} /></div>
+                <div className={cellClass}>{teamItem.attributes.start ? dayjs(teamItem.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
+                <div className={cellClass}>{teamItem.attributes.finish ? dayjs(teamItem.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
+                <div className={cellClass}>{resultToStr(teamItem.attributes.result)}</div>
+                <div className={cellClass}>{teamItem.attributes.place}</div>
+                <div className={cellClass}><Reward label={teamItem.attributes.comm} /></div>
             </>
         })
     } else if (isError) {
@@ -115,9 +128,9 @@ const ResTable = () => {
 
 
 
-    return (
+    return (<>
+        {tabs}
         <div className="res-table">
-            {tabs}
             <div className="table-row">
                 <div className="table-cell table-head-cell">Команда</div>
                 <div className="table-cell table-head-cell">Состав</div>
@@ -129,7 +142,7 @@ const ResTable = () => {
                 {runnersContent}
             </div>
         </div>
-    );
+    </>);
 };
 
 export default ResTable;

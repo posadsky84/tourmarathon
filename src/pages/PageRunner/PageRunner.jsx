@@ -4,6 +4,7 @@ import './pageRunner.css';
 import dayjs from 'dayjs';
 import Reward from '../../components/Reward/Reward';
 import CourseSticker from '../../components/CourseSticker/CourseSticker';
+import { resultToStr } from '../../helper';
 
 const PageRunner = () => {
 
@@ -28,7 +29,7 @@ const PageRunner = () => {
     )
   } else if (isSuccess) {
     const headerData = runner.data.attributes;
-    let teamsData = runner.data.attributes.teams.data;
+    let teamsData = runner.data.attributes.members.data;
 
     runnerContent = (<>
       <div className="runner-info-block">
@@ -53,12 +54,11 @@ const PageRunner = () => {
           <div className="runner-table-cell runner-table-head-cell">Время</div>
 
           {teamsData.toSorted((a, b) => {
-            const ddate1 = new Date(a.attributes.distance.data.attributes.race.data.attributes.ddate);
-            const ddate2 = new Date(b.attributes.distance.data.attributes.race.data.attributes.ddate);
+            const ddate1 = new Date(a.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
+            const ddate2 = new Date(b.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
             return ddate1 <= ddate2 ? 1 : -1;
           }).map(team => {
-
-            const teamContent = team.attributes;
+            const teamContent = team.attributes.team.data.attributes;
             const distanceContent = teamContent.distance.data.attributes;
             const raceContent = distanceContent.race.data.attributes;
 
@@ -73,7 +73,7 @@ const PageRunner = () => {
             <div className="runner-table-cell"></div>
             <div className="runner-table-cell">{teamContent.start ? dayjs(teamContent.start).format('DD.MM.YYYY HH:mm') : ""}</div>
             <div className="runner-table-cell">{teamContent.finish ? dayjs(teamContent.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
-            <div className="runner-table-cell"></div></>;
+            <div className="runner-table-cell">{resultToStr(teamContent.result)}</div></>;
           })}
         </div>
       </div>

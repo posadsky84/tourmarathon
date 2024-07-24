@@ -11,13 +11,13 @@ export const api = createApi({
       query: () => '/runners',
     }),
     getTeams: builder.query({
-      query: (distanceId) => `/teams?populate[0]=distance&populate[1]=distance.race&populate[2]=members.runner&filters[distance][id][$eq]=${distanceId}&sort=place`,
+      query: (distanceId) => `/distances/${distanceId}?populate=teams.members.runner`,
     }),
     getRaces: builder.query({
       query: () => '/races?populate[0]=magnet&populate[1]=distances&sort=ddate:desc',
     }),
     getRunner: builder.query({
-      query: (runnerId) => `/runners/${runnerId}?populate[0]=teams.distance.race&populate[1]=teams.members`,
+      query: (runnerId) => `/runners/${runnerId}?populate=members.team.distance.race`,
     }),
     getMain: builder.query({
       query: () => `/races?filters[ddate][$gt]=${new Date().getFullYear()}-01-01&sort=ddate&populate[0]=distances&populate[1]=cardPicture`,

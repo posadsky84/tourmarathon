@@ -1,7 +1,7 @@
-.dns-label {
+.dnf-label {
     display: flex;
     border-radius: 4px;
-    background-color: #EAECF0;
+    background-color: #ff8a82;
     width: 26px;
     justify-content: center;
     margin-left: 4px;
