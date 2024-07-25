@@ -16,7 +16,7 @@
 }
 
 .all-races-cell {
-    height: 40px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     background-color: #EAECF0;

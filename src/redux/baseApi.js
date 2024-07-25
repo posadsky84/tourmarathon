@@ -11,7 +11,9 @@ export const api = createApi({
       query: () => '/runners',
     }),
     getTeams: builder.query({
-      query: (distanceId) => `/distances/${distanceId}?populate=teams.members.runner`,
+      query: ({distanceId, returnBadges}) =>
+        returnBadges ? `/distances/${distanceId}?populate=teams.members.runner.badges.race`
+                     : `/distances/${distanceId}?populate=teams.members.runner`,
     }),
     getRaces: builder.query({
       query: () => '/races?populate[0]=magnet&populate[1]=distances&sort=ddate:desc',

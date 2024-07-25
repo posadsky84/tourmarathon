@@ -8,7 +8,7 @@
 
 .table-row {
     display: grid;
-    grid-template-columns: 12fr 14fr 140px 140px 80px 50px 6fr;
+    grid-template-columns: 4fr 5fr 140px 140px 80px 50px 1fr 100px;
     row-gap: 1px;
 }
 
@@ -88,6 +88,6 @@
 }
 
 .runner-info {
-    margin-left: 6px;
+    margin-left: 4px;
     font-size: 12px;
 }
