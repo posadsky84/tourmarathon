@@ -7,38 +7,30 @@
     margin: 2px;
     border-radius: 4px;
     font-size: 14px;
-    font-weight: bold;
-    padding: 6px 0;
+    font-weight: 500;
+    padding: 8px 4px;
 }
 
 .course-sticker.lite {
-    background-color: olivedrab;
-    color: black;
+    background-color: #2ACC02;
+    color: #FFFFFF;
 }
 
 .course-sticker.tourist {
-    background-color: #FF8718;
-    color: black;
+    background-color: #3165C9;
+    color: #FFFFFF;
 }
 
 .course-sticker.ultra {
-    background-color: red;
-    color: white;
+    background-color: #AE3633;
+    color: #FFFFFF;
 }
 
 .course-sticker.real {
-    background-color: black;
-    color: white;
+    background-color: #151515;
+    color: #FFFFFF;
 }
 
 .course-sticker-label {
-    line-height: 0.9;
-}
-
-.course-sticker-km {
-    line-height: 1;
-    align-self: flex-end;
-    font-size: 12px;
-    margin-left: 2px;
-    font-weight: 400;
+    line-height: 6px;
 }

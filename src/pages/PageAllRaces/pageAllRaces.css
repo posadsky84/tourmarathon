@@ -1,6 +1,6 @@
 .all-races-table {
    display: grid;
-   grid-template-columns: 20fr 15fr 120px 20fr;
+   grid-template-columns: 30fr 15fr 120px 20fr;
    gap: 2px;
 
 }

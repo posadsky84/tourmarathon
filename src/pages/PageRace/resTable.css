@@ -8,7 +8,7 @@
 
 .table-row {
     display: grid;
-    grid-template-columns: 4fr 5fr 140px 140px 80px 50px 1fr 100px;
+    grid-template-columns: 4fr 5fr 140px 140px 80px 50px 1fr 120px;
     row-gap: 1px;
 }
 
@@ -90,4 +90,20 @@
 .runner-info {
     margin-left: 4px;
     font-size: 12px;
+}
+
+.res-title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.res-title-name {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.res-title-info {
+    color: #808DA3;
+    font-size: 16px;
 }

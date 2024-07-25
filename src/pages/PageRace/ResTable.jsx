@@ -5,7 +5,7 @@ import duration from 'dayjs/plugin/duration'
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import Reward from '../../components/Reward/Reward';
 import DnsLabel from '../../components/DnsLabel/DnsLabel';
-import { resultToStr } from '../../helper';
+import { resultToStr, toFineDateLong } from '../../helper';
 import DnfLabel from '../../components/DnfLabel/DnfLabel';
 
 dayjs.extend(duration);
@@ -41,6 +41,7 @@ const ResTable = () => {
 
 
     let tabs;
+    let title;
     if (raceIsLoading) {
 
     } else if (raceIsSuccess) {
@@ -59,6 +60,12 @@ const ResTable = () => {
                 );
             })}
         </div>);
+
+        title = (<div className="res-title">
+              <div className="res-title-name">{raceData.name}</div>
+              <div className="res-title-info">{toFineDateLong(new Date(raceData.ddate))}, {raceData.location}</div>
+
+          </div>);
     }
 
     let runnersContent;
@@ -131,8 +138,8 @@ const ResTable = () => {
                 <div className={cellClass}>{teamItem.attributes.finish ? dayjs(teamItem.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
                 <div className={cellClass}>{resultToStr(teamItem.attributes.result)}</div>
                 <div className={cellClass}>{teamItem.attributes.place}</div>
-                <div className={cellClass}><Reward label={teamItem.attributes.comm} /></div>
-                <div className={cellClass}>{teamBadges.join(", ")}</div>
+                <div className={cellClass}><Reward label={teamItem.attributes.reward} /></div>
+                <div className={cellClass}>{teamBadges.join(", ")} {teamItem.attributes.comm}</div>
             </>
         })
     } else if (isError) {
@@ -146,6 +153,7 @@ const ResTable = () => {
 
 
     return (<>
+        {title}
         {tabs}
         <div className="res-table">
             <div className="table-row">

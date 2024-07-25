@@ -19,7 +19,7 @@ export const api = createApi({
       query: () => '/races?populate[0]=magnet&populate[1]=distances&sort=ddate:desc',
     }),
     getRunner: builder.query({
-      query: (runnerId) => `/runners/${runnerId}?populate=members.team.distance.race`,
+      query: (runnerId) => `/runners/${runnerId}?populate=members.team.distance.race,members.team.members.runner`,
     }),
     getMain: builder.query({
       query: () => `/races?filters[ddate][$gt]=${new Date().getFullYear()}-01-01&sort=ddate&populate[0]=distances&populate[1]=cardPicture`,

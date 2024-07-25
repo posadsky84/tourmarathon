@@ -4,6 +4,7 @@
     font-weight: 500;
     font-size: 14px;
     width: 42px;
+    color: #FFFFFF;
 }
 
 .medal.medal-m {
@@ -16,4 +17,8 @@
 
 .medal.medal-rd {
     background-color: #FF8718;
+}
+
+.medal.medal-s {
+    background-color: #2ACC02;
 }
