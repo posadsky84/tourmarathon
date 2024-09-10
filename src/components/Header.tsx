@@ -12,6 +12,7 @@ const Header = () => {
         <div className="menu-header">
             <Link className="link-header" to="/pff">Как принять участие?</Link>
             <Link className="link-header" to="allRaces">Все соревнования</Link>
+            <Link className="link-header" to="allRunners">Все участники</Link>
             <Link className="link-header" to="/pff">О нас</Link>
         </div>
     </div>;

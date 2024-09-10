@@ -10,6 +10,9 @@ export const api = createApi({
     getRunners: builder.query({
       query: () => '/runners',
     }),
+    getAllRunnersData: builder.query({
+      query: () => '/allRunnersData',
+    }),
     getTeams: builder.query({
       query: ({distanceId, returnBadges}) =>
         returnBadges ? `/distances/${distanceId}?populate=teams.members.runner.badges.race`
@@ -40,6 +43,7 @@ export const api = createApi({
 })
 export const {
   useGetRunnersQuery,
+  useGetAllRunnersDataQuery,
   useGetTeamsQuery,
   useGetRunnerQuery,
   useGetRacesQuery,

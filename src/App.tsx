@@ -8,6 +8,7 @@ import { Outlet } from "react-router-dom";
 import PageAllRaces from "./pages/PageAllRaces/PageAllRaces";
 import PageMain from "./pages/PageMain/PageMain";
 import PageRace from "./pages/PageRace/PageRace";
+import PageAllRunners from "./pages/PageAllRunners/PageAllRunners";
 
 const App = () => {
   return (
@@ -45,6 +46,12 @@ export const router = createBrowserRouter([
                 path: "/allRaces",
                 element: <div className="main-area">
                     <PageAllRaces />
+                </div>,
+            },
+            {
+                path: "/allRunners",
+                element: <div className="main-area">
+                    <PageAllRunners />
                 </div>,
             },
         ]

@@ -1,0 +1,30 @@
+.res-table-all-runners {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #EAECF0;
+    font-size: 14px;
+
+}
+
+.table-row-all-runners {
+    display: grid;
+    grid-template-columns: 300px 80px repeat(8, 1fr);
+    row-gap: 1px;
+}
+
+.story-cell {
+    display: flex;
+}
+
+.story-cell-item {
+    background-color: #EAECF0;
+    border: 1px solid #D0D5DD;
+    margin-right: 1px;
+    height: 16px;
+    width: 16px;
+    border-radius: 1px;
+}
+
+.story-cell-item.visited {
+    background-color: rgb(91, 239, 37);
+}

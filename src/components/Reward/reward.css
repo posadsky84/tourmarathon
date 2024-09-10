@@ -1,6 +1,5 @@
 .medal {
     border-radius: 4px;
-    padding: 4px 8px;
     font-weight: 500;
     font-size: 14px;
     width: 42px;
@@ -8,17 +7,22 @@
 }
 
 .medal.medal-m {
-    background-color: #3165C9;
+    color: #3165C9;
+    font-weight: 700;
+
 }
 
 .medal.medal-zh {
-    background-color:#AE3633;
+    color: #AE3633;
+    font-weight: 700;
 }
 
 .medal.medal-rd {
-    background-color: #FF8718;
+    color: #FF8718;
+    font-weight: 700;
 }
 
 .medal.medal-s {
-    background-color: #2ACC02;
+    color: #2ACC02;
+    font-weight: 700;
 }

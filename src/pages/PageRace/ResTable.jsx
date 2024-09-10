@@ -34,7 +34,7 @@ const ResTable = () => {
         error,
     } = useGetTeamsQuery(
       {distanceId: selectedDistance,
-       returnBadges: raceData?.distances.data[0].attributes.courseType === "real",
+       returnBadges: raceData?.distances.data.find(item => item.id === selectedDistance).attributes.km === 100,
       },
       {skip: !selectedDistance}
     );
@@ -158,12 +158,12 @@ const ResTable = () => {
         <div className="res-table">
             <div className="table-row">
                 <div className="table-cell table-head-cell">Команда</div>
-                <div className="table-cell table-head-cell">Состав</div>
+                <div className="table-cell table-head-cell">Участники</div>
                 <div className="table-cell table-head-cell">Старт</div>
                 <div className="table-cell table-head-cell">Финиш</div>
                 <div className="table-cell table-head-cell">Время</div>
                 <div className="table-cell table-head-cell">Место</div>
-                <div className="table-cell table-head-cell">Комм</div>
+                <div className="table-cell table-head-cell"></div>
                 <div className="table-cell table-head-cell"></div>
                 {runnersContent}
             </div>
