@@ -1,39 +1,52 @@
-import { useGetAllRunnersDataQuery, useGetRacesQuery } from '../../redux/baseApi';
+import { useGetAllRunnersDataQuery } from '../../redux/baseApi';
 import './pageAllRunners.css';
 import { Link } from 'react-router-dom';
+import { memo, useState } from 'react';
+
+
+const RunnerRow = memo(({item, index, racesVector}) => {
+
+  const cellClass = (!(index % 2) ? 'table-cell odd' : 'table-cell');
+
+  let strRunner = `${item.lastName ? item.lastName : ""}`;
+  strRunner += `${item.firstName ? " " + item.firstName : ""}`;
+  let strInfo = `${item.year ? " " + item.year : ""}`;
+  strInfo += `${item.location ? " " + item.location : ""}`;
+
+  const storyVector = Object.keys(racesVector).reverse().map(yearItem => {
+    return <div className={cellClass}>
+      <div className="story-cell">
+
+        {
+          racesVector[yearItem].map(raceItem => {
+            const visited = (item.startsVector.find(i => i === raceItem.id) > -1);
+            return <div className={`story-cell-item ${visited ? "visited" : ""}`}></div>;
+          })
+        }
+
+      </div>
+    </div>
+
+  });
+
+  return (<>
+      <div className={cellClass}>
+        <div className="cell-item">
+          <Link className="runner-link" to={`/runners/${item.id}`}>{strRunner}</Link>
+          <div className="runner-info">{strInfo}</div>
+        </div>
+      </div>
+      <div className={cellClass}>{item.startsCount}</div>
+      {storyVector}
+    </>
+  );
+
+});
+
 
 const PageAllRunners = () => {
 
-  const {
-    data: allRaces,
-    isLoading: racesIsLoading,
-    isSuccess: racesIsSuccess,
-    isError: racesIsError,
-    error: racesError,
-  } = useGetRacesQuery();
-
-  let racesVector;
-  if (racesIsLoading) {
-
-  } else if (racesIsSuccess) {
-
-    racesVector = allRaces.data.reduce((acc, raceItem) => {
-      const curYear = raceItem.attributes.ddate.slice(0, 4);
-      const nextCell = {code: raceItem.attributes.sname.slice(0, 1).toUpperCase(), id: raceItem.id};
-
-      return {...acc,
-        [curYear]: acc[curYear]
-          ? [nextCell, ...acc[curYear]]
-          : [nextCell],
-      }
-    },{});
-
-
-
-
-  } else if (racesIsError) {
-
-  }
+  const [searchStr, setSearchStr] = useState("");
 
   const {
     data: runnersData,
@@ -42,57 +55,14 @@ const PageAllRunners = () => {
     isError: runnersIsError,
   } = useGetAllRunnersDataQuery();
 
-  let runnersContent;
 
-  if (runnersIsLoading) {
-    runnersContent = (
-          <span>Loading...</span>
-    )
-  } else if (runnersIsSuccess) {
-    let rowNum = 0;
-
-    runnersContent = runnersData.map(item => {
-      rowNum++;
-      const cellClass = (!(rowNum % 2) ? 'table-cell odd' : 'table-cell');
-
-      let strRunner = `${item.lastName ? item.lastName : ""}`;
-      strRunner += `${item.firstName ? " " + item.firstName : ""}`;
-      let strInfo = `${item.year ? " " + item.year : ""}`;
-      strInfo += `${item.location ? " " + item.location : ""}`;
-
-      const storyVector = Object.keys(racesVector).reverse().map(yearItem => {
-        return <div className={cellClass}>
-          <div className="story-cell">
-
-            {
-              racesVector[yearItem].map(raceItem => {
-                const visited = (item.startsVector.find(i => i === raceItem.id) > -1);
-                return <div className={`story-cell-item ${visited ? "visited" : ""}`}></div>;
-              })
-            }
-
-          </div>
-        </div>
-
-      });
-
-      return (<>
-         <div className={cellClass}>
-           <div className="cell-item">
-             <Link className="runner-link" to={`/runners/${item.id}`}>{strRunner}</Link>
-             <div className="runner-info">{strInfo}</div>
-           </div>
-         </div>
-         <div className={cellClass}>{item.startsCount}</div>
-          {storyVector}
-      </>
-    );
-    });
-
-
-  }
 
   return (<>
+    <div className="all-runners-controller-block">
+      <div className="search-block">
+        <input className="search-input" onChange={e => setSearchStr(e.target.value)} value={searchStr}></input>
+      </div>
+    </div>
     <div className="res-table-all-runners">
       <div className="table-row-all-runners">
         <div className="table-cell table-head-cell">Участник</div>
@@ -105,7 +75,15 @@ const PageAllRunners = () => {
         <div className="table-cell table-head-cell">2019</div>
         <div className="table-cell table-head-cell">2018</div>
         <div className="table-cell table-head-cell">2017</div>
-        {runnersContent}
+        {runnersIsLoading && <div>Loading...</div>}
+        {runnersIsSuccess && !searchStr && runnersData.runners.map(
+          (item, index) => (<RunnerRow item={item} index={index} racesVector={runnersData.racesVector}/>)
+        )}
+        {runnersIsSuccess && !!searchStr && runnersData.runners
+          .filter(item => item.lastName && item.lastName.indexOf(searchStr) !== -1)
+          .map(
+          (item, index) => (<RunnerRow item={item} index={index} racesVector={runnersData.racesVector}/>)
+        )}
       </div>
     </div>
   </>);

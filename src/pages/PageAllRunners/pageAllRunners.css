@@ -28,3 +28,16 @@
 .story-cell-item.visited {
     background-color: rgb(91, 239, 37);
 }
+
+.all-runners-controller-block {
+    display: flex;
+    height: 100px;
+}
+
+.search-block {
+
+}
+
+.search-input {
+    width: 200px;
+}
