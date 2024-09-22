@@ -34,27 +34,40 @@ const PageAllRaces = () => {
         curYear = itemYear;
         divider = (<div className="year-divider">Турмарафон {itemYear}</div>);
       }
+
+      let courseStickers = [];
+      let startedCounts = [];
+      let totalStartedCount = 0;
+      raceItem.attributes.distances.data.toSorted((a, b) => {
+        return a.attributes.km < b.attributes.km ? -1 : 1
+      }).forEach(distanceItem => {
+        courseStickers.push((<Link className="distance-link" to={`/races/${raceItem.id}?distance=${distanceItem.attributes.courseType}`}>
+          <CourseSticker type={distanceItem.attributes.courseType} value={distanceItem.attributes.km} />
+        </Link>));
+        totalStartedCount += distanceItem.attributes.runnersStartedCount;
+        startedCounts.push({type: distanceItem.attributes.courseType, value: distanceItem.attributes.runnersStartedCount});
+      });
+
+
       return <>
         {divider}
         <div className="all-races-cell caption-cell">
           <img className="magnet-image" alt="" src={getStrapiImageUrl(raceItem.attributes.magnet.data?.attributes.url)}></img>
           <div className="race-caption">
-            <Link to={`/races/${raceItem.id}`}>{raceItem.attributes.sname}</Link>
+            <Link className="distance-link" to={`/races/${raceItem.id}`}>{raceItem.attributes.sname}</Link>
+            <div className="race-info">{raceItem.attributes.ddate}, {raceItem.attributes.location}</div>
           </div>
           <div className="distances-cell">
-            {raceItem.attributes.distances.data.toSorted((a, b) => {
-              return a.attributes.km < b.attributes.km ? -1 : 1
-            }).map(distanceItem => {
-              return <Link className="distance-link" to={`/races/${raceItem.id}?distance=${distanceItem.attributes.courseType}`}>
-                <CourseSticker type={distanceItem.attributes.courseType} value={distanceItem.attributes.km} />
-              </Link>
-            })}
+            {courseStickers}
           </div>
         </div>
-        <div className="all-races-cell">{raceItem.attributes.location}</div>
-        <div className="all-races-cell">{raceItem.attributes.ddate}</div>
         <div className="all-races-cell distances-cell">
-
+            {!!totalStartedCount && (
+              <p>
+              <span className="cnt-span">{totalStartedCount} (</span>
+              {startedCounts.map((item, index) => <><span>{index ? ` / ` : ``}</span><span className={`cnt-span ${item.type}`}>{item.value}</span></>)}
+              )</p>
+              )}
         </div>
       </>;
     });

@@ -48,9 +48,9 @@ const PageRunner = () => {
           <div className="runner-table-cell runner-table-head-cell">Название</div>
           <div className="runner-table-cell runner-table-head-cell">Гонка</div>
           <div className="runner-table-cell runner-table-head-cell">Дистанция</div>
-          <div className="runner-table-cell runner-table-head-cell">Место</div>
-          <div className="runner-table-cell runner-table-head-cell">Прим.</div>
           <div className="runner-table-cell runner-table-head-cell">Состав команды</div>
+          <div className="runner-table-cell runner-table-head-cell">Место</div>
+          <div className="runner-table-cell runner-table-head-cell"></div>
           <div className="runner-table-cell runner-table-head-cell">Старт</div>
           <div className="runner-table-cell runner-table-head-cell">Финиш</div>
           <div className="runner-table-cell runner-table-head-cell">Время</div>
@@ -73,11 +73,11 @@ const PageRunner = () => {
               </div>
             </div>
             <div className="runner-table-cell">{raceContent.name}</div>
-            <div className="runner-table-cell">
+            <div className="runner-table-cell center">
+              <div className="distances-cell">
               <CourseSticker type={distanceContent.courseType} value={distanceContent.km} />
+              </div>
             </div>
-            <div className="runner-table-cell">{teamContent.place}</div>
-            <div className="runner-table-cell"><Reward label={teamContent.reward} /></div>
             <div className="runner-table-cell">{
               teamContent.members.data.map(coMemberItem => {
                 let strRunner = `${coMemberItem.attributes.runner.data.attributes.lastName ? coMemberItem.attributes.runner.data.attributes.lastName : ""}`;
@@ -102,6 +102,8 @@ const PageRunner = () => {
                 }
               })
             }</div>
+             <div className="runner-table-cell">{teamContent.place}</div>
+            <div className="runner-table-cell"><Reward label={teamContent.reward} /></div>
             <div className="runner-table-cell">{teamContent.start ? dayjs(teamContent.start).format('DD.MM.YYYY HH:mm') : ""}</div>
             <div className="runner-table-cell">{teamContent.finish ? dayjs(teamContent.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
             <div className="runner-table-cell">{resultToStr(teamContent.result)}</div></>;
