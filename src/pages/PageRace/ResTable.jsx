@@ -1,15 +1,13 @@
-import './resTable.css';
+import './resTable.scss';
 import { useGetRaceQuery, useGetTeamsQuery } from '../../redux/baseApi';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration'
-import { Link, useParams, useSearchParams } from 'react-router-dom';
-import Reward from '../../components/Reward/Reward';
-import DnsLabel from '../../components/DnsLabel/DnsLabel';
-import { resultToStr, toFineDateLong } from '../../helper';
-import DnfLabel from '../../components/DnfLabel/DnfLabel';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { toFineDateLong } from '../../helper';
+import ResTableDesktop from './ResTableDesktop';
+import ResTableMobile from './ResTableMobile';
 
 dayjs.extend(duration);
-
 
 const ResTable = () => {
 
@@ -78,84 +76,41 @@ const ResTable = () => {
           </div>
         )
     } else if (isSuccess) {
+
+
         let rowNum = 0;
-        runnersContent = distanceData.data.attributes.teams.data.map((teamItem) => {
+        const desktopContent = distanceData.data.attributes.teams.data.map((teamItem) => {
             rowNum++;
-            const teamBadges = [];
-            const members = teamItem.attributes.members.data.filter(item => !item.attributes.child).sort((a,b) => a.id < b.id ? -1 : 1);
-            const runnersChildren = teamItem.attributes.members.data.filter(item => item.attributes.child).sort((a,b) => a.id < b.id ? -1 : 1);
-            const cellClass = (!(rowNum % 2) ? 'table-cell odd' : 'table-cell');
-            return <>
-                <div className={cellClass}>
-                    <div className="cell-item">
-                        <div className={teamItem.attributes.dns ? "dns" : ""}>{teamItem.attributes.name}</div>
-                        {!!teamItem.attributes.dns && <DnsLabel />}
-                        {!!teamItem.attributes.dnf && <DnfLabel />}
-                    </div>
-                </div>
-                <div className={cellClass}>{members.map(memberItem => {
+            const members = teamItem.attributes.members.data.filter(item => !item.attributes.child).sort((a, b) => a.id < b.id ? -1 : 1);
+            const runnersChildren = teamItem.attributes.members.data.filter(item => item.attributes.child).sort((a, b) => a.id < b.id ? -1 : 1);
 
-                  const runner = memberItem.attributes.runner.data.attributes;
-                  const badge = runner.badges?.data
-                    .filter(item => +item.attributes?.race.data.id === +params.raceId)[0]?.attributes.number;
-                  if (badge) teamBadges.push(badge);
+            return <ResTableDesktop
+              teamItem={teamItem}
+              members={members}
+              runnersChildren={runnersChildren}
+              params={params}
+              rowNum={rowNum}/>;
 
-                  let strRunner = `${runner.lastName ? runner.lastName : ""}`;
-                  strRunner += `${runner.firstName ? " " + runner.firstName : ""}`;
-                  let strInfo = `${runner.year ? " " + runner.year : ""}`;
-                    strInfo += `${runner.location ? " " + runner.location : ""}`;
-                    return <div className="cell-item">
-                        <Link className={`runner-link ${memberItem.attributes.dns || teamItem.attributes.dns ? "dns" : ""}`} to={`/runners/${memberItem.attributes.runner.data.id}`}>{strRunner}</Link>
-                        <div className="runner-info">{strInfo}</div>
-                        {!!memberItem.attributes.dns && <DnsLabel />}
-                        {!!memberItem.attributes.dnf && <DnfLabel />}
-                    </div>;
-                })}
-                    {(!!runnersChildren.length) && <div>ДЕТИ: </div>}
-                    {(!!runnersChildren.length) &&
-                      runnersChildren.map(runnerItem => {
-                        const runner = runnerItem.attributes.runner.data.attributes;
+        });
 
-                        const badge = runner.badges?.data
-                            .filter(item => +item.attributes?.race.data.id === +params.raceId)[0]?.attributes.number;
-                        if (badge) teamBadges.push(badge);
+        rowNum = 0;
+        const mobileContent = distanceData.data.attributes.teams.data.map((teamItem) => {
+            rowNum++;
+            const members = teamItem.attributes.members.data.filter(item => !item.attributes.child).sort((a, b) => a.id < b.id ? -1 : 1);
+            const runnersChildren = teamItem.attributes.members.data.filter(item => item.attributes.child).sort((a, b) => a.id < b.id ? -1 : 1);
 
-                        let strRunner = `${runner.lastName ? runner.lastName : ""}`;
-                        strRunner += `${runner.firstName ? " " + runner.firstName : ""}`;
-                        let strInfo = `${runner.year ? " " + runner.year : ""}`;
-                        strInfo += `${runner.location ? " " + runner.location : ""}`;
-                        return <div className="cell-item">
-                            <Link className={`runner-link ${runnerItem.attributes.dns || teamItem.attributes.dns ? "dns" : ""}`} to={`/runners/${runnerItem.attributes.runner.data.id}`}>{strRunner}</Link>
-                            <div className="runner-info">{strInfo}</div>
-                            {!!runnerItem.attributes.dns && <DnsLabel />}
-                            {!!runnerItem.attributes.dnf && <DnfLabel />}
-                        </div>;
-                    })
+            return <ResTableMobile
+              teamItem={teamItem}
+              members={members}
+              runnersChildren={runnersChildren}
+              params={params}
+              rowNum={rowNum}/>;
 
-                }
-                </div>
-                <div className={cellClass}>{teamItem.attributes.start ? dayjs(teamItem.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
-                <div className={cellClass}>{teamItem.attributes.finish ? dayjs(teamItem.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
-                <div className={cellClass}>{resultToStr(teamItem.attributes.result)}</div>
-                <div className={cellClass}>{teamItem.attributes.place}</div>
-                <div className={cellClass}><Reward label={teamItem.attributes.reward} /></div>
-                <div className={cellClass}>{teamBadges.join(", ")} {teamItem.attributes.comm}</div>
-            </>
-        })
-    } else if (isError) {
-        runnersContent = (
-          <div className="alert alert-danger" role="alert">
-              Ошибка: {error}
-          </div>
-        )
-    }
+        });
 
 
-
-    return (<>
-        {title}
-        {tabs}
-        <div className="res-table">
+        runnersContent = (<>
+        <div className="res-table-desktop">
             <div className="table-row">
                 <div className="table-cell table-head-cell">Команда</div>
                 <div className="table-cell table-head-cell">Участники</div>
@@ -165,9 +120,27 @@ const ResTable = () => {
                 <div className="table-cell table-head-cell">Место</div>
                 <div className="table-cell table-head-cell"></div>
                 <div className="table-cell table-head-cell"></div>
-                {runnersContent}
+                {desktopContent}
             </div>
         </div>
+        <div className="res-table-mobile">
+            {mobileContent}
+        </div>
+        </>);
+
+    } else if (isError) {
+        runnersContent = (
+          <div className="alert alert-danger" role="alert">
+              Ошибка: {error}
+          </div>
+        )
+    }
+
+
+    return (<>
+        {title}
+        {tabs}
+        {runnersContent}
     </>);
 };
 

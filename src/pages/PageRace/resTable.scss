@@ -1,8 +1,14 @@
-.res-table {
+@use 'src/assets/styles/constants';
+
+.res-table-desktop {
     display: flex;
     flex-direction: column;
     border: 1px solid #EAECF0;
     font-size: 14px;
+
+    @include constants.mediaMobile {
+        display: none;
+    }
 
 }
 
@@ -107,4 +113,61 @@
 .res-title-info {
     color: #808DA3;
     font-size: 16px;
+}
+
+
+.res-table-mobile {
+    display: none;
+
+    @include constants.mediaMobile {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+.mobil-card {
+    display: flex;
+    background-color: #FFFFFF;
+    padding: 4px;
+
+}
+
+.mobil-card+.mobil-card {
+
+}
+
+.mobil-card.odd {
+    background-color: #f5f9ff;
+}
+
+.mobil-team {
+    font-size: 14px;
+    flex-grow: 1;
+
+}
+
+.mobil-team-caption {
+    font-weight: 700;
+    display: flex;
+}
+
+.mobil-team-caption p {
+    margin: 0;
+    margin-left: auto;
+}
+
+.mobil-team-member {
+
+}
+
+.mobil-place {
+    flex-basis: 20px;
+    flex-shrink: 0;
+
+}
+
+.mobil-medal {
+    flex-basis: 70px;
+    flex-shrink: 0;
 }

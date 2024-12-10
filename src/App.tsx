@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './app.scss';
 import Header from "./components/Header";
 import {createBrowserRouter} from "react-router-dom";
 import ErrorPage from "../src/components/ErrorPage"
