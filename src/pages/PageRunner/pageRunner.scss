@@ -16,14 +16,6 @@
     }
 }
 
-.runner-teams-mobile {
-    display: none;
-
-    @include constants.mediaMobile {
-        display: block;
-    }
-}
-
 .runner-info-field {
     border: solid;
     background-color: beige;
@@ -67,5 +59,41 @@
 }
 
 .runner-table-detail-row {
+
+}
+
+.runner-teams-mobile {
+    display: none;
+
+    @include constants.mediaMobile {
+        display: block;
+    }
+}
+
+.run-card-mobile {
+
+}
+
+.run-card-yr-mobile {
+
+}
+
+.run-card-footer-mobile {
+
+}
+
+.run-card-caption-mobile {
+
+}
+
+.run-card-detail-mobile {
+
+}
+
+.run-card-team-name-mobile {
+
+}
+
+.run-card-member-mobile {
 
 }
