@@ -71,19 +71,35 @@
 }
 
 .run-card-mobile {
-
+    display: flex;
+    flex-direction: column;
+    border: solid grey 1px;
+    font-size: 14px;
 }
 
 .run-card-yr-mobile {
 
 }
 
-.run-card-footer-mobile {
+.run-card-distance-mobile {
+    display: flex;
+}
+
+.run-card-results-mobile {
+    display: flex;
+    align-items: center;
+    width: 140px;
 
 }
 
-.run-card-caption-mobile {
+.run-card-footer-mobile {
+    background-color: green;
+    height: 20px;
+}
 
+.run-card-caption-mobile {
+    display: flex;
+    justify-content: space-between;
 }
 
 .run-card-detail-mobile {
@@ -91,9 +107,17 @@
 }
 
 .run-card-team-name-mobile {
+    font-weight: 700;
 
 }
 
 .run-card-member-mobile {
+    margin-left: 12px;
+}
 
+.run-card-place-mobile {
+    font-size: 16px;
+    margin-left: 6px;
+    margin-right: 10px;
+    width: 30px;
 }
