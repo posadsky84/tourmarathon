@@ -1,0 +1,86 @@
+@use 'src/assets/styles/constants';
+
+.all-races-cell {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: #EAECF0;
+    padding: 8px 12px;
+    align-items: center;
+}
+
+.distances-cell {
+    display: flex;
+    flex-direction: row;
+}
+
+.distance-link {
+    text-decoration: none;
+    color: #3165C9;
+}
+
+.cnt-span {
+    font-weight: 500;
+}
+
+.cnt-span.lite {
+    color: #2ACC02;
+}
+
+.cnt-span.tourist {
+    color: #3165C9;
+}
+
+.cnt-span.ultra {
+    color: #AE3633;
+}
+
+.cnt-span.real {
+    color: #151515;
+}
+
+.all-races-grid {
+    display: grid;
+    grid-template-columns: 450px 200px 200px;
+    row-gap: 2px;
+
+    @include constants.mediaMobile {
+        grid-template-columns: 1fr 0 0;
+    }
+
+}
+
+.year-divider-new {
+    background-color: rgba(255, 147, 24, 0.99);
+    margin-top: 40px;
+    padding: 4px;
+}
+
+.all-races-distances-cell {
+    background-color: #EAECF0;
+    display: flex;
+    align-items: center;
+}
+
+.caption-cell {
+    display: flex;
+    flex-direction: row;
+}
+
+.race-caption {
+    width: 400px;
+    display: flex;
+}
+
+.race-info {
+    margin-left: 10px;
+    font-size: 14px;
+    align-self: center;
+}
+
+.magnet-image {
+    height: 48px;
+    width: 48px;
+    margin-right: 10px;
+
+}
