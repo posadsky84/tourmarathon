@@ -1,7 +1,7 @@
 import { useGetAllRunnersDataQuery } from '../../redux/baseApi';
 import './pageAllRunners.css';
 import { Link } from 'react-router-dom';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 
 const RunnerRow = memo(({item, index, racesVector}) => {
@@ -47,14 +47,37 @@ const RunnerRow = memo(({item, index, racesVector}) => {
 const PageAllRunners = () => {
 
   const [searchStr, setSearchStr] = useState("");
+  const [doSortAlphabet, setDoSortAlphabet] = useState(false);
+  const [oneRunnersCount, setOneRunnersCount] = useState(0);
+  const [runnersData, setRunnersData] = useState([]);
+
+  const [readyFlag, setReadyFlag] = useState(false);
 
   const {
-    data: runnersData,
+    data,
     isLoading: runnersIsLoading,
     isSuccess: runnersIsSuccess,
     isError: runnersIsError,
   } = useGetAllRunnersDataQuery();
 
+  useEffect(() => {
+    if (runnersIsSuccess) {
+      setOneRunnersCount(data.runners.filter(item => item.startsCount === 1).length);
+      setRunnersData(data);
+      setReadyFlag(true);
+    }
+  }, [runnersIsSuccess]);
+
+  useEffect(() => {
+    if (doSortAlphabet) {
+      const nextRunners = [...runnersData.runners];
+      nextRunners.sort((a, b) => a.lastName < b.lastName ? -1 : 1);
+      setRunnersData({...runnersData, runners: nextRunners});
+    } else {
+      setRunnersData(data);
+    }
+
+  }, [doSortAlphabet]);
 
 
   return (<>
@@ -63,6 +86,8 @@ const PageAllRunners = () => {
         <input className="search-input" onChange={e => setSearchStr(e.target.value)} value={searchStr}></input>
       </div>
     </div>
+    <div onClick={() => setDoSortAlphabet(!doSortAlphabet)}>ВЫБОР ФИЛЬТРА</div>
+    <div>К-во бегунов по одному участию: {oneRunnersCount}</div>
     <div className="res-table-all-runners">
       <div className="table-row-all-runners">
         <div className="table-cell table-head-cell">Участник</div>
@@ -75,11 +100,11 @@ const PageAllRunners = () => {
         <div className="table-cell table-head-cell">2019</div>
         <div className="table-cell table-head-cell">2018</div>
         <div className="table-cell table-head-cell">2017</div>
-        {runnersIsLoading && <div>Loading...</div>}
-        {runnersIsSuccess && !searchStr && runnersData.runners.map(
+        {!readyFlag && <div>Loading...</div>}
+        {readyFlag && !searchStr && runnersData.runners.map(
           (item, index) => (<RunnerRow item={item} index={index} racesVector={runnersData.racesVector}/>)
         )}
-        {runnersIsSuccess && !!searchStr && runnersData.runners
+        {readyFlag && !!searchStr && runnersData.runners
           .filter(item => item.lastName && item.lastName.indexOf(searchStr) !== -1)
           .map(
           (item, index) => (<RunnerRow item={item} index={index} racesVector={runnersData.racesVector}/>)
