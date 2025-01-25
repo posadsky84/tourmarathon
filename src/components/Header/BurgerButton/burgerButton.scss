@@ -1,0 +1,49 @@
+.vbp-header-menu-button__svg {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transform: scaleX(-1);
+}
+
+.vbp-header-menu-button__svg line {
+    stroke: #192a6b;
+    stroke-dasharray: 100%;
+    stroke-dashoffset: 0;
+    transition: transform 0.3s, stroke-dashoffset .4s;
+    transform-origin: center;
+    stroke-width: 3px;
+}
+
+.vbp-header-menu-button__svg .top {
+    transform: translateY(-35%);
+}
+
+.vbp-header-menu-button__svg .middle {
+    transform: scaleX(1);
+    transition: opacity .3s, transform .3s;
+}
+
+.vbp-header-menu-button__svg .bottom {
+    transform: translateY(33%);
+    stroke-dasharray: 100%;
+}
+
+
+.vbp-header-menu-button__svg.open .top {
+    transform: rotate(45deg);
+    stroke-linecap: round;
+}
+
+.vbp-header-menu-button__svg.open .middle {
+    transform: scaleX(0.1);
+    opacity: 0;
+}
+
+.vbp-header-menu-button__svg.open line.bottom {
+    transform: rotate(-45deg);
+    stroke-linecap: round;
+}
+
+.vbp-header-menu-button__svg.open .bottom {
+    stroke-dashoffset: 0;
+}
