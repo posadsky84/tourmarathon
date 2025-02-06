@@ -1,4 +1,4 @@
-import './seasonCardsBig.css';
+import './seasonCardsBig.scss';
 import { getStrapiImageUrl, raceStatus, toFineDate } from '../../../helper';
 import CourseSticker from '../../../components/CourseSticker/CourseSticker';
 import React from 'react';

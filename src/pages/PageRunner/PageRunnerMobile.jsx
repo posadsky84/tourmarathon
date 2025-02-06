@@ -7,17 +7,16 @@ import dayjs from 'dayjs';
 import { resultToStr } from '../../helper';
 import { useState } from 'react';
 
-const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner}) => {
+const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner, rowNum}) => {
   const [isOpened, setIsOpened] = useState(false);
 
-  return <>
-    <div className="run-card-yr-mobile">
+  const cellClass = (!(rowNum % 2) ? 'run-card-mobile odd' : 'run-card-mobile');
 
-    </div>
-    <div className="run-card-mobile" onClick={() => setIsOpened(!isOpened)}>
+  return <>
+    <div className={cellClass} onClick={() => setIsOpened(!isOpened)}>
       <div className="run-card-caption-mobile">
         <div className="run-card-distance-mobile">
-          {raceContent.sname}
+          <div className="run-card-race-short-name">{raceContent.sname}</div>
           <CourseSticker type={distanceContent.courseType} value={distanceContent.km}/>
         </div>
         <div className="run-card-results-mobile">
@@ -71,22 +70,61 @@ const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner}) =
 
 const PageRunnerMobile = ({teamsData, runner}) => {
 
-  return teamsData.toSorted((a, b) => {
-    const ddate1 = new Date(a.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
-    const ddate2 = new Date(b.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
-    return ddate1 <= ddate2 ? 1 : -1;
-  }).map(team => {
-    const teamContent = team.attributes.team.data.attributes;
-    const distanceContent = teamContent.distance.data.attributes;
-    const raceContent = distanceContent.race.data.attributes;
+  const teamsDataByYears = teamsData.reduce((res, item) => {
+    const year = new Date(item.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate).getFullYear();
+    if (!res[year]) res[year] = [];
+    res[year].push(item);
+    return res;
+  }, {});
 
-    return <RunnerCardMobile teamContent={teamContent}
-                             distanceContent={distanceContent}
-                             raceContent={raceContent}
-                             runner={runner}
-                             />;
 
-  });
+  let rowNum = 0;
+  return Object.keys(teamsDataByYears).reverse().map(year => {
+
+    let rowNum = 0;
+
+    return (<>
+      <div className="run-card-yr-mobile">
+        {year}
+      </div>
+      {teamsDataByYears[year].toSorted((a, b) => {
+        const ddate1 = new Date(a.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
+        const ddate2 = new Date(b.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
+        return ddate1 <= ddate2 ? 1 : -1;
+      }).map(team => {
+        rowNum += 1;
+        const teamContent = team.attributes.team.data.attributes;
+        const distanceContent = teamContent.distance.data.attributes;
+        const raceContent = distanceContent.race.data.attributes;
+
+        return <RunnerCardMobile teamContent={teamContent}
+                                 distanceContent={distanceContent}
+                                 raceContent={raceContent}
+                                 runner={runner}
+                                 rowNum={rowNum}
+        />;
+
+
+      })}
+     </>)});
+
+
+  // return teamsData.toSorted((a, b) => {
+  //   const ddate1 = new Date(a.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
+  //   const ddate2 = new Date(b.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
+  //   return ddate1 <= ddate2 ? 1 : -1;
+  // }).map(team => {
+  //   const teamContent = team.attributes.team.data.attributes;
+  //   const distanceContent = teamContent.distance.data.attributes;
+  //   const raceContent = distanceContent.race.data.attributes;
+  //
+  //   return <RunnerCardMobile teamContent={teamContent}
+  //                            distanceContent={distanceContent}
+  //                            raceContent={raceContent}
+  //                            runner={runner}
+  //                            />;
+  //
+  // });
 
 };
 

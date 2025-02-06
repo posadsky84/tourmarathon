@@ -1,4 +1,4 @@
-import './courseSticker.css';
+import './courseSticker.scss';
 
 const CourseSticker = ({type, value}) => {
   return (

@@ -1,8 +1,9 @@
+@use 'src/assets/styles/constants';
+
 .course-sticker {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 45px;
 
     margin: 2px;
     border-radius: 4px;
@@ -12,22 +13,22 @@
 }
 
 .course-sticker.lite {
-    background-color: #2ACC02;
+    background-color: constants.$lightGreen500;
     color: #FFFFFF;
 }
 
 .course-sticker.tourist {
-    background-color: #3165C9;
+    background-color: constants.$blue400;
     color: #FFFFFF;
 }
 
 .course-sticker.ultra {
-    background-color: #AE3633;
+    background-color: constants.$red500;
     color: #FFFFFF;
 }
 
 .course-sticker.real {
-    background-color: #151515;
+    background-color: constants.$black100;
     color: #FFFFFF;
 }
 

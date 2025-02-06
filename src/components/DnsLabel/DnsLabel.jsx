@@ -1,4 +1,4 @@
-import "./dnsLabel.css";
+import "./dnsLabel.scss";
 
 const DnsLabel = () => {
   return (

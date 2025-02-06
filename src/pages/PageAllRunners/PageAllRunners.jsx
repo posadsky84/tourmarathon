@@ -1,7 +1,8 @@
 import { useGetAllRunnersDataQuery } from '../../redux/baseApi';
-import './pageAllRunners.css';
+import './pageAllRunners.scss';
 import { Link } from 'react-router-dom';
-import { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
+import Spinner from '../../components/Spinner/Spinner';
 
 
 const RunnerRow = memo(({item, index, racesVector}) => {
@@ -100,7 +101,7 @@ const PageAllRunners = () => {
         <div className="table-cell table-head-cell">2019</div>
         <div className="table-cell table-head-cell">2018</div>
         <div className="table-cell table-head-cell">2017</div>
-        {!readyFlag && <div>Loading...</div>}
+        {!readyFlag && <Spinner />}
         {readyFlag && !searchStr && runnersData.runners.map(
           (item, index) => (<RunnerRow item={item} index={index} racesVector={runnersData.racesVector}/>)
         )}

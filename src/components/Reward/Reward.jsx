@@ -1,4 +1,4 @@
-import './reward.css';
+import './reward.scss';
 
 const Reward = ({label}) => {
 

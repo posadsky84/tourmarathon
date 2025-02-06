@@ -1,7 +1,9 @@
+@use 'src/assets/styles/constants';
+
 .res-table-all-runners {
     display: flex;
     flex-direction: column;
-    border: 1px solid #EAECF0;
+    border: 1px solid constants.$black10;
     font-size: 14px;
 
 }
@@ -12,13 +14,17 @@
     row-gap: 1px;
 }
 
+.fixed-part {
+    position: fixed;
+}
+
 .story-cell {
     display: flex;
 }
 
 .story-cell-item {
-    background-color: #EAECF0;
-    border: 1px solid #D0D5DD;
+    background-color: constants.$black10;
+    border: 1px solid constants.$black30;
     margin-right: 1px;
     height: 16px;
     width: 16px;

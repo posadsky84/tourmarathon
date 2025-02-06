@@ -3,6 +3,7 @@ import { useGetRunnerQuery } from '../../redux/baseApi';
 import './pageRunner.scss';
 import PageRunnerDesktop from './PageRunnerDesktop';
 import PageRunnerMobile from './PageRunnerMobile';
+import Spinner from '../../components/Spinner/Spinner';
 
 const PageRunner = () => {
 
@@ -21,7 +22,7 @@ const PageRunner = () => {
     runnerContent = (
       <div className="d-flex justify-content-center">
         <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading nah...</span>
+          <Spinner />
         </div>
       </div>
     )
@@ -30,11 +31,26 @@ const PageRunner = () => {
     let teamsData = runner.data.attributes.members.data;
 
      runnerContent = (<>
-         <div className="runner-info-block">
-           <div className="runner-info-field">{headerData.lastName} {headerData.firstName} {headerData.midName}</div>
-           <div className="runner-info-field">{headerData.year}</div>
-           <div className="runner-info-field">{headerData.location}</div>
+         <div className="profile-head">
+           <div className="fio-head">{headerData.lastName} {headerData.firstName}</div>
+           <div className="profile-line"/>
+           <div className="profile-block">
+             <div className="profile-block-name">Год рождения:</div>
+             <div className="profile-block-data">{headerData.year}</div>
+           </div>
+           <div className="profile-line"/>
+           <div className="profile-block">
+             <div className="profile-block-name">Город:</div>
+             <div className="profile-block-data">{headerData.location}</div>
+           </div>
+           <div className="profile-line"/>
+           <div className="profile-block">
+             <div className="profile-block-name">Кол-во стартов:</div>
+             <div className="profile-block-data">надо посчитать</div>
+           </div>
+           <div className="profile-line"/>
          </div>
+
          <div className="runner-teams-desktop">
            <div className="runner-table">
              <div className="runner-table-row">

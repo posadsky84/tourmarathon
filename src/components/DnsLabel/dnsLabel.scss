@@ -1,7 +1,9 @@
+@use 'src/assets/styles/constants';
+
 .dns-label {
     display: flex;
     border-radius: 4px;
-    background-color: #EAECF0;
+    background-color: constants.$black10;
     width: 26px;
     justify-content: center;
     margin-left: 4px;

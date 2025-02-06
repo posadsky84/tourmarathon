@@ -3,7 +3,7 @@
 .res-table-desktop {
     display: flex;
     flex-direction: column;
-    border: 1px solid #EAECF0;
+    border: 1px solid constants.$black10;
     font-size: 14px;
 
     @include constants.mediaMobile {
@@ -30,7 +30,7 @@
 }
 
 .table-head-cell {
-    background-color: #EAECF0;
+    background-color: constants.$black10;
     font-weight: 500;
 }
 
@@ -59,14 +59,14 @@
     margin: 4px 4px;
     font-size: 16px;
     font-weight: 700;
-    color: #BBBBBB;
+    color: constants.$black60;
     cursor: pointer;
 
 }
 
 .distance-item.selected {
     font-weight: bold;
-    color: #3165C9;
+    color: constants.$blue400;
 }
 
 .cell-item {
@@ -75,7 +75,7 @@
 }
 
 .runner-link {
-    color: #3165C9;
+    color: constants.$blue400;
     text-decoration: none;
     transition: all 0.1s ease-in-out;
 }
@@ -86,7 +86,7 @@
 }
 
 .runner-link:hover {
-    color: #264E9B;
+    color: constants.$blue500;
 }
 
 .dns:hover {
@@ -99,10 +99,20 @@
     align-self: center;
 }
 
+.res-head {
+    display: flex;
+}
+
 .res-title {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    justify-content: center;
+}
+
+.res-magnet-place {
+    display: flex;
+    justify-content: center;
 }
 
 .res-title-name {
@@ -164,10 +174,23 @@
 .mobil-place {
     flex-basis: 20px;
     flex-shrink: 0;
+    margin-left: 10px;
 
 }
 
 .mobil-medal {
     flex-basis: 70px;
     flex-shrink: 0;
+}
+
+.race-magnet-image {
+    height: 96px;
+    width: 96px;
+    margin-right: 10px;
+
+    @include constants.mediaMobile {
+        height: 48px;
+        width: 48px;
+    }
+
 }

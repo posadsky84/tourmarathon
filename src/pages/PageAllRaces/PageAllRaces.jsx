@@ -4,6 +4,7 @@ import './pageAllRaces.scss';
 import { getStrapiImageUrl } from '../../helper';
 import { Link } from 'react-router-dom';
 import CourseSticker from '../../components/CourseSticker/CourseSticker';
+import Spinner from '../../components/Spinner/Spinner';
 
 
 const PageAllRaces = () => {
@@ -21,7 +22,7 @@ const PageAllRaces = () => {
     racesContent = (
       <div className="d-flex justify-content-center">
         <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <Spinner />
         </div>
       </div>
     )

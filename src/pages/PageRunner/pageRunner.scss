@@ -1,8 +1,40 @@
 @use 'src/assets/styles/constants';
 
-.runner-info-block {
+.profile-head {
     margin-top: 100px;
     margin-left: 50px;
+    max-width: 250px;
+    margin-bottom: 20px;
+}
+
+.fio-head {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.profile-line {
+    display: flex;
+    background-color: lightgrey;
+    height: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+}
+
+.profile-block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-block-name {
+    color: darkgrey;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.profile-block-data {
+
 }
 
 .runner-teams-desktop {
@@ -16,17 +48,11 @@
     }
 }
 
-.runner-info-field {
-    border: solid;
-    background-color: beige;
-    margin-top: 10px;
-    width: 400px;
-}
 
 .runner-table {
     display: flex;
     flex-direction: column;
-    border: 1px solid #EAECF0;
+    border: 1px solid constants.$black10;
     font-size: 14px;
 
 }
@@ -35,7 +61,7 @@
     display: grid;
     grid-template-columns: 12fr 10fr 2fr 10fr 55px 60px 140px 140px 80px;
     row-gap: 1px;
-    background-color: #EAECF0;
+    background-color: constants.$black10;
 }
 
 .runner-table-cell {
@@ -50,7 +76,7 @@
 }
 
 .runner-table-head-cell {
-    background-color: #EAECF0;
+    background-color: constants.$black10;
     font-weight: 500;
 }
 
@@ -73,16 +99,34 @@
 .run-card-mobile {
     display: flex;
     flex-direction: column;
-    border: solid grey 1px;
     font-size: 14px;
+    padding: 0 8px;
+}
+
+.run-card-mobile.odd {
+    background-color: #f5f9ff;
 }
 
 .run-card-yr-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    background-color: #7bb8e6;
+    padding: 6px 0;
+    font-weight: 700;
 
 }
 
 .run-card-distance-mobile {
     display: flex;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.run-card-race-short-name {
+    margin-right: 4px;
 }
 
 .run-card-results-mobile {
@@ -103,7 +147,8 @@
 }
 
 .run-card-detail-mobile {
-
+    margin-bottom: 8px;
+    margin-left: 10px;
 }
 
 .run-card-team-name-mobile {
@@ -112,7 +157,7 @@
 }
 
 .run-card-member-mobile {
-    margin-left: 12px;
+    margin-left: 6px;
 }
 
 .run-card-place-mobile {

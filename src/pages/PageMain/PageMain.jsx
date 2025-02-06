@@ -1,11 +1,14 @@
 import './pageMain.css';
-import { useGetMainQuery } from '../../redux/baseApi';
+import { useGetMainPageInfoQuery, useGetMainQuery } from '../../redux/baseApi';
 import React from 'react';
 import dayjs from 'dayjs';
 import {raceStatus} from '../../helper';
 import SeasonCardsBig from './SeasonCardsBig/SeasonCardsBig';
 import ActualRaceBefore from './ActualRaceBefore/ActualRaceBefore';
 import ActualRaceAfter from './ActualRaceAfter/ActualRaceAfter';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import Rasp from './Rasp/Rasp';
+import Spinner from '../../components/Spinner/Spinner';
 
 const PageMain = () => {
   const {
@@ -16,12 +19,19 @@ const PageMain = () => {
     error,
   } = useGetMainQuery();
 
+  const {
+    data: page,
+    isLoading: infoIsLoading,
+    isSuccess: infoIsSuccess ,
+    isError: infoIsError,
+  } = useGetMainPageInfoQuery();
+
   let content;
   if (isLoading) {
     content = (
       <div className="d-flex justify-content-center">
         <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <Spinner />
         </div>
       </div>
     )
@@ -48,12 +58,19 @@ const PageMain = () => {
     )
   }
 
+let infoBlock;
 
-
+if (infoIsLoading) {
+  infoBlock = <></>;
+} else if (infoIsSuccess) {
+  infoBlock = <BlocksRenderer content={page.data.attributes.tmBasicInfo} />;
+}
 
 
   return (
     <div className="page-main">
+      <Rasp />
+      {infoBlock}
       {content}
     </div>
   );

@@ -1,3 +1,22 @@
+$black100: #151515;
+$black80: #505C6F;
+$black60: #BBBBBB;
+$black40: #AFB7C5;
+$black30: #D0D5DD;
+$black10: #EAECF0;
+$black5: #F0F2F4;
+
+$red500: #AE3633;
+
+$blue500: #264E9B;
+$blue400: #3165C9;
+$blue300: #5380D5;
+$blue200: #7C9EDF;
+$blue100: #CAD8F2;
+$blue5: #EBF0FA;
+
+$lightGreen500: #2ACC02;
+
 @mixin mediaTablet {
   @media (max-width: 1024px) {
     @content;
@@ -9,3 +28,4 @@
     @content;
   }
 }
+

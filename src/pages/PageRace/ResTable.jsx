@@ -3,9 +3,10 @@ import { useGetRaceQuery, useGetTeamsQuery } from '../../redux/baseApi';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration'
 import { useParams, useSearchParams } from 'react-router-dom';
-import { toFineDateLong } from '../../helper';
+import { getStrapiImageUrl, toFineDateLong } from '../../helper';
 import ResTableDesktop from './ResTableDesktop';
 import ResTableMobile from './ResTableMobile';
+import Spinner from '../../components/Spinner/Spinner';
 
 dayjs.extend(duration);
 
@@ -59,19 +60,27 @@ const ResTable = () => {
             })}
         </div>);
 
-        title = (<div className="res-title">
-              <div className="res-title-name">{raceData.name}</div>
-              <div className="res-title-info">{toFineDateLong(new Date(raceData.ddate))}, {raceData.location}</div>
 
-          </div>);
+        console.log(raceData);
+
+        title = (<div className="res-head">
+            <div className="res-magnet-place">
+            <img className="race-magnet-image" alt=""
+                 src={getStrapiImageUrl(raceData.magnet.data?.attributes.url)}></img>
+            </div>
+            <div className="res-title">
+                <div className="res-title-name">{raceData.name}</div>
+                <div className="res-title-info">{toFineDateLong(new Date(raceData.ddate))}, {raceData.location}</div>
+            </div>
+        </div>);
     }
 
     let runnersContent;
     if (isLoading) {
         runnersContent = (
           <div className="d-flex justify-content-center">
-              <div className="spinner-border" role="status">
-                  <span className="visually-hidden">Loading nah...</span>
+          <div className="spinner-border" role="status">
+              <Spinner />
               </div>
           </div>
         )
