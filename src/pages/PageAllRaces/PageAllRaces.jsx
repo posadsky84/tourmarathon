@@ -87,11 +87,11 @@ const PageAllRaces = () => {
   }
 
 
-  return (<>
+  return (<div className="content-column">
       <div className="all-races-grid">
       {racesContent}
       </div>
-    </>
+    </div>
     );
 };
 

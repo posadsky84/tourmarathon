@@ -1,6 +1,6 @@
 import React from 'react';
 import './app.scss';
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import {createBrowserRouter} from "react-router-dom";
 import ErrorPage from "../src/components/ErrorPage"
 import PageRunner from "../src/pages/PageRunner/PageRunner";
@@ -9,14 +9,16 @@ import PageAllRaces from "./pages/PageAllRaces/PageAllRaces";
 import PageMain from "./pages/PageMain/PageMain";
 import PageRace from "./pages/PageRace/PageRace";
 import PageAllRunners from "./pages/PageAllRunners/PageAllRunners";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
     <div className="app-wrapper">
         <Header />
-        <div id="detail">
+        <main>
             <Outlet />
-        </div>
+        </main>
+        <Footer />
     </div>
   );
 }
@@ -32,27 +34,19 @@ export const router = createBrowserRouter([
             },
             {
                 path: "races/:raceId",
-                element: <div className="main-area">
-                    <PageRace />
-                </div>,
+                element: <PageRace />,
             },
             {
                 path: "/",
-                element: <div className="main-area">
-                    <PageMain />
-                </div>,
+                element: <PageMain />,
             },
             {
                 path: "/allRaces",
-                element: <div className="main-area">
-                    <PageAllRaces />
-                </div>,
+                element: <PageAllRaces />,
             },
             {
                 path: "/allRunners",
-                element: <div className="main-area">
-                    <PageAllRunners />
-                </div>,
+                element: <PageAllRunners />,
             },
         ]
     }

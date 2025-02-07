@@ -17,6 +17,11 @@ $blue5: #EBF0FA;
 
 $lightGreen500: #2ACC02;
 
+.content-column {
+  display: flex;
+  justify-content: center;
+}
+
 @mixin mediaTablet {
   @media (max-width: 1024px) {
     @content;
@@ -28,4 +33,5 @@ $lightGreen500: #2ACC02;
     @content;
   }
 }
+
 
