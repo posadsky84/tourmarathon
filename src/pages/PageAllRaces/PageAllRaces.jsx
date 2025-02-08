@@ -34,9 +34,9 @@ const PageAllRaces = () => {
         if (curYear !== itemYear) {
           curYear = itemYear;
           divider = (<>
-            <div className="year-divider-new">Турмарафон {itemYear}</div>
-            <div className="year-divider-new">Дистанции</div>
-            <div className="year-divider-new">Участников</div>
+            <div className="year-divider-cell caption">Турмарафон {itemYear}</div>
+            <div className="year-divider-cell">Дистанции</div>
+            <div className="year-divider-cell">Участников</div>
           </>);
         }
 
@@ -88,8 +88,10 @@ const PageAllRaces = () => {
 
 
   return (<div className="content-column">
+      <div className="page-all-races">
       <div className="all-races-grid">
-      {racesContent}
+        {racesContent}
+      </div>
       </div>
     </div>
     );

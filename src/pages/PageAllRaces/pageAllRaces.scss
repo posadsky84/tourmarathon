@@ -1,5 +1,9 @@
 @use 'src/assets/styles/constants';
 
+.page-all-races {
+    padding-bottom: 50px;
+}
+
 .all-races-cell {
     height: 50px;
     display: flex;
@@ -50,10 +54,17 @@
 
 }
 
-.year-divider-new {
-    background-color: rgba(255, 147, 24, 0.99);
+.year-divider-cell {
+    display: flex;
+    align-items: center;
+    background-color: constants.$blue100;
     margin-top: 40px;
     padding: 4px;
+    justify-items: center;
+}
+
+.year-divider-cell.caption {
+    font-size: 22px;
 }
 
 .all-races-distances-cell {
