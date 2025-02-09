@@ -30,7 +30,12 @@ const PageRunner = () => {
     const headerData = runner.data.attributes;
     let teamsData = runner.data.attributes.members.data;
 
-     runnerContent = (<>
+    const startsCount = teamsData.reduce((res, item) => {
+      if (!item.attributes.dns && !item.attributes.team.data.attributes.dns) res += 1;
+      return res;
+    }, 0);
+
+    runnerContent = (<>
          <div className="profile-head">
            <div className="fio-head">{headerData.lastName} {headerData.firstName}</div>
            <div className="profile-line"/>
@@ -46,7 +51,7 @@ const PageRunner = () => {
            <div className="profile-line"/>
            <div className="profile-block">
              <div className="profile-block-name">Кол-во стартов:</div>
-             <div className="profile-block-data">надо посчитать</div>
+             <div className="profile-block-data">{startsCount}</div>
            </div>
            <div className="profile-line"/>
          </div>
