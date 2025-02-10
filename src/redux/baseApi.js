@@ -27,11 +27,17 @@ export const api = createApi({
     getMain: builder.query({
       query: () => `/races?filters[ddate][$gt]=${new Date().getFullYear()}-01-01&sort=ddate&populate[0]=distances&populate[1]=cardPicture`,
     }),
+    getMainPageInfo: builder.query({
+      query: () => '/main-page',
+    }),
     getPageRaceBefore: builder.query({
       query: () => '/hot-block',
     }),
+    getPageAbout: builder.query({
+      query: () => '/page-about',
+    }),
     getRace: builder.query({
-      query: (raceId) => `/races/${raceId}?populate=distances`,
+      query: (raceId) => `/races/${raceId}?populate=distances&populate[1]=magnet`,
       transformResponse: (response) => {
         const res = response.data.attributes;
         res.distances.data.sort((a,b) => a.attributes.km < b.attributes.km ? -1 : 1);
@@ -48,6 +54,8 @@ export const {
   useGetRunnerQuery,
   useGetRacesQuery,
   useGetMainQuery,
+  useGetMainPageInfoQuery,
   useGetPageRaceBeforeQuery,
+  useGetPageAboutQuery,
   useGetRaceQuery,
 } = api

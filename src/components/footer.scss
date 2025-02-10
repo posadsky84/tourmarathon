@@ -1,6 +1,7 @@
 @use 'src/assets/styles/constants';
 
 .footer {
+  margin-top: auto;
   background-color: constants.$footerBack;
   height: 50px;
 }

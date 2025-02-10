@@ -12,7 +12,7 @@ const Header = () => {
     const MenuItems = () => (<>
         <Link className="link-header" to="allRaces" onClick={() => setBurgerOpened(false)}>Все соревнования</Link>
         <Link className="link-header" to="allRunners" onClick={() => setBurgerOpened(false)}>Все участники</Link>
-        <Link className="link-header" to="/pff" onClick={() => setBurgerOpened(false)}>О нас</Link>
+        <Link className="link-header" to="/about" onClick={() => setBurgerOpened(false)}>О нас</Link>
     </>);
 
 

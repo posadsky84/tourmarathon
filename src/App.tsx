@@ -10,6 +10,7 @@ import PageMain from "./pages/PageMain/PageMain";
 import PageRace from "./pages/PageRace/PageRace";
 import PageAllRunners from "./pages/PageAllRunners/PageAllRunners";
 import Footer from "./components/Footer";
+import PageAbout from "./pages/PageAbout/PageAbout";
 
 const App = () => {
   return (
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
             {
                 path: "/allRunners",
                 element: <PageAllRunners />,
+            },
+            {
+                path: "/about",
+                element: <PageAbout />,
             },
         ]
     }
