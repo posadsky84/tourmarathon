@@ -3,4 +3,13 @@
 .page-about {
   display: flex;
   justify-content: center;
+
+  p {
+    margin: 8px 0;
+  }
+
+  a {
+    color: constants.$blue400;
+  }
 }
+

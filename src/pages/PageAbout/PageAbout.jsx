@@ -2,6 +2,7 @@ import { useGetPageAboutQuery } from '../../redux/baseApi';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import './pageAbout.scss';
 import Spinner from '../../components/Spinner/Spinner';
+import StatsPage from '../../components/StatsPage/StatsPage';
 
 const PageAbout = () => {
 
@@ -17,7 +18,11 @@ const PageAbout = () => {
   if (isLoading) {
     infoComponent = (<Spinner />);
   } else if (isSuccess) {
-    infoComponent = (<BlocksRenderer content={page.data.attributes.content} />);
+    infoComponent = (<div>
+        <BlocksRenderer content={page.data.attributes.content} />
+        <StatsPage />
+      </div>
+    );
   } else if (isError) {
     infoComponent = (
       <div>
