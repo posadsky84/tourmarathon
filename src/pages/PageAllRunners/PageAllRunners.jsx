@@ -3,9 +3,10 @@ import './pageAllRunners.scss';
 import { Link } from 'react-router-dom';
 import React, { memo, useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
+import { List } from 'react-virtualized';
 
 
-const RunnerRow = memo(({item, index, racesVector}) => {
+const RunnerRow =({item, index, racesVector}) => {
 
   const cellClass = (!(index % 2) ? 'table-cell odd' : 'table-cell');
 
@@ -17,7 +18,6 @@ const RunnerRow = memo(({item, index, racesVector}) => {
   const storyVector = Object.keys(racesVector).reverse().map(yearItem => {
     return <div className={cellClass}>
       <div className="story-cell">
-
         {
           racesVector[yearItem].map(raceItem => {
             const visited = (item.startsVector.find(i => i === raceItem.id) > -1);
@@ -42,16 +42,17 @@ const RunnerRow = memo(({item, index, racesVector}) => {
     </>
   );
 
-});
+};
 
 
 const PageAllRunners = () => {
 
+  const YEAR_START = 2017;
+
   const [searchStr, setSearchStr] = useState("");
   const [doSortAlphabet, setDoSortAlphabet] = useState(false);
   const [oneRunnersCount, setOneRunnersCount] = useState(0);
-  const [runnersData, setRunnersData] = useState([]);
-
+  const [listData, setListData] = useState([]);
   const [readyFlag, setReadyFlag] = useState(false);
 
   const {
@@ -64,22 +65,22 @@ const PageAllRunners = () => {
   useEffect(() => {
     if (runnersIsSuccess) {
       setOneRunnersCount(data.runners.filter(item => item.startsCount === 1).length);
-      setRunnersData(data);
+
+      let nextRunners;
+      if (doSortAlphabet) {
+        nextRunners = [...data.runners].sort((a, b) => a.lastName < b.lastName ? -1 : 1);
+      } else {
+        nextRunners = data.runners;
+      }
+
+      const list = nextRunners.map(
+        (item, index) => (<RunnerRow item={item} index={index} racesVector={data.racesVector}/>)
+      );
+
+      setListData(list);
       setReadyFlag(true);
     }
-  }, [runnersIsSuccess]);
-
-  useEffect(() => {
-    if (doSortAlphabet) {
-      const nextRunners = [...runnersData.runners];
-      nextRunners.sort((a, b) => a.lastName < b.lastName ? -1 : 1);
-      setRunnersData({...runnersData, runners: nextRunners});
-    } else {
-      setRunnersData(data);
-    }
-
-  }, [doSortAlphabet]);
-
+  }, [runnersIsSuccess, doSortAlphabet]);
 
   return (<>
     <div className="all-runners-controller-block">
@@ -93,24 +94,24 @@ const PageAllRunners = () => {
       <div className="table-row-all-runners">
         <div className="table-cell table-head-cell">Участник</div>
         <div className="table-cell table-head-cell">Кол-во стартов</div>
-        <div className="table-cell table-head-cell">2024</div>
-        <div className="table-cell table-head-cell">2023</div>
-        <div className="table-cell table-head-cell">2022</div>
-        <div className="table-cell table-head-cell">2021</div>
-        <div className="table-cell table-head-cell">2020</div>
-        <div className="table-cell table-head-cell">2019</div>
-        <div className="table-cell table-head-cell">2018</div>
-        <div className="table-cell table-head-cell">2017</div>
-        {!readyFlag && <Spinner />}
-        {readyFlag && !searchStr && runnersData.runners.map(
-          (item, index) => (<RunnerRow item={item} index={index} racesVector={runnersData.racesVector}/>)
-        )}
-        {readyFlag && !!searchStr && runnersData.runners
-          .filter(item => item.lastName && item.lastName.indexOf(searchStr) !== -1)
-          .map(
-          (item, index) => (<RunnerRow item={item} index={index} racesVector={runnersData.racesVector}/>)
-        )}
+        {new Array(new Date().getFullYear() - YEAR_START + 1).fill(0)
+          .map((_, index) => YEAR_START + index).reverse()
+          .map(item => <div className="table-cell table-head-cell">{item}</div>)}
       </div>
+        {!readyFlag && <Spinner />}
+
+
+      <List className="virtualized-list-runners"
+        height={450}
+        rowCount={listData.length}
+        rowHeight={35}
+        width={1400}
+        rowRenderer={({ index, key, style }) => (
+          <div className="table-row-all-runners" key={key} style={style}>{listData[index]}</div>
+        )}
+      />
+
+
     </div>
   </>);
 

@@ -1,5 +1,9 @@
 @use 'src/assets/styles/constants';
 
+.virtualized-list-runners {
+
+}
+
 .res-table-all-runners {
     display: flex;
     flex-direction: column;
@@ -10,7 +14,7 @@
 
 .table-row-all-runners {
     display: grid;
-    grid-template-columns: 300px 80px repeat(8, 1fr);
+    grid-template-columns: 300px 80px repeat(9, 1fr);
     row-gap: 1px;
 }
 
@@ -37,7 +41,7 @@
 
 .all-runners-controller-block {
     display: flex;
-    height: 100px;
+    height: 20px;
 }
 
 .search-block {
