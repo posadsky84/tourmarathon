@@ -1,9 +1,9 @@
 import { useGetAllRunnersDataQuery } from '../../redux/baseApi';
 import './pageAllRunners.scss';
 import { Link } from 'react-router-dom';
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
-import { List } from 'react-virtualized';
+import { AutoSizer, List } from 'react-virtualized';
 
 
 const RunnerRow =({item, index, racesVector}) => {
@@ -87,9 +87,9 @@ const PageAllRunners = () => {
       <div className="search-block">
         <input className="search-input" onChange={e => setSearchStr(e.target.value)} value={searchStr}></input>
       </div>
+      <div onClick={() => setDoSortAlphabet(!doSortAlphabet)}>ВЫБОР ФИЛЬТРА</div>
+      <div>К-во бегунов по одному участию: {oneRunnersCount}</div>
     </div>
-    <div onClick={() => setDoSortAlphabet(!doSortAlphabet)}>ВЫБОР ФИЛЬТРА</div>
-    <div>К-во бегунов по одному участию: {oneRunnersCount}</div>
     <div className="res-table-all-runners">
       <div className="table-row-all-runners">
         <div className="table-cell table-head-cell">Участник</div>
@@ -100,16 +100,21 @@ const PageAllRunners = () => {
       </div>
         {!readyFlag && <Spinner />}
 
-
-      <List className="virtualized-list-runners"
-        height={450}
-        rowCount={listData.length}
-        rowHeight={35}
-        width={1400}
-        rowRenderer={({ index, key, style }) => (
-          <div className="table-row-all-runners" key={key} style={style}>{listData[index]}</div>
-        )}
-      />
+      <div className="res-table-all-runners">
+      <AutoSizer>
+        {({height, width}) =>
+        <List className="virtualized-list-runners"
+          height={height}
+          rowCount={listData.length}
+          rowHeight={35}
+          width={width}
+          rowRenderer={({ index, key, style }) => (
+            <div className="table-row-all-runners" key={key} style={style}>{listData[index]}</div>
+          )}
+        />
+        }
+      </AutoSizer>
+      </div>
 
 
     </div>

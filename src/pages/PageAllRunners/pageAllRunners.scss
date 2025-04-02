@@ -1,5 +1,7 @@
 @use 'src/assets/styles/constants';
 
+$controllerBlockHeight: 80px;
+
 .virtualized-list-runners {
 
 }
@@ -9,7 +11,13 @@
     flex-direction: column;
     border: 1px solid constants.$black10;
     font-size: 14px;
+    height: calc(100vh - #{$controllerBlockHeight} - #{constants.$headerHeight} - 20px);
 
+}
+
+.all-runners-controller-block {
+    display: flex;
+    height: $controllerBlockHeight;
 }
 
 .table-row-all-runners {

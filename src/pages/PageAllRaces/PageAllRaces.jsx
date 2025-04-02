@@ -28,7 +28,18 @@ const PageAllRaces = () => {
     )
   } else if (isSuccess) {
     let curYear = 0;
-    racesContent = allRaces.data.map(raceItem => {
+    racesContent = allRaces.data
+      .toSorted((a, b) => {
+
+        const yearA = +a.attributes.ddate.slice(0, 4);
+        const yearB = +b.attributes.ddate.slice(0, 4);
+
+        return yearA > yearB
+          ? -1
+          : yearA === yearB ? (a.attributes.ddate < b.attributes.ddate ? -1 : 1)
+                            : 1
+       })
+      .map(raceItem => {
         let divider;
         const itemYear = new Date(raceItem.attributes.ddate).getFullYear();
         if (curYear !== itemYear) {

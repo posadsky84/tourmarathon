@@ -5,7 +5,7 @@
     grid-template-columns: 300px auto;
     align-items: center;
     position: fixed;
-    height: 80px;
+    height: constants.$headerHeight;
     width: 100%;
     z-index: 5;
     box-sizing: border-box;
