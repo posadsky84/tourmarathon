@@ -15,6 +15,7 @@ const ResTable = () => {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedCourseType = searchParams.get('distance');
+    const selectedRunner = searchParams.get('selected');
 
     const {
         data: raceData,
@@ -37,10 +38,32 @@ const ResTable = () => {
         )
     } else if (raceIsSuccess) {
 
-        const selectedDistance =
-          (selectedCourseType &&
-            raceData?.distances.data.findIndex(item => item.attributes.courseType === selectedCourseType)
-          ) || 0;
+        let selectedDistance;
+        if (selectedRunner) {
+
+            for (let i = 0; i < raceData.distances.data.length; i++) {
+                selectedDistance = -1;
+                const search1 = raceData.distances.data[i].attributes.teams.data;
+                for (let j = 0; j < search1.length; j++) {
+                    const search2 = search1[j].attributes.members.data;
+                    for (let k = 0; k < search2.length; k++) {
+                        if (+search2[k].attributes.runner.data.id === +selectedRunner) {
+                           selectedDistance = i;
+                           break;
+                        }
+                    }
+                    if (selectedDistance !== -1) break;
+                }
+                if (selectedDistance !== -1) break;
+            }
+
+
+        } else {
+            selectedDistance =
+              (selectedCourseType &&
+                raceData.distances.data.findIndex(item => item.attributes.courseType === selectedCourseType)
+              ) || 0;
+        }
 
         tabs = (<div className="distance-bar">
             {raceData.distances.data.map((item, index) => {
@@ -81,7 +104,9 @@ const ResTable = () => {
               members={members}
               runnersChildren={runnersChildren}
               params={params}
-              rowNum={rowNum}/>;
+              rowNum={rowNum}
+              selected={selectedRunner}
+            />;
 
         });
 
@@ -96,7 +121,9 @@ const ResTable = () => {
               members={members}
               runnersChildren={runnersChildren}
               params={params}
-              rowNum={rowNum}/>;
+              rowNum={rowNum}
+              selected={selectedRunner}
+            />;
 
         });
 

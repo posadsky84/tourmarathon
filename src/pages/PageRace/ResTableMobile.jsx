@@ -4,12 +4,15 @@ import { resultToStr } from '../../helper';
 import { Link } from 'react-router-dom';
 import Reward from '../../components/Reward/Reward';
 
-const ResTableMobile = ({teamItem, members, runnersChildren, rowNum, params})  => {
+const ResTableMobile = ({teamItem, members, runnersChildren, rowNum, params, selected})  => {
 
   const teamBadges = [];
-  const cellClass = (!(rowNum % 2) ? 'mobil-card odd' : 'mobil-card');
-
-
+  let cellClass = (!(rowNum % 2) ? 'mobil-card odd' : 'mobil-card');
+  if (selected) {
+    let checkSelected = members.find(memberItem => +memberItem.attributes.runner.data.id === +selected);
+    if (!checkSelected) checkSelected = runnersChildren.find(memberItem => +memberItem.attributes.runner.data.id === +selected);
+    if (checkSelected) cellClass += ' selected';
+  }
   return <div className={cellClass}>
 
     <div className="mobil-team">

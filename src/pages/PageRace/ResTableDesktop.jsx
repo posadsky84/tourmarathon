@@ -5,11 +5,16 @@ import dayjs from 'dayjs';
 import { resultToStr } from '../../helper';
 import Reward from '../../components/Reward/Reward';
 
-const ResTableDesktop = ({teamItem, members, runnersChildren, rowNum, params}) => {
+const ResTableDesktop = ({teamItem, members, runnersChildren, rowNum, params, selected}) => {
 
 
   const teamBadges = [];
-  const cellClass = (!(rowNum % 2) ? 'table-cell odd' : 'table-cell');
+  let cellClass = (!(rowNum % 2) ? 'table-cell odd' : 'table-cell');
+  if (selected) {
+    let checkSelected = members.find(memberItem => +memberItem.attributes.runner.data.id === +selected);
+    if (!checkSelected) checkSelected = runnersChildren.find(memberItem => +memberItem.attributes.runner.data.id === +selected);
+    if (checkSelected) cellClass += ' selected';
+  }
   return <>
     <div className={cellClass}>
       <div className="cell-item">
