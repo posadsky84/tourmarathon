@@ -9,7 +9,7 @@ import PageAllRaces from "./pages/PageAllRaces/PageAllRaces";
 import PageMain from "./pages/PageMain/PageMain";
 import PageRace from "./pages/PageRace/PageRace";
 import PageAllRunners from "./pages/PageAllRunners/PageAllRunners";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import PageAbout from "./pages/PageAbout/PageAbout";
 
 const App = () => {

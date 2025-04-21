@@ -1,7 +1,7 @@
 @use 'src/assets/styles/constants';
 
 .page-all-races {
-    padding-bottom: 50px;
+    padding-bottom: 80px;
 }
 
 .all-races-cell {
@@ -45,7 +45,7 @@
 
 .all-races-grid {
     display: grid;
-    grid-template-columns: 450px 200px 200px;
+    grid-template-columns: 450px 200px 1fr;
     row-gap: 2px;
 
     @include constants.mediaMobile {

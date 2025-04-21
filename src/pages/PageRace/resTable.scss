@@ -3,8 +3,10 @@
 .res-table-desktop {
     display: flex;
     flex-direction: column;
-    border: 1px solid constants.$black10;
+    border-bottom: 1px solid constants.$black5;
     font-size: 14px;
+    margin-bottom: 80px;
+
 
     @include constants.mediaMobile {
         display: none;
@@ -32,6 +34,10 @@
 .table-head-cell {
     background-color: constants.$black10;
     font-weight: 500;
+}
+
+.table-cell.selected {
+    background-color: constants.$rowSelection;
 }
 
 .table-head-row {
@@ -151,6 +157,10 @@
     background-color: #f5f9ff;
 }
 
+.mobil-card.selected {
+    background-color: constants.$rowSelection;
+}
+
 .mobil-team {
     font-size: 14px;
     flex-grow: 1;
@@ -187,6 +197,7 @@
     height: 96px;
     width: 96px;
     margin-right: 10px;
+    object-fit: contain;
 
     @include constants.mediaMobile {
         height: 48px;

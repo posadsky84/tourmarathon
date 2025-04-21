@@ -1,0 +1,23 @@
+@use '../../assets/styles/constants';
+
+.footer {
+  margin-top: auto;
+  background-color: constants.$footerBack;
+  border-top: 1px solid constants.$black10;
+  padding: 12px 0;
+}
+
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-left {
+
+}
+
+.footer-logo {
+  filter: grayscale(100%);
+  height: calc(68px * 0.8);
+  width: calc(177px * 0.8);
+}
