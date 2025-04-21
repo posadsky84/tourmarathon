@@ -7,6 +7,7 @@ import { getStrapiImageUrl, toFineDateLong } from '../../helper';
 import ResTableDesktop from './ResTableDesktop';
 import ResTableMobile from './ResTableMobile';
 import Spinner from '../../components/Spinner/Spinner';
+import { useEffect, useRef } from 'react';
 
 dayjs.extend(duration);
 
@@ -16,6 +17,8 @@ const ResTable = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedCourseType = searchParams.get('distance');
     const selectedRunner = searchParams.get('selected');
+    const scrollRef = useRef(null);
+    const scrollRefMobile = useRef(null);
 
     const {
         data: raceData,
@@ -24,6 +27,15 @@ const ResTable = () => {
         isError: raceIsError,
         error,
     } = useGetTeamsQuery(params.raceId);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        if (scrollRefMobile.current) {
+            scrollRefMobile.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }, [raceIsSuccess]);
 
     let tabs;
     let title;
@@ -106,6 +118,7 @@ const ResTable = () => {
               params={params}
               rowNum={rowNum}
               selected={selectedRunner}
+              selectedRef={scrollRef}
             />;
 
         });
@@ -123,6 +136,7 @@ const ResTable = () => {
               params={params}
               rowNum={rowNum}
               selected={selectedRunner}
+              selectedRef={scrollRefMobile}
             />;
 
         });

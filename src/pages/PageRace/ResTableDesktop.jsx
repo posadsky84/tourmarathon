@@ -5,18 +5,18 @@ import dayjs from 'dayjs';
 import { resultToStr } from '../../helper';
 import Reward from '../../components/Reward/Reward';
 
-const ResTableDesktop = ({teamItem, members, runnersChildren, rowNum, params, selected}) => {
-
+const ResTableDesktop = ({teamItem, members, runnersChildren, rowNum, params, selected, selectedRef}) => {
 
   const teamBadges = [];
   let cellClass = (!(rowNum % 2) ? 'table-cell odd' : 'table-cell');
+  let checkSelected;
   if (selected) {
-    let checkSelected = members.find(memberItem => +memberItem.attributes.runner.data.id === +selected);
+    checkSelected = members.find(memberItem => +memberItem.attributes.runner.data.id === +selected);
     if (!checkSelected) checkSelected = runnersChildren.find(memberItem => +memberItem.attributes.runner.data.id === +selected);
     if (checkSelected) cellClass += ' selected';
   }
   return <>
-    <div className={cellClass}>
+    <div className={cellClass} {...(checkSelected ? {ref: selectedRef} : {})}>
       <div className="cell-item">
         <div className={teamItem.attributes.dns ? "dns" : ""}>{teamItem.attributes.name}</div>
         {!!teamItem.attributes.dns && <DnsLabel/>}
@@ -77,7 +77,6 @@ const ResTableDesktop = ({teamItem, members, runnersChildren, rowNum, params, se
     <div className={cellClass}><Reward label={teamItem.attributes.reward}/></div>
     <div className={cellClass}>{teamBadges.join(", ")} {teamItem.attributes.comm}</div>
   </>
-
 
 
 };
