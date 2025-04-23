@@ -15,6 +15,7 @@ const PageRunnerDesktop = ({teamsData, runner}) => {
         const teamContent = team.attributes.team.data.attributes;
         const distanceContent = teamContent.distance.data.attributes;
         const raceContent = distanceContent.race.data.attributes;
+        const raceId = distanceContent.race.data.id;
 
         return <>
           <div className="runner-table-cell">
@@ -24,7 +25,13 @@ const PageRunnerDesktop = ({teamsData, runner}) => {
               {!!teamContent.dnf && <DnfLabel/>}
             </div>
           </div>
-          <div className="runner-table-cell">{raceContent.name}</div>
+          <div className="runner-table-cell">
+            <Link
+              className="runner-link"
+              to={`/races/${raceId}?selected=${runner.data.id}`}>
+              {raceContent.name}
+            </Link>
+          </div>
           <div className="runner-table-cell center">
             <div className="distances-cell">
               <CourseSticker type={distanceContent.courseType} value={distanceContent.km}/>
@@ -63,8 +70,9 @@ const PageRunnerDesktop = ({teamsData, runner}) => {
           <div
             className="runner-table-cell">{teamContent.finish ? dayjs(teamContent.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
           <div className="runner-table-cell">{resultToStr(teamContent.result)}</div>
-        </>;
-      });
-};
+        </>
+        ;
+        });
+        };
 
 export default PageRunnerDesktop;

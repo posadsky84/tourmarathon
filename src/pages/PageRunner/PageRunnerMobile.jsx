@@ -11,12 +11,19 @@ const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner, ro
   const [isOpened, setIsOpened] = useState(false);
 
   const cellClass = (!(rowNum % 2) ? 'run-card-mobile odd' : 'run-card-mobile');
+  const raceId = distanceContent.race.data.id;
 
   return <>
     <div className={cellClass} onClick={() => setIsOpened(!isOpened)}>
       <div className="run-card-caption-mobile">
         <div className="run-card-distance-mobile">
-          <div className="run-card-race-short-name">{raceContent.sname}</div>
+          <div className="run-card-race-short-name">
+              <Link
+                className="runner-link"
+                to={`/races/${raceId}?selected=${runner.data.id}`}>
+                {raceContent.sname}
+              </Link>
+          </div>
           <CourseSticker type={distanceContent.courseType} value={distanceContent.km}/>
         </div>
         <div className="run-card-results-mobile">
