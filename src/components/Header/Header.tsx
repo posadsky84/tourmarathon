@@ -1,29 +1,27 @@
 import './header.scss';
 import logo from './tmlogo.png';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import BurgerButton from "./BurgerButton/BurgerButton";
 import {useState} from "react";
+import {SITE_MENU} from "./constants";
 
 
 const Header = () => {
 
     const [burgerOpened, setBurgerOpened] = useState(false);
+    const {pathname} = useLocation();
 
-    const MenuItems = () => (<>
-        <Link className="link-header" to="allRaces" onClick={() => setBurgerOpened(false)}>Все соревнования</Link>
-        <Link className="link-header" to="allRunners" onClick={() => setBurgerOpened(false)}>Все участники</Link>
-        <Link className="link-header" to="/about" onClick={() => setBurgerOpened(false)}>О нас</Link>
-    </>);
+    const menuItems = SITE_MENU.map(item => <Link className={`link-header ${pathname === item.link ? "selected" : ""}`} to={item.link} onClick={() => setBurgerOpened(false)}>{item.title}</Link>);
 
 
-    return (<>
+        return (<>
         <div className="header">
         <div className="tm-logo">
             <Link to="/"><img src={logo} height="68" width="177" alt="Турмарафон"/></Link>
         </div>
 
         <div className="menu-header">
-            <MenuItems />
+            {menuItems}
         </div>
 
         <div className="header-burger-button" onClick={() => setBurgerOpened(!burgerOpened)}>
@@ -32,7 +30,7 @@ const Header = () => {
     </div>
         {burgerOpened && <div className="modal-back" onClick={() => setBurgerOpened(false)}/>}
         {burgerOpened && <div className="mobile-head-menu">
-          <MenuItems />
+            {menuItems}
         </div>}
     </>);
 }

@@ -54,11 +54,11 @@
     text-decoration: none;
     padding-bottom: 4px;
 
-    color: #676D71;
+    color: constants.$blackHeader;
 
     line-height: 1.2;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
 
     overflow: hidden;
 
@@ -72,8 +72,11 @@
 
 }
 
-.link-header.active {
-    color: #222425;
+.link-header.selected {
+    color: constants.$black100;
+    @include constants.mediaMobile {
+        color: constants.$blackHeader;
+    }
 }
 
 .link-header::after {

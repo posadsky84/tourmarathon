@@ -21,14 +21,12 @@ const RunnerRow =({item, index, racesVector}) => {
         {
           racesVector[yearItem].map(raceItem => {
             const visited = (item.startsVector.find(i => i === raceItem.id) > -1);
-            return (<>
-              <a className={`story-cell-item ${visited ? "visited" : ""}`} href={`/races/${raceItem.id}?selected=${item.id}`}>
+            return visited ?
+            (<Link className="story-cell-item visited" to={`/races/${raceItem.id}?selected=${item.id}`}>
                 <div className="cell-hint">{`${raceItem.sname} ${yearItem}`}</div>
-              </a>
-            </>);
+              </Link>) : <div className="story-cell-item"/>;
           })
         }
-
       </div>
     </div>
 
