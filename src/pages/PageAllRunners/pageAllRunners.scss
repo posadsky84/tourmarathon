@@ -18,12 +18,38 @@ $controllerBlockHeight: 80px;
 .all-runners-controller-block {
     display: flex;
     height: $controllerBlockHeight;
+    flex-direction: column;
+}
+
+.all-runners-search-button {
+    height: 20px;
+    width: 50px;
+    background-color: #7C9EDF;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.all-runners-arrow {
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    background-color: #7C9EDF;
+    cursor: pointer;
+    margin: 2px;
 }
 
 .table-row-all-runners {
     display: grid;
     grid-template-columns: 300px 80px repeat(9, 1fr);
     row-gap: 1px;
+}
+
+.table-row-all-runners.listed .table-cell {
+    background-color: lighten(constants.$rowSelection, 11);
+}
+
+.table-row-all-runners.selected .table-cell {
+    background-color: constants.$rowSelection;
 }
 
 .fixed-part {
@@ -42,6 +68,10 @@ $controllerBlockHeight: 80px;
     width: 16px;
     border-radius: 1px;
     position: relative;
+}
+
+.table-row-all-runners.selected .table-cell .story-cell-item {
+    border-color: lighten(constants.$black80, 20);
 }
 
 .story-cell-item.visited {
@@ -75,7 +105,8 @@ $controllerBlockHeight: 80px;
     text-wrap: nowrap;
 }
 .search-block {
-
+    display: flex;
+    flex-direction: row;
 }
 
 .search-input {

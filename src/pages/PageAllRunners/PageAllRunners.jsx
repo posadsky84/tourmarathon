@@ -1,7 +1,7 @@
 import { useGetAllRunnersDataQuery } from '../../redux/baseApi';
 import './pageAllRunners.scss';
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { AutoSizer, List } from 'react-virtualized';
 
@@ -49,13 +49,54 @@ const RunnerRow =({item, index, racesVector}) => {
 
 const PageAllRunners = () => {
 
+  const ROW_HEIGHT = 35;
+
+  const doScroll = item => {
+    if (listRef.current) {
+      const offset = item * ROW_HEIGHT - 2 * ROW_HEIGHT;
+      listRef.current.scrollToPosition(offset);
+    }
+  }
+
+  const doSearch = () => {
+    const res = data.runners
+      .map((item, index) => (item.lastName && item.lastName.toUpperCase().includes(searchStr.toUpperCase()) ? index : -1))
+      .filter(index => index !== -1);
+
+    setSearchList(res);
+    setCurSearchId(0);
+    doScroll(res[0]);
+
+  }
+
+  const searchRight = () => {
+    let newSearchId = curSearchId + 1;
+    if (newSearchId === searchList.length) newSearchId = 0;
+    setCurSearchId(newSearchId);
+
+    doScroll(searchList[newSearchId]);
+
+  }
+
+  const searchLeft = () => {
+    let newSearchId = curSearchId - 1;
+    if (newSearchId === -1) newSearchId = searchList.length - 1;
+    setCurSearchId(newSearchId);
+
+    doScroll(searchList[newSearchId]);
+
+  }
+
   const YEAR_START = 2017;
+  const listRef = useRef(null);
 
   const [searchStr, setSearchStr] = useState("");
   const [doSortAlphabet, setDoSortAlphabet] = useState(false);
   const [oneRunnersCount, setOneRunnersCount] = useState(0);
   const [listData, setListData] = useState([]);
   const [readyFlag, setReadyFlag] = useState(false);
+  const [searchList, setSearchList] = useState([]);
+  const [curSearchId, setCurSearchId] = useState(-1);
 
   const {
     data,
@@ -88,6 +129,10 @@ const PageAllRunners = () => {
     <div className="all-runners-controller-block">
       <div className="search-block">
         <input className="search-input" onChange={e => setSearchStr(e.target.value)} value={searchStr}></input>
+        <div className="all-runners-search-button" onClick={doSearch}>поиск</div>
+        <div className="all-runners-arrow" onClick={searchLeft}>{"<"}</div>
+        <div className="all-runners-arrow" onClick={searchRight}>{">"}</div>
+        <div>{curSearchId+1} / {searchList.length}</div>
       </div>
       <div onClick={() => setDoSortAlphabet(!doSortAlphabet)}>ВЫБОР ФИЛЬТРА</div>
       <div>К-во бегунов по одному участию: {oneRunnersCount}</div>
@@ -106,19 +151,21 @@ const PageAllRunners = () => {
       <AutoSizer>
         {({height, width}) =>
         <List className="virtualized-list-runners"
+          ref={listRef}
           height={height}
           rowCount={listData.length}
-          rowHeight={35}
+          rowHeight={ROW_HEIGHT}
           width={width}
           rowRenderer={({ index, key, style }) => (
-            <div className="table-row-all-runners" key={key} style={style}>{listData[index]}</div>
+            <div className={`table-row-all-runners ${index === searchList[curSearchId] ? "selected" : (searchList.includes(index) ? "listed" : "")}`}
+                 key={key}
+                 style={style}>{listData[index]}
+            </div>
           )}
         />
         }
       </AutoSizer>
       </div>
-
-
     </div>
   </>);
 
