@@ -58,17 +58,6 @@ const PageAllRunners = () => {
     }
   }
 
-  const doSearch = () => {
-    const res = data.runners
-      .map((item, index) => (item.lastName && item.lastName.toUpperCase().includes(searchStr.toUpperCase()) ? index : -1))
-      .filter(index => index !== -1);
-
-    setSearchList(res);
-    setCurSearchId(0);
-    doScroll(res[0]);
-
-  }
-
   const searchRight = () => {
     let newSearchId = curSearchId + 1;
     if (newSearchId === searchList.length) newSearchId = 0;
@@ -90,6 +79,7 @@ const PageAllRunners = () => {
   const YEAR_START = 2017;
   const listRef = useRef(null);
 
+  const [inputStr, setInputStr] = useState("");
   const [searchStr, setSearchStr] = useState("");
   const [doSortAlphabet, setDoSortAlphabet] = useState(false);
   const [oneRunnersCount, setOneRunnersCount] = useState(0);
@@ -125,16 +115,57 @@ const PageAllRunners = () => {
     }
   }, [runnersIsSuccess, doSortAlphabet]);
 
+  //Дебаунс для поисковой строки
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSearchStr(inputStr);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [inputStr]);
+
+  //Выполнить поиск
+  useEffect(() => {
+    if (!searchStr.length) {
+      setSearchList([]);
+      return;
+    }
+
+    const res = data.runners
+      .map((item, index) => (item.lastName && item.lastName.toUpperCase().includes(searchStr.toUpperCase()) ? index : -1))
+      .filter(index => index !== -1);
+
+    setSearchList(res);
+    setCurSearchId(0);
+    doScroll(res[0]);
+  }, [searchStr, doSortAlphabet]);
+
   return (<>
     <div className="all-runners-controller-block">
       <div className="search-block">
-        <input className="search-input" onChange={e => setSearchStr(e.target.value)} value={searchStr}></input>
-        <div className="all-runners-search-button" onClick={doSearch}>поиск</div>
-        <div className="all-runners-arrow" onClick={searchLeft}>{"<"}</div>
-        <div className="all-runners-arrow" onClick={searchRight}>{">"}</div>
-        <div>{curSearchId+1} / {searchList.length}</div>
+        <input className="search-input" onChange={e => setInputStr(e.target.value)} value={inputStr}></input>
+        {!!searchList.length && <>
+          <div className="all-runners-cancel-search-button"
+               onClick={() => {
+                 setInputStr("");
+                 setSearchStr("");
+               }
+            }>{"X"}</div>
+          <div className="all-runners-arrow" onClick={searchLeft}>{"<"}</div>
+          <div className="all-runners-arrow" onClick={searchRight}>{">"}</div>
+          <div>{curSearchId+1} / {searchList.length}</div>
+        </>}
+        {searchStr && !searchList.length && <div>ничего не найдено</div>}
       </div>
-      <div onClick={() => setDoSortAlphabet(!doSortAlphabet)}>ВЫБОР ФИЛЬТРА</div>
+      <div>. </div>
+      <div className="all-runners-sort-selector">
+        <div className={`all-runners-sort-button ${!doSortAlphabet ? "selected" : ""}`}
+             {...(doSortAlphabet ? { onClick: () => setDoSortAlphabet(false) } : {})}
+        >по кол-ву участий</div>
+        <div className={`all-runners-sort-button ${doSortAlphabet ? "selected" : ""}`}
+             {...(!doSortAlphabet ? { onClick: () => setDoSortAlphabet(true) } : {})}
+        >по алфавиту</div>
+      </div>
       <div>К-во бегунов по одному участию: {oneRunnersCount}</div>
     </div>
     <div className="res-table-all-runners">

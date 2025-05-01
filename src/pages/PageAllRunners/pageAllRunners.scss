@@ -21,14 +21,6 @@ $controllerBlockHeight: 80px;
     flex-direction: column;
 }
 
-.all-runners-search-button {
-    height: 20px;
-    width: 50px;
-    background-color: #7C9EDF;
-    cursor: pointer;
-    margin: 2px;
-}
-
 .all-runners-arrow {
     text-align: center;
     height: 20px;
@@ -36,6 +28,15 @@ $controllerBlockHeight: 80px;
     background-color: #7C9EDF;
     cursor: pointer;
     margin: 2px;
+}
+
+.all-runners-cancel-search-button {
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    background-color: #7C9EDF;
+    cursor: pointer;
+    margin: 2px 12px 2px 2px;
 }
 
 .table-row-all-runners {
@@ -111,4 +112,21 @@ $controllerBlockHeight: 80px;
 
 .search-input {
     width: 200px;
+}
+
+.all-runners-sort-selector {
+    display: flex;
+    margin-left: 10px;
+}
+
+.all-runners-sort-button {
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.all-runners-sort-button.selected {
+    font-weight: 700;
+    cursor: auto;
+
 }
