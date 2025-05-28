@@ -3,8 +3,7 @@
 .tm-card {
     display: flex;
     flex-direction: column;
-    width: 260px;
-    height: 250px;
+    width: 300px;
     border-radius: 16px;
     border: constants.$black10 solid;
     transition: all 0.1s ease-in-out;
@@ -12,41 +11,118 @@
 }
 
 .tm-card:hover {
+    cursor: pointer;
+
+    .tm-card-reslink {
+        font-size: 16px;
+    }
+}
+
+.tm-card:not(.blocked):hover {
     box-shadow: 0 2px 9px 0 #00000024;
 }
 
-.tm-card-image:hover {
-    transition: 0.2s;
-    transform: scale(1.1);
+.tm-card:hover .tm-card-image {
+    transform: scale(1.05);
+}
+
+.tm-card.blocked {
+    transition: none;
+    background-color: constants.$black5;
+    cursor: default;
+}
+
+.tm-card.blocked:hover .tm-card-image {
+    transition: none;
+    transform: none;
+}
+
+.tm-card-wrapper {
+    padding: 24px 24px 20px;
 }
 
 .tm-card-caption {
     font-weight: 700;
-    margin-left: 24px;
-    margin-top: 24px;
+    margin-bottom: 2px;
 }
 
 .tm-card-ddate {
     color: #808DA3;
-    margin-left: 24px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.tm-card-image-wrapper {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
 }
 
 .tm-card-image {
-    height: 130px;
+    width: 100%;
     object-fit: cover;
-    flex-shrink: 0;
+    height: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.tm-card-registration-button {
+    background-color: white;
+    color: #3165C9;
+    padding: 8px 12px;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: 24px;
+    text-align: center;
+    position: absolute;
+    z-index: 3;
+    bottom: 8px;
+    left: 8px;
+    width: calc(100% - 16px);
 }
 
 .tm-card-distances {
     display: flex;
-    margin-left: 24px;
-    margin-top: 2px;
 }
 
 .tm-info-block {
 
 }
 
-.tm-card.actual .tm-card-caption {
-    background-color: yellowgreen;
+@mixin tmCardBottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid constants.$black10;
+    padding: 8px 0;
+    margin-top: auto;
+    min-height: 36px;
+}
+
+.tm-card-reslink {
+    @include tmCardBottom;
+
+    color: constants.$blue400;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.tm-card-reglink {
+    @include tmCardBottom;
+
+    color: constants.$red500;
+    text-decoration: underline;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tm-card-disabled-block {
+    @include tmCardBottom;
+
+    color: constants.$black60;
+    font-size: 14px;
 }
