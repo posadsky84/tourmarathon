@@ -68,12 +68,13 @@ if (infoIsLoading) {
 
 
   return (
-    <div className="page-main">
-      <Rasp />
-      {infoBlock}
-      {content}
+    <div className="content-column">
+      <div className="page-main">
+        {infoBlock}
+        {content}
+      </div>
     </div>
-  );
-};
+      );
+      };
 
 export default PageMain;

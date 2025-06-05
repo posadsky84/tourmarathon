@@ -13,11 +13,18 @@
 }
 
 .footer-left {
-
+  padding: 0 8px;
 }
 
 .footer-logo {
   filter: grayscale(100%);
   height: calc(68px * 0.8);
   width: calc(177px * 0.8);
+}
+
+.footer-text {
+  display: flex;
+  width: 200px;
+  color: constants.$black80;
+  font-size: 14px;
 }

@@ -18,7 +18,7 @@ const SeasonCardsBig = ({data}) => {
           </div>
           <div className="tm-card-wrapper">
             <p className="tm-card-caption">{card.attributes.name}</p>
-            <p className="tm-card-ddate">{toFineDate(new Date(card.attributes.ddate))}</p>
+            <p className="tm-card-ddate">{toFineDate(new Date(card.attributes.ddate))}{card.attributes.location ? ", " + card.attributes.location: ""}</p>
             <div className="tm-card-distances">
               {card.attributes.distances.data.toSorted((a, b) => {
                 return a.attributes.km < b.attributes.km ? -1 : 1
