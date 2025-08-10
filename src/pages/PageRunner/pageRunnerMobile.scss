@@ -1,0 +1,103 @@
+@use 'src/assets/styles/constants';
+
+.runner-teams-mobile {
+  display: none;
+
+  @include constants.mediaMobile {
+    display: block;
+  }
+}
+
+.run-card-mobile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 1fr;
+  font-size: 14px;
+  padding: 0 8px 8px 8px;
+}
+
+.run-card-mobile.odd {
+  background-color: #f5f9ff;
+}
+
+.run-card-yr-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  background-color: #7bb8e6;
+  padding: 6px 0;
+  font-weight: 700;
+
+}
+
+.run-card-holder {
+  color: constants.$black60;
+  font-size: 12px;
+}
+
+ //что это?
+.run-card-distance-mobile {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.run-card-race-short-name {
+  margin-right: 4px;
+}
+
+.run-card-results-mobile {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: left;
+  width: 140px;
+
+}
+
+.run-card-footer-mobile {
+  background-color: green;
+  height: 20px;
+}
+
+.run-card-caption-mobile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.run-card-team-mobile {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.run-card-team-name-mobile {
+  font-weight: 700;
+
+}
+
+.run-card-list-mobile {
+
+}
+
+.run-card-member-mobile {
+
+}
+
+.run-card-place-row-mobile {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 30px;
+}
+
+.run-card-place-mobile {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.run-card-place-mobile {
+
+}

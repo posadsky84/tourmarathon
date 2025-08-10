@@ -4,6 +4,11 @@
     margin-left: 50px;
     max-width: 250px;
     margin-bottom: 20px;
+
+    @include constants.mediaMobile {
+        margin-left: 10px;
+    }
+
 }
 
 .fio-head {
@@ -87,81 +92,3 @@
 
 }
 
-.runner-teams-mobile {
-    display: none;
-
-    @include constants.mediaMobile {
-        display: block;
-    }
-}
-
-.run-card-mobile {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    padding: 0 8px;
-}
-
-.run-card-mobile.odd {
-    background-color: #f5f9ff;
-}
-
-.run-card-yr-mobile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 16px;
-    background-color: #7bb8e6;
-    padding: 6px 0;
-    font-weight: 700;
-
-}
-
-.run-card-distance-mobile {
-    display: flex;
-    align-items: center;
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-
-.run-card-race-short-name {
-    margin-right: 4px;
-}
-
-.run-card-results-mobile {
-    display: flex;
-    align-items: center;
-    width: 140px;
-
-}
-
-.run-card-footer-mobile {
-    background-color: green;
-    height: 20px;
-}
-
-.run-card-caption-mobile {
-    display: flex;
-    justify-content: space-between;
-}
-
-.run-card-detail-mobile {
-    margin-bottom: 8px;
-    margin-left: 10px;
-}
-
-.run-card-team-name-mobile {
-    font-weight: 700;
-
-}
-
-.run-card-member-mobile {
-    margin-left: 6px;
-}
-
-.run-card-place-mobile {
-    font-size: 16px;
-    margin-left: 6px;
-    margin-right: 10px;
-    width: 30px;
-}

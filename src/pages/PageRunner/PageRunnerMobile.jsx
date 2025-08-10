@@ -6,8 +6,9 @@ import Reward from '../../components/Reward/Reward';
 import dayjs from 'dayjs';
 import { resultToStr } from '../../helper';
 import { useState } from 'react';
+import './pageRunnerMobile.scss';
 
-const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner, rowNum}) => {
+const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner, rowNum, year}) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const cellClass = (!(rowNum % 2) ? 'run-card-mobile odd' : 'run-card-mobile');
@@ -15,28 +16,31 @@ const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner, ro
 
   return <>
     <div className={cellClass} onClick={() => setIsOpened(!isOpened)}>
-      <div className="run-card-caption-mobile">
         <div className="run-card-distance-mobile">
           <div className="run-card-race-short-name">
               <Link
                 className="runner-link"
                 to={`/races/${raceId}?selected=${runner.data.id}`}>
-                {raceContent.sname}
+                {raceContent.sname} {year}
               </Link>
           </div>
           <CourseSticker type={distanceContent.courseType} value={distanceContent.km}/>
         </div>
-        <div className="run-card-results-mobile">
-          Место: <div className="run-card-place-mobile">{teamContent.place}</div>
-          <Reward label={teamContent.reward}/>
-        </div>
+      <div className="run-card-results-mobile">
+        <div className="run-card-holder">Место</div>
+          <div className="run-card-place-row-mobile">
+            <div className="run-card-place-mobile">{teamContent.place}</div>
+            <Reward label={teamContent.reward}/>
+          </div>
       </div>
-      <div className="run-card-detail-mobile">
-        <div className="cell-item">
+      <div className="run-card-team-mobile">
+         {!!teamContent.name && <div className="run-card-holder">Команда</div>}
           <div className="run-card-team-name-mobile">{teamContent.name}</div>
           {!!teamContent.dns && <DnsLabel/>}
           {!!teamContent.dnf && <DnfLabel/>}
-        </div>
+      </div>
+      <div className="run-card-list-mobile">
+        <div className="run-card-holder">Участники</div>
         {
           teamContent.members.data.map(coMemberItem => {
             let strRunner = `${coMemberItem.attributes.runner.data.attributes.lastName ? coMemberItem.attributes.runner.data.attributes.lastName : ""}`;
@@ -109,29 +113,12 @@ const PageRunnerMobile = ({teamsData, runner}) => {
                                  raceContent={raceContent}
                                  runner={runner}
                                  rowNum={rowNum}
+                                 year={year}
         />;
 
 
       })}
      </>)});
-
-
-  // return teamsData.toSorted((a, b) => {
-  //   const ddate1 = new Date(a.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
-  //   const ddate2 = new Date(b.attributes.team.data.attributes.distance.data.attributes.race.data.attributes.ddate);
-  //   return ddate1 <= ddate2 ? 1 : -1;
-  // }).map(team => {
-  //   const teamContent = team.attributes.team.data.attributes;
-  //   const distanceContent = teamContent.distance.data.attributes;
-  //   const raceContent = distanceContent.race.data.attributes;
-  //
-  //   return <RunnerCardMobile teamContent={teamContent}
-  //                            distanceContent={distanceContent}
-  //                            raceContent={raceContent}
-  //                            runner={runner}
-  //                            />;
-  //
-  // });
 
 };
 
