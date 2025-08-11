@@ -8,18 +8,41 @@
 }
 
 .footer-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "logo socials"
+    "contacts socials";
 
-.footer-left {
-  padding: 0 8px;
+    @include constants.mediaTablet {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-template-areas:
+        "logo"
+        "socials"
+        "contacts";
+      margin-left: 16px;
+    }
+
 }
 
 .footer-logo {
+  grid-area: logo;
   filter: grayscale(100%);
   height: calc(68px * 0.8);
   width: calc(177px * 0.8);
+  margin-bottom: 8px;
+}
+
+.footer-contacts {
+  grid-area: contacts;
+  margin-bottom: 16px;
+}
+
+.footer-socials {
+  grid-area: socials;
+  margin-bottom: 16px;
 }
 
 .footer-text {

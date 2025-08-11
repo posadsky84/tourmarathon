@@ -16,6 +16,7 @@
     @include constants.mediaTablet {
         display: flex;
         justify-content: space-between;
+        padding: 6px 16px;
     }
 }
 
