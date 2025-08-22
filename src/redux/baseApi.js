@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const ADMIN_ID = 1066;
+
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
@@ -22,7 +24,7 @@ export const api = createApi({
       query: () => '/races?populate[0]=magnet&populate[1]=distances&sort=ddate:desc',
     }),
     getRunner: builder.query({
-      query: (runnerId) => `/runners/${runnerId}?populate=members.team.distance.race,members.team.members.runner`,
+      query: (runnerId) => `/runners/${runnerId === 'admin' ? ADMIN_ID : runnerId}?populate=members.team.distance.race,members.team.members.runner`,
     }),
     getMain: builder.query({
       query: () => `/races?filters[ddate][$gt]=${new Date().getFullYear()}-01-01&sort=ddate&populate[0]=distances&populate[1]=cardPicture`,

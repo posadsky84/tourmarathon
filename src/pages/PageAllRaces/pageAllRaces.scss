@@ -17,6 +17,11 @@
     display: flex;
     flex-direction: row;
     padding: 8px 4px;
+
+    @include constants.mediaMobile {
+        display: none;
+    }
+
 }
 
 .distance-link {
@@ -50,7 +55,7 @@
     row-gap: 2px;
 
     @include constants.mediaMobile {
-        grid-template-columns: 1fr 0 0;
+        grid-template-columns: 1fr;
     }
 
 }
@@ -68,26 +73,43 @@
     font-size: 22px;
 }
 
+.year-divider-cell.caption2 {
+    @include constants.mediaMobile {
+        display: none;
+    }
+}
+
 .all-races-distances-cell {
     background-color: constants.$black10;
     display: flex;
     align-items: center;
+
+    @include constants.mediaMobile {
+        display: none;
+    }
+
+
 }
 
 .caption-cell {
     display: flex;
     flex-direction: row;
+    max-width: 100vw;
 }
 
 .race-caption {
-    width: 400px;
     display: flex;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .race-info {
     margin-left: 10px;
     font-size: 14px;
     align-self: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .magnet-image {

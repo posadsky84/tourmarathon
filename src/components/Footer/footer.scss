@@ -7,6 +7,12 @@
   padding: 12px 0;
 }
 
+.admin-link {
+  color: constants.$black80;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
 .footer-wrapper {
   display: grid;
   grid-template-columns: 1fr auto;

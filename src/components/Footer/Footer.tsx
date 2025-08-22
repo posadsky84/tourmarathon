@@ -16,7 +16,7 @@ const Footer = () => {
                         <div className="footer-contacts">
                             <div className="footer-text">По всем вопросам:</div>
                             <div>tourmarathon@gmail.com</div>
-                            <div className="footer-text">Сайт: Алексей Посадский</div>
+                            <div className="footer-text">Сайт:<a className="admin-link" href="/runners/admin">Алексей Посадский</a></div>
                         </div>
                     <div className="footer-socials">
                         <Socials/>
