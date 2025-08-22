@@ -41,8 +41,9 @@ $controllerBlockHeight: 80px;
 
 .table-row-all-runners {
     display: grid;
-    grid-template-columns: 300px 80px repeat(9, 1fr);
+    grid-template-columns: minmax(300px, 1fr) 75px 140px 140px 130px 90px 130px 120px 100px 90px 90px ;
     row-gap: 1px;
+    width: 100%;
 }
 
 .table-row-all-runners.listed .table-cell {

@@ -53,7 +53,7 @@ const PageAllRunners = () => {
 
   const doScroll = item => {
     if (listRef.current) {
-      const offset = item * ROW_HEIGHT - 2 * ROW_HEIGHT;
+      const offset = item > 1 ? item * ROW_HEIGHT - 2 * ROW_HEIGHT : item * ROW_HEIGHT;
       listRef.current.scrollToPosition(offset);
     }
   }
@@ -87,6 +87,7 @@ const PageAllRunners = () => {
   const [readyFlag, setReadyFlag] = useState(false);
   const [searchList, setSearchList] = useState([]);
   const [curSearchId, setCurSearchId] = useState(-1);
+  const [sortedRunners, setSortedRunners] = useState([]);
 
   const {
     data,
@@ -99,6 +100,9 @@ const PageAllRunners = () => {
     if (runnersIsSuccess) {
       setOneRunnersCount(data.runners.filter(item => item.startsCount === 1).length);
 
+      setInputStr("");
+      setSearchStr("");
+
       let nextRunners;
       if (doSortAlphabet) {
         nextRunners = [...data.runners].sort((a, b) => a.lastName < b.lastName ? -1 : 1);
@@ -106,14 +110,20 @@ const PageAllRunners = () => {
         nextRunners = data.runners;
       }
 
+      setSortedRunners(nextRunners);
+
       const list = nextRunners.map(
         (item, index) => (<RunnerRow item={item} index={index} racesVector={data.racesVector}/>)
       );
 
       setListData(list);
-      setReadyFlag(true);
     }
   }, [runnersIsSuccess, doSortAlphabet]);
+
+  useEffect(() => {
+    doScroll(0);
+    setReadyFlag(true);
+  }, [listData]);
 
   //Дебаунс для поисковой строки
   useEffect(() => {
@@ -131,7 +141,7 @@ const PageAllRunners = () => {
       return;
     }
 
-    const res = data.runners
+    const res = sortedRunners
       .map((item, index) => (item.lastName && item.lastName.toUpperCase().includes(searchStr.toUpperCase()) ? index : -1))
       .filter(index => index !== -1);
 
@@ -171,7 +181,7 @@ const PageAllRunners = () => {
     <div className="res-table-all-runners">
       <div className="table-row-all-runners">
         <div className="table-cell table-head-cell">Участник</div>
-        <div className="table-cell table-head-cell">Кол-во стартов</div>
+        <div className="table-cell table-head-cell">Стартов</div>
         {new Array(new Date().getFullYear() - YEAR_START + 1).fill(0)
           .map((_, index) => YEAR_START + index).reverse()
           .map(item => <div className="table-cell table-head-cell">{item}</div>)}
@@ -180,20 +190,21 @@ const PageAllRunners = () => {
 
       <div className="res-table-all-runners">
       <AutoSizer>
-        {({height, width}) =>
-        <List className="virtualized-list-runners"
-          ref={listRef}
-          height={height}
-          rowCount={listData.length}
-          rowHeight={ROW_HEIGHT}
-          width={width}
-          rowRenderer={({ index, key, style }) => (
-            <div className={`table-row-all-runners ${index === searchList[curSearchId] ? "selected" : (searchList.includes(index) ? "listed" : "")}`}
-                 key={key}
-                 style={style}>{listData[index]}
-            </div>
-          )}
-        />
+        {({height, width}) => (<>
+          <List className="virtualized-list-runners"
+                ref={listRef}
+                height={height}
+                rowCount={listData.length}
+                rowHeight={ROW_HEIGHT}
+                width={width}
+                rowRenderer={({ index, key, style }) => (
+                  <div
+                    className={`table-row-all-runners ${index === searchList[curSearchId] ? "selected" : (searchList.includes(index) ? "listed" : "")}`}
+                    key={key}
+                    style={style}>{listData[index]}
+                  </div>
+                )}
+          /></>)
         }
       </AutoSizer>
       </div>
