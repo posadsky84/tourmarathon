@@ -16,18 +16,21 @@ const Header = () => {
 
         return (<>
         <div className="header">
-        <div className="tm-logo">
-            <Link to="/"><img src={logo} height="68" width="177" alt="Турмарафон"/></Link>
-        </div>
+            <div className="logo-wrapper">
+                <Link to="/" className="tm-logo">
+                    <img src={logo} height="68" width="177" alt="Турмарафон"/>
+                    <div className="tm-logo-year">{new Date().getFullYear()}</div>
+                </Link>
+            </div>
 
-        <div className="menu-header">
-            {menuItems}
-        </div>
+            <div className="menu-header">
+                {menuItems}
+            </div>
 
-        <div className="header-burger-button" onClick={() => setBurgerOpened(!burgerOpened)}>
-            <BurgerButton isOpened={burgerOpened}/>
+            <div className="header-burger-button" onClick={() => setBurgerOpened(!burgerOpened)}>
+                <BurgerButton isOpened={burgerOpened}/>
+            </div>
         </div>
-    </div>
         {burgerOpened && <div className="modal-back" onClick={() => setBurgerOpened(false)}/>}
         {burgerOpened && <div className="mobile-head-menu">
             {menuItems}

@@ -94,7 +94,7 @@ const PageRunnerMobile = ({teamsData, runner}) => {
 
     let rowNum = 0;
 
-    return (<>
+    return (<div className="run-one-year-mobile">
       <div className="run-card-yr-mobile">
         {year}
       </div>
@@ -118,7 +118,7 @@ const PageRunnerMobile = ({teamsData, runner}) => {
 
 
       })}
-     </>)});
+     </div>)});
 
 };
 

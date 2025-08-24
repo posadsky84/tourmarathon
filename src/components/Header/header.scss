@@ -20,24 +20,21 @@
     }
 }
 
-
-.tm-logo {
-
+.logo-wrapper {
+    display: flex;
 }
-
-.tm-logo:before {
+.tm-logo {
     display: flex;
     align-items: center;
-    height: 60px;
-    position: absolute;
-    content: "2025";
-    left: 230px;
-    top: 9px;
-    text-decoration: magenta;
-    font-size: 28px;
-    font-weight: 700;
+    text-decoration: none;
+}
+
+.tm-logo-year {
+    margin-left: 6px;
+    font-size: 22px;
+    font-weight: 500;
     color: #3165c9;
-    border-radius: 255px;
+    font-style: italic;
 }
 
 .menu-header {
