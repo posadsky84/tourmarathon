@@ -1,9 +1,15 @@
 @use 'src/assets/styles/constants';
 
-$controllerBlockHeight: 80px;
+$controllerBlockHeight: 84px;
 
 .virtualized-list-runners {
 
+}
+
+$pageAllRunnersPaddingTop: 24px;
+
+.page-all-runners {
+    padding-top: $pageAllRunnersPaddingTop;
 }
 
 .res-table-all-runners {
@@ -11,7 +17,7 @@ $controllerBlockHeight: 80px;
     flex-direction: column;
     border: 1px solid constants.$black10;
     font-size: 14px;
-    height: calc(100vh - #{$controllerBlockHeight} - #{constants.$headerHeight} - 20px);
+    height: calc(100vh - #{$controllerBlockHeight} - #{constants.$headerHeight} - #{$pageAllRunnersPaddingTop} - 1px);
 
 }
 
@@ -19,24 +25,112 @@ $controllerBlockHeight: 80px;
     display: flex;
     height: $controllerBlockHeight;
     flex-direction: column;
-}
-
-.all-runners-arrow {
-    text-align: center;
-    height: 20px;
-    width: 20px;
-    background-color: #7C9EDF;
-    cursor: pointer;
-    margin: 2px;
+    padding-bottom: 8px;
 }
 
 .all-runners-cancel-search-button {
-    text-align: center;
-    height: 20px;
-    width: 20px;
-    background-color: #7C9EDF;
+    position: absolute;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
-    margin: 2px 12px 2px 2px;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.all-runners-cancel-search-button::before,
+.all-runners-cancel-search-button::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background-color: lighten(constants.$black80, 15);
+    top: 50%;
+    margin-top: -1px;
+    margin-left: 4px;
+    border-radius: 2px;
+}
+.all-runners-cancel-search-button::before {
+    transform: rotate(45deg);
+}
+.all-runners-cancel-search-button::after {
+    transform: rotate(-45deg);
+}
+
+.all-runners-arrows {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    @include constants.mediaMobile {
+        margin-left: auto;
+    }
+}
+
+.all-runners-arrow {
+    height: 32px;
+    width: 32px;
+    border: 1px solid constants.$black10;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    flex-shrink: 0;
+    position: relative;
+
+    &:hover {
+        background-color: lighten(constants.$black5, 2);
+    }
+
+    &+& {
+        margin-left: 4px;
+    }
+}
+
+.all-runners-arrow:before,
+.all-runners-arrow:after {
+    content: "";
+    display: inline-block;
+    background-color: constants.$blue300;
+    width: 10px;
+    height: 2px;
+    border-radius: 2px;
+    position: absolute;
+    left: 10px;
+}
+
+.all-runners-arrow:before {
+    transform: rotate(135deg);
+    top: 11px;
+}
+
+.all-runners-arrow:after {
+    transform: rotate(45deg);
+    bottom: 11px;
+}
+
+.all-runners-arrow.right-arrow {
+    transform: rotate(-180deg);
+}
+
+.all-runners-arrow:active {
+    transform: scale(0.95);
+}
+
+.all-runners-arrow.right-arrow:active {
+    transform: rotate(-180deg) scale(0.95);
+}
+
+.all-runners-search-counter {
+    margin-left: 12px;
+    color: constants.$black80;
+    font-size: 14px;
+    flex-shrink: 0;
+
+    @include constants.mediaMobile {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+    }
 }
 
 .table-row-all-runners {
@@ -108,26 +202,73 @@ $controllerBlockHeight: 80px;
 }
 .search-block {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    padding: 0 16px;
+    margin-bottom: 16px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    margin-right: 20px;
 }
 
 .search-input {
     width: 200px;
+    border: 1px solid constants.$black30;
+    border-radius: 4px;
+    padding: 7px 8px;
 }
 
 .all-runners-sort-selector {
     display: flex;
-    margin-left: 10px;
+    padding: 0 12px;
 }
 
 .all-runners-sort-button {
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     padding: 4px;
+    position: relative;
+    font-weight: 500;
+    color: constants.$black80;
+    transition: all 0.1s ease-in-out;
+
+    &:after {
+        transition: all 0.1s ease-in-out;
+        content: '';
+        position: absolute;
+        height: 2px;
+        top: 100%;
+        left: 0;
+        width: 100%;
+    }
+
+    &+& {
+        margin-left: 8px;
+    }
 }
 
 .all-runners-sort-button.selected {
-    font-weight: 700;
-    cursor: auto;
+    color: constants.$black100;
+
+    &:after {
+        background-color: constants.$blue300;
+    }
+}
+
+.all-runners-search-label {
+    margin-right: 8px;
+    color: constants.$black80;
+    font-size: 14px;
+
+    @include constants.mediaMobile {
+        display: none;
+    }
+}
+
+.all-runners-nothing-found-label {
+    margin-left: 10px;
+    color: constants.$red500;
+    font-size: 12px;
 
 }

@@ -35,7 +35,8 @@ const PageRunner = () => {
       return res;
     }, 0);
 
-    runnerContent = (<>
+    runnerContent = (
+      <>
          <div className="profile-head">
            <div className="fio-head">{headerData.lastName} {headerData.firstName}</div>
            <div className="profile-line"/>
@@ -75,25 +76,21 @@ const PageRunner = () => {
          <div className="runner-teams-mobile">
            <PageRunnerMobile teamsData={teamsData} runner={runner}/>
          </div>
-
        </>
      );
-
-
   } else if (isError) {
     runnerContent = (
       <div className="alert alert-danger" role="alert">
-              Ошибка: {error}
-            </div>
-          )
-        }
+        Ошибка: {error}
+      </div>
+    )
+  }
 
+  return (
+    <div className="page-runner">
+      {runnerContent}
+    </div>
+  );
+};
 
-          return (
-          <div>
-            {runnerContent}
-          </div>
-          );
-          };
-
-          export default PageRunner;
+export default PageRunner;

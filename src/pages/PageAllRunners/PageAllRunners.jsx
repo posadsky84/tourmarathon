@@ -150,66 +150,79 @@ const PageAllRunners = () => {
     doScroll(res[0]);
   }, [searchStr, doSortAlphabet]);
 
-  return (<>
-    <div className="all-runners-controller-block">
-      <div className="search-block">
-        <input className="search-input" onChange={e => setInputStr(e.target.value)} value={inputStr}></input>
-        {!!searchList.length && <>
-          <div className="all-runners-cancel-search-button"
-               onClick={() => {
-                 setInputStr("");
-                 setSearchStr("");
-               }
-            }>{"X"}</div>
-          <div className="all-runners-arrow" onClick={searchLeft}>{"<"}</div>
-          <div className="all-runners-arrow" onClick={searchRight}>{">"}</div>
-          <div>{curSearchId+1} / {searchList.length}</div>
-        </>}
-        {searchStr && !searchList.length && <div>ничего не найдено</div>}
+  return (
+    <div className="page-all-runners">
+      <div className="all-runners-controller-block">
+        <div className="search-block">
+          <div className="all-runners-search-label">Поиск</div>
+          <div className="search-input-wrapper">
+            <input
+              className="search-input"
+              onChange={e => setInputStr(e.target.value)}
+              value={inputStr}
+            />
+            {!!searchList.length && (
+              <div
+                className="all-runners-cancel-search-button"
+                onClick={() => {
+                   setInputStr("");
+                   setSearchStr("");
+                 }}
+              />
+            )}
+          </div>
+          {!!searchList.length && (
+            <div className="all-runners-arrows">
+              <div className="all-runners-arrow left-arrow" onClick={searchLeft}/>
+              <div className="all-runners-arrow right-arrow" onClick={searchRight}/>
+              <div className="all-runners-search-counter">{curSearchId + 1} / {searchList.length}</div>
+            </div>
+          )}
+          {searchStr && !searchList.length && <div className="all-runners-nothing-found-label">Ничего не найдено</div>}
+        </div>
+        <div className="all-runners-sort-selector">
+          <div className={`all-runners-sort-button ${!doSortAlphabet ? "selected" : ""}`}
+               {...(doSortAlphabet ? { onClick: () => setDoSortAlphabet(false) } : {})}
+          >По кол-ву участий</div>
+          <div className={`all-runners-sort-button ${doSortAlphabet ? "selected" : ""}`}
+               {...(!doSortAlphabet ? { onClick: () => setDoSortAlphabet(true) } : {})}
+          >По алфавиту</div>
+        </div>
+        {/*<div>К-во бегунов по одному участию: {oneRunnersCount}</div>*/}
       </div>
-      <div>. </div>
-      <div className="all-runners-sort-selector">
-        <div className={`all-runners-sort-button ${!doSortAlphabet ? "selected" : ""}`}
-             {...(doSortAlphabet ? { onClick: () => setDoSortAlphabet(false) } : {})}
-        >по кол-ву участий</div>
-        <div className={`all-runners-sort-button ${doSortAlphabet ? "selected" : ""}`}
-             {...(!doSortAlphabet ? { onClick: () => setDoSortAlphabet(true) } : {})}
-        >по алфавиту</div>
-      </div>
-      <div>К-во бегунов по одному участию: {oneRunnersCount}</div>
-    </div>
-    <div className="res-table-all-runners">
-      <div className="table-row-all-runners">
-        <div className="table-cell table-head-cell">Участник</div>
-        <div className="table-cell table-head-cell">Стартов</div>
-        {new Array(new Date().getFullYear() - YEAR_START + 1).fill(0)
-          .map((_, index) => YEAR_START + index).reverse()
-          .map(item => <div className="table-cell table-head-cell">{item}</div>)}
-      </div>
-        {!readyFlag && <Spinner />}
-
       <div className="res-table-all-runners">
-      <AutoSizer>
-        {({height, width}) => (<>
-          <List className="virtualized-list-runners"
-                ref={listRef}
-                height={height}
-                rowCount={listData.length}
-                rowHeight={ROW_HEIGHT}
-                width={width}
-                rowRenderer={({ index, key, style }) => (
-                  <div
-                    className={`table-row-all-runners ${index === searchList[curSearchId] ? "selected" : (searchList.includes(index) ? "listed" : "")}`}
-                    key={key}
-                    style={style}>{listData[index]}
-                  </div>
-                )}
-          /></>)
-        }
-      </AutoSizer>
+        <div className="table-row-all-runners">
+          <div className="table-cell table-head-cell">Участник</div>
+          <div className="table-cell table-head-cell">Стартов</div>
+          {new Array(new Date().getFullYear() - YEAR_START + 1).fill(0)
+            .map((_, index) => YEAR_START + index).reverse()
+            .map(item => <div className="table-cell table-head-cell">{item}</div>)}
+        </div>
+          {!readyFlag && <Spinner />}
+
+        <div className="res-table-all-runners">
+        <AutoSizer>
+          {({height, width}) => (<>
+            <List className="virtualized-list-runners"
+                  ref={listRef}
+                  height={height}
+                  rowCount={listData.length}
+                  rowHeight={ROW_HEIGHT}
+                  width={width}
+                  rowRenderer={({ index, key, style }) => (
+                    <div
+                      className={`table-row-all-runners ${index === searchList[curSearchId] ? "selected" : (searchList.includes(index) ? "listed" : "")}`}
+                      key={key}
+                      style={style}>{listData[index]}
+                    </div>
+                  )}
+            /></>)
+          }
+        </AutoSizer>
+        </div>
       </div>
     </div>
-  </>);
+  );
 
 };
 

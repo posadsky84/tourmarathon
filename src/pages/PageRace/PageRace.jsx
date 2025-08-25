@@ -2,13 +2,10 @@ import React from 'react';
 import ResTable from "./ResTable";
 
 
-const PageRace = () => {
-
-    return (
-        <div>
-            <ResTable />
-        </div>
-    );
-};
+const PageRace = () => (
+    <div className="page-race">
+        <ResTable />
+    </div>
+);
 
 export default PageRace;
