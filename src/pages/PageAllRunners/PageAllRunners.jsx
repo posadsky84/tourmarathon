@@ -16,7 +16,7 @@ const RunnerRow =({item, index, racesVector}) => {
   strInfo += `${item.location ? " " + item.location : ""}`;
 
   const storyVector = Object.keys(racesVector).reverse().map(yearItem => {
-    return <div className={cellClass}>
+    return <div className={`${cellClass} table-cell-crosstab`}>
       <div className="story-cell">
         {
           racesVector[yearItem].map(raceItem => {
@@ -105,7 +105,11 @@ const PageAllRunners = () => {
 
       let nextRunners;
       if (doSortAlphabet) {
-        nextRunners = [...data.runners].sort((a, b) => a.lastName < b.lastName ? -1 : 1);
+        nextRunners = [...data.runners].sort((a, b) => {
+          if (!a.lastName) return 1;
+          if (!b.lastName) return -1;
+          return a.lastName < b.lastName ? -1 : 1;
+        });
       } else {
         nextRunners = data.runners;
       }
@@ -196,7 +200,7 @@ const PageAllRunners = () => {
           <div className="table-cell table-head-cell">Стартов</div>
           {new Array(new Date().getFullYear() - YEAR_START + 1).fill(0)
             .map((_, index) => YEAR_START + index).reverse()
-            .map(item => <div className="table-cell table-head-cell">{item}</div>)}
+            .map(item => <div className="table-cell table-head-cell table-cell-crosstab">{item}</div>)}
         </div>
           {!readyFlag && <Spinner />}
 

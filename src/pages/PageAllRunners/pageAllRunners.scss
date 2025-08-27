@@ -138,6 +138,10 @@ $pageAllRunnersPaddingTop: 24px;
     grid-template-columns: minmax(300px, 1fr) 75px 140px 140px 130px 90px 130px 120px 100px 90px 90px ;
     row-gap: 1px;
     width: 100%;
+
+    @include constants.mediaMobile {
+        grid-template-columns: minmax(300px, 1fr) 75px;
+    }
 }
 
 .table-row-all-runners.listed .table-cell {
@@ -270,5 +274,10 @@ $pageAllRunnersPaddingTop: 24px;
     margin-left: 10px;
     color: constants.$red500;
     font-size: 12px;
+}
 
+.table-cell-crosstab {
+    @include constants.mediaMobile {
+        display: none;
+    }
 }
