@@ -5,6 +5,10 @@
   background-color: constants.$footerBack;
   border-top: 1px solid constants.$black10;
   padding: 12px 0;
+
+  .content-column {
+    padding: 0 16px;
+  }
 }
 
 .admin-link {
@@ -21,14 +25,13 @@
     "logo socials"
     "contacts socials";
 
-    @include constants.mediaTablet {
+    @include constants.mediaMobile {
       grid-template-columns: 1fr;
       grid-template-rows: auto;
       grid-template-areas:
         "logo"
         "socials"
         "contacts";
-      margin-left: 16px;
     }
 
 }
@@ -44,16 +47,26 @@
 .footer-contacts {
   grid-area: contacts;
   margin-bottom: 16px;
+  line-height: 1.4;
+  color: constants.$black80;
+  font-size: 14px;
+}
+
+.footer-email {
+  color: constants.$black80;
+  margin-left: 6px;
 }
 
 .footer-socials {
   grid-area: socials;
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+
+  @include constants.mediaMobile {
+    margin-bottom: 12px;
+  }
 }
 
-.footer-text {
-  display: flex;
-  width: 200px;
-  color: constants.$black80;
-  font-size: 14px;
+.footer-admin {
+  margin-top: 8px;
 }

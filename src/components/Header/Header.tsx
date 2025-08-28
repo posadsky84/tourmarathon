@@ -11,7 +11,16 @@ const Header = () => {
     const [burgerOpened, setBurgerOpened] = useState(false);
     const {pathname} = useLocation();
 
-    const menuItems = SITE_MENU.map(item => <Link className={`link-header ${pathname === item.link ? "selected" : ""}`} to={item.link} onClick={() => setBurgerOpened(false)}>{item.title}</Link>);
+    const menuItems = SITE_MENU.map(item => (
+        <Link
+            className={`link-header ${pathname === item.link ? "selected" : ""}`}
+            key={item.link}
+            to={item.link}
+            onClick={() => setBurgerOpened(false)}
+        >
+            {item.title}
+        </Link>
+    ));
 
 
         return (<>

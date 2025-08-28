@@ -1,13 +1,43 @@
 @use 'src/assets/styles/constants';
 
+$cardsGap: 10px;
+
+.tm-cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $cardsGap;
+
+
+    @include constants.mediaMobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+}
+
 .tm-card {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    flex-basis: calc((100% - $cardsGap * 2) / 3);
     border-radius: 16px;
     border: constants.$black10 solid;
     transition: all 0.1s ease-in-out;
     overflow: hidden;
+
+    @include constants.mediaTablet {
+        flex-basis: calc((100% - $cardsGap) / 2);
+    }
+
+    @include constants.mediaMobile {
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.16);
+
+        &+& {
+            margin-top: 16px;
+        }
+    }
 }
 
 .tm-card:hover {
@@ -15,6 +45,71 @@
 
     .tm-card-reslink {
         font-size: 16px;
+    }
+}
+
+.tm-card-opened {
+    order: -1;
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+
+    @include constants.mediaMobile {
+        flex-direction: column;
+    }
+
+    .tm-card-image-wrapper {
+        height: auto;
+        flex-basis: 45%;
+
+        @include constants.mediaMobile {
+            height: 180px;
+            flex-basis: auto;
+        }
+    }
+
+    .tm-card-wrapper {
+        padding: 40px 56px;
+        display: flex;
+        flex-direction: column;
+        flex-basis: 55%;
+        text-align: center;
+
+        @include constants.mediaMobile {
+            padding: 20px;
+        }
+    }
+
+    .tm-card-caption {
+        font-size: 30px;
+        margin-bottom: 8px;
+
+        @include constants.mediaMobile {
+            font-size: 24px;
+        }
+    }
+
+    .tm-card-distances {
+        justify-content: center;
+        margin-bottom: 24px;
+    }
+
+    .tm-card-ddate {
+        font-size: 18px;
+        margin-bottom: 12px;
+
+        @include constants.mediaMobile {
+            font-size: 16px;
+        }
+    }
+
+    .tm-card-registration-button {
+        width: 100%;
+    }
+    .tm-card-document {
+        margin-top: auto;
+        margin-bottom: 12px;
     }
 }
 
@@ -65,21 +160,31 @@
     transition: all 0.2s ease-in-out;
 }
 
+.tm-card-document {
+    color: constants.$blue400;
+    text-decoration: underline;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        color: constants.$blue500;
+    }
+}
+
 .tm-card-registration-button {
-    background-color: white;
-    color: #3165C9;
+    color: #fff;
+    background-color: constants.$blue400;
     padding: 8px 12px;
-    border-radius: 2px;
+    border-radius: 4px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
-    margin-top: 24px;
     text-align: center;
-    position: absolute;
-    z-index: 3;
-    bottom: 8px;
-    left: 8px;
-    width: calc(100% - 16px);
+    box-shadow: 0 2px 22px 2px rgba(constants.$blue400, 0.25);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: constants.$blue500;
+    }
 }
 
 .tm-card-distances {

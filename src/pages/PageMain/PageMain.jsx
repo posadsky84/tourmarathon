@@ -1,13 +1,11 @@
-import './pageMain.css';
+import './pageMain.scss';
 import { useGetMainPageInfoQuery, useGetMainQuery } from '../../redux/baseApi';
 import React from 'react';
-import dayjs from 'dayjs';
 import {raceStatus} from '../../helper';
 import SeasonCardsBig from './SeasonCardsBig/SeasonCardsBig';
 import ActualRaceBefore from './ActualRaceBefore/ActualRaceBefore';
 import ActualRaceAfter from './ActualRaceAfter/ActualRaceAfter';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-import Rasp from './Rasp/Rasp';
 import Spinner from '../../components/Spinner/Spinner';
 
 const PageMain = () => {
@@ -70,7 +68,7 @@ if (infoIsLoading) {
   return (
     <div className="content-column">
       <div className="page-main">
-        {infoBlock}
+        <div className="page-main-info">{infoBlock}</div>
         {content}
       </div>
     </div>
