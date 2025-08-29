@@ -11,6 +11,7 @@ import PageRace from "./pages/PageRace/PageRace";
 import PageAllRunners from "./pages/PageAllRunners/PageAllRunners";
 import Footer from "./components/Footer/Footer";
 import PageAbout from "./pages/PageAbout/PageAbout";
+import PageRulesPreview from "./pages/PageRulesPreview/PageRulesPreview";
 
 const App = () => {
 
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
             {
                 path: "races/:raceId",
                 element: <PageRace />,
+            },
+            {
+                path: "races/:raceId/document",
+                element: <PageRulesPreview />,
             },
             {
                 path: "/",

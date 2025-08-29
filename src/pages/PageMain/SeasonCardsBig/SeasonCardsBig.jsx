@@ -2,6 +2,7 @@ import './seasonCardsBig.scss';
 import { getStrapiImageUrl, raceStatus, toFineDate } from '../../../helper';
 import CourseSticker from '../../../components/CourseSticker/CourseSticker';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SeasonCardsBig = ({data}) => {
 
@@ -25,7 +26,7 @@ const SeasonCardsBig = ({data}) => {
             <div className="tm-card-wrapper">
               <p className="tm-card-caption">{card.attributes.name}</p>
               <p className="tm-card-ddate">
-                {toFineDate(new Date(card.attributes.ddate))}{card.attributes.location ? ", " + card.attributes.location: ""}
+                {toFineDate(new Date(card.attributes.ddate))}{card.attributes.location ? ", " + card.attributes.location : ""}
               </p>
 
               <div className="tm-card-distances">
@@ -44,8 +45,9 @@ const SeasonCardsBig = ({data}) => {
 
               {card.attributes.status === raceStatus.opened && (
                 <>
-                  <a className="tm-card-document">Положение</a>
-                  <div className="tm-card-registration-button">Регистрация</div>
+                  <Link className="tm-card-document" to={`/races/${card.id}/document`}>Положение</Link>
+                  <a className="tm-card-registration-button" href={card.attributes.regLink}>Регистрация</a>
+                  <a className="tm-card-list" href={card.attributes.raceDocLink}>Список участников</a>
                 </>
               )}
             </div>

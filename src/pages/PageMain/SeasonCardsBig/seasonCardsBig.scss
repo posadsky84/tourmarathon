@@ -107,9 +107,14 @@ $cardsGap: 10px;
     .tm-card-registration-button {
         width: 100%;
     }
+
     .tm-card-document {
         margin-top: auto;
         margin-bottom: 12px;
+    }
+
+    .tm-card-list {
+        margin-top: 12px;
     }
 }
 
@@ -160,7 +165,8 @@ $cardsGap: 10px;
     transition: all 0.2s ease-in-out;
 }
 
-.tm-card-document {
+.tm-card-document,
+.tm-card-list {
     color: constants.$blue400;
     text-decoration: underline;
     transition: all 0.2s ease-in-out;

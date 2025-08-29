@@ -1,0 +1,9 @@
+@use 'src/assets/styles/constants';
+
+.rules-back-link {
+  display: block;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: constants.$blue400;
+
+}

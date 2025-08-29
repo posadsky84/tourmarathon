@@ -20,6 +20,11 @@ export const api = createApi({
         `/races/${raceId}?populate[0]=magnet&populate[1]=distances.teams.members.runner.badges.race`,
       transformResponse: (response) => response.data.attributes
     }),
+    getRaceInfo: builder.query({
+      query: (raceId) =>
+        `/races/${raceId}`,
+      transformResponse: (response) => response.data.attributes
+    }),
     getRaces: builder.query({
       query: () => '/races?populate[0]=magnet&populate[1]=distances&sort=ddate:desc',
     }),
@@ -60,4 +65,5 @@ export const {
   useGetPageRaceBeforeQuery,
   useGetPageAboutQuery,
   useGetRaceQuery,
+  useGetRaceInfoQuery,
 } = api
