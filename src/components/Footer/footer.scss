@@ -30,6 +30,7 @@
       grid-template-rows: auto;
       grid-template-areas:
         "logo"
+        "menu"
         "socials"
         "contacts";
     }
@@ -69,4 +70,31 @@
 
 .footer-admin {
   margin-top: 8px;
+}
+
+.mobile-menu-footer {
+  display: none;
+  grid-area: menu;
+  margin-bottom: 24px;
+  margin-left: 6px;
+  margin-top: 6px;
+
+  @include constants.mediaMobile {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+.link-footer {
+  margin-right: 52px;
+  text-decoration: none;
+  padding-bottom: 8px;
+
+  color: constants.$blackHeader;
+
+  line-height: 1.2;
+  font-size: 16px;
+  font-weight: 500;
+
 }
