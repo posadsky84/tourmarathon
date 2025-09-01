@@ -49,10 +49,8 @@ const ResTable = () => {
           </div>
         )
     } else if (raceIsSuccess) {
-
         let selectedDistance;
         if (selectedRunner) {
-
             for (let i = 0; i < raceData.distances.data.length; i++) {
                 selectedDistance = -1;
                 const search1 = raceData.distances.data[i].attributes.teams.data;
@@ -68,8 +66,6 @@ const ResTable = () => {
                 }
                 if (selectedDistance !== -1) break;
             }
-
-
         } else {
             selectedDistance =
               (selectedCourseType &&
@@ -77,7 +73,8 @@ const ResTable = () => {
               ) || 0;
         }
 
-        tabs = (<div className="distance-bar">
+        tabs = (
+          <div className="distance-bar">
             {raceData.distances.data.map((item, index) => {
                 return (
                   <div
@@ -91,9 +88,11 @@ const ResTable = () => {
                   </div>
                 );
             })}
-        </div>);
+          </div>
+        );
 
-        title = (<div className="res-head">
+        title = (
+          <div className="res-head">
             <div className="res-magnet-place">
                 <img className="race-magnet-image" alt=""
                      src={getStrapiImageUrl(raceData.magnet.data?.attributes.url)}></img>
@@ -102,7 +101,8 @@ const ResTable = () => {
                 <div className="res-title-name">{raceData.name}</div>
                 <div className="res-title-info">{toFineDateLong(new Date(raceData.ddate))}, {raceData.location}</div>
             </div>
-        </div>);
+          </div>
+        );
 
 
         let rowNum = 0;
@@ -111,15 +111,17 @@ const ResTable = () => {
             const members = teamItem.attributes.members.data.filter(item => !item.attributes.child).sort((a, b) => a.id < b.id ? -1 : 1);
             const runnersChildren = teamItem.attributes.members.data.filter(item => item.attributes.child).sort((a, b) => a.id < b.id ? -1 : 1);
 
-            return <ResTableDesktop
-              teamItem={teamItem}
-              members={members}
-              runnersChildren={runnersChildren}
-              params={params}
-              rowNum={rowNum}
-              selected={selectedRunner}
-              selectedRef={scrollRef}
-            />;
+            return (
+                <ResTableDesktop
+                  teamItem={teamItem}
+                  members={members}
+                  runnersChildren={runnersChildren}
+                  params={params}
+                  rowNum={rowNum}
+                  selected={selectedRunner}
+                  selectedRef={scrollRef}
+                />
+            );
 
         });
 

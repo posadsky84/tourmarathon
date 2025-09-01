@@ -5,6 +5,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { AutoSizer, List } from 'react-virtualized';
 
+import searchIcon from './search.svg';
+
 
 const RunnerRow =({item, index, racesVector}) => {
 
@@ -160,12 +162,13 @@ const PageAllRunners = () => {
         <div className="search-block">
           <div className="all-runners-search-label">Поиск</div>
           <div className="search-input-wrapper">
+            <img className="search-icon" src={searchIcon} alt='' />
             <input
               className="search-input"
               onChange={e => setInputStr(e.target.value)}
               value={inputStr}
             />
-            {!!searchList.length && (
+            {!!inputStr.length && (
               <div
                 className="all-runners-cancel-search-button"
                 onClick={() => {

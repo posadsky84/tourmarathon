@@ -46,8 +46,8 @@ const PageAllRaces = () => {
           curYear = itemYear;
           divider = (<>
             <div className="year-divider-cell caption">Турмарафон {itemYear}</div>
-            <div className="year-divider-cell">Дистанции</div>
-            <div className="year-divider-cell">Участников</div>
+            <div className="year-divider-cell caption2">Дистанции</div>
+            <div className="year-divider-cell caption2">Участников</div>
           </>);
         }
 
@@ -73,6 +73,10 @@ const PageAllRaces = () => {
             <div className="race-caption">
               <Link className="distance-link" to={`/races/${raceItem.id}`}>{raceItem.attributes.sname}</Link>
               <div className="race-info">{raceItem.attributes.ddate}, {raceItem.attributes.location}</div>
+              {/*<div className="race-info">*/}
+              {/*  <div>{raceItem.attributes.ddate}</div>*/}
+              {/*  <div>{raceItem.attributes.location}</div>*/}
+              {/*</div>*/}
             </div>
           </div>
           <div className="all-races-distances-cell">

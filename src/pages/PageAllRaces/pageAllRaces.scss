@@ -65,12 +65,18 @@
     align-items: center;
     background-color: constants.$blue100;
     margin-top: 40px;
-    padding: 4px;
+    padding: 6px;
     justify-items: center;
 }
 
 .year-divider-cell.caption {
-    font-size: 22px;
+    font-size: 20px;
+    padding-left: 12px;
+
+    @include constants.mediaMobile {
+        padding: 8px;
+        padding-left: 12px;
+    }
 }
 
 .year-divider-cell.caption2 {

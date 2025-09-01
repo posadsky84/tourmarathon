@@ -41,17 +41,17 @@ const PageRunner = () => {
            <div className="fio-head">{headerData.lastName} {headerData.firstName}</div>
            <div className="profile-line"/>
            <div className="profile-block">
-             <div className="profile-block-name">Год рождения:</div>
+             <div className="profile-block-label">Год рождения:</div>
              <div className="profile-block-data">{headerData.year}</div>
            </div>
            <div className="profile-line"/>
            <div className="profile-block">
-             <div className="profile-block-name">Город:</div>
+             <div className="profile-block-label">Город:</div>
              <div className="profile-block-data">{headerData.location}</div>
            </div>
            <div className="profile-line"/>
            <div className="profile-block">
-             <div className="profile-block-name">Кол-во стартов:</div>
+             <div className="profile-block-label">Кол-во стартов:</div>
              <div className="profile-block-data">{startsCount}</div>
            </div>
            <div className="profile-line"/>

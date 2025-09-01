@@ -40,6 +40,7 @@
 .menu-header {
     display: flex;
     flex-direction: row;
+    margin: 0 auto;
 
     @include constants.mediaMobile {
         display: none;
@@ -49,23 +50,26 @@
 .link-header {
     position: relative;
     display: block;
-    margin-right: 52px;
     text-decoration: none;
-    padding-bottom: 4px;
-
     color: constants.$blackHeader;
-
     line-height: 1.2;
     font-size: 18px;
     font-weight: 500;
-
     overflow: hidden;
+
+    &+& {
+        margin-left: 52px;
+    }
 
     @include constants.mediaMobile {
         display: flex;
         height: 40px;
         align-items: center;
         justify-content: flex-start;
+
+        &+& {
+            margin-left: 0;
+        }
     }
 
 
@@ -76,30 +80,6 @@
     @include constants.mediaMobile {
         color: constants.$blackHeader;
     }
-}
-
-.link-header::after {
-    position: absolute;
-    content: "";
-    background-color: #FF6B00;
-    height: 4px;
-    width: 100%;
-    left: 0;
-    bottom: -4px;
-    transition: all 0.2s ease-in-out;
-}
-
-.link-header.active::after {
-    transform: translateY(-4px);
-}
-
-.link-header:hover::after {
-    transform: translateY(-4px);
-
-    @include constants.mediaMobile {
-        transform: none;
-    }
-
 }
 
 .header-burger-button {
@@ -114,8 +94,8 @@
     display: none;
     position: fixed;
     flex-direction: column;
-    padding-top: 100px;
-    padding-left: 10px;
+    top: 80px;
+    padding: 24px 16px;
     width: 100%;
     background-color: white;
     border-bottom-left-radius: 16px;
@@ -124,6 +104,7 @@
 
     @include constants.mediaMobile {
         display: flex;
+        align-items: flex-start;
     }
 }
 

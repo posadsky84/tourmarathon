@@ -1,3 +1,5 @@
+@use '../../../assets/styles/constants';
+
 .vbp-header-menu-button__svg {
     width: 30px;
     height: 30px;
@@ -6,7 +8,7 @@
 }
 
 .vbp-header-menu-button__svg line {
-    stroke: #192a6b;
+    stroke: constants.$black80;
     stroke-dasharray: 100%;
     stroke-dashoffset: 0;
     transition: transform 0.3s, stroke-dashoffset .4s;

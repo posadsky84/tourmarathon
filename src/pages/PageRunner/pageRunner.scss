@@ -1,16 +1,19 @@
 @use 'src/assets/styles/constants';
 
 .page-runner {
-    padding-top: 24px;
+    padding: 24px 40px 40px;
+
+    @include constants.mediaMobile {
+        padding: 24px 0 40px;
+    }
 }
 
 .profile-head {
-    margin-left: 50px;
     max-width: 250px;
     margin-bottom: 20px;
 
     @include constants.mediaMobile {
-        margin-left: 10px;
+        padding: 0 16px;
     }
 
 }
@@ -18,27 +21,26 @@
 .fio-head {
     font-size: 20px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .profile-line {
     display: flex;
-    background-color: lightgrey;
+    background-color: constants.$black30;
     height: 1px;
-    margin-top: 1px;
-    margin-bottom: 1px;
-
 }
 
 .profile-block {
     display: flex;
     justify-content: space-between;
+    padding: 4px 0;
+    line-height: 16px;
 }
 
-.profile-block-name {
-    color: darkgrey;
+.profile-block-label {
+    color: constants.$black60;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .profile-block-data {
@@ -46,10 +48,6 @@
 }
 
 .runner-teams-desktop {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 40px;
-    margin-bottom: 40px;
 
     @include constants.mediaMobile {
         display: none;
