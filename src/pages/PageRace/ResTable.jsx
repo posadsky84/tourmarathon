@@ -144,24 +144,29 @@ const ResTable = () => {
         });
 
 
-        runnersContent = (<>
-        <div className="res-table-desktop">
-            <div className="table-row">
-                <div className="table-cell table-head-cell">Команда</div>
-                <div className="table-cell table-head-cell">Участники</div>
-                <div className="table-cell table-head-cell">Старт</div>
-                <div className="table-cell table-head-cell">Финиш</div>
-                <div className="table-cell table-head-cell">Время</div>
-                <div className="table-cell table-head-cell">Место</div>
-                <div className="table-cell table-head-cell"></div>
-                <div className="table-cell table-head-cell"></div>
-                {desktopContent}
+        runnersContent = (
+          <>
+            <div className="res-table-desktop">
+                <div className="table-row">
+                    <div className="table-cell table-head-cell">Команда</div>
+                    <div className="table-cell table-head-cell">Участники</div>
+                    <div className="table-cell table-head-cell">Старт</div>
+                    <div className="table-cell table-head-cell">Финиш</div>
+                    <div className="table-cell table-head-cell">Время</div>
+                    <div className="table-cell table-head-cell">Место</div>
+                    <div className="table-cell table-head-cell"></div>
+                    <div className="table-cell table-head-cell"></div>
+                    {desktopContent}
+                </div>
             </div>
-        </div>
-        <div className="res-table-mobile">
-            {mobileContent}
-        </div>
-        </>);
+            <div className="res-table-mobile">
+                <div className="res-table-mobile-header">
+                  <p className="res-table-mobile-header-time">Время</p>
+                  <p className="res-table-mobile-header-place">Место</p>
+                </div>
+                {mobileContent}
+            </div>
+          </>);
 
     } else if (raceIsError) {
         runnersContent = (

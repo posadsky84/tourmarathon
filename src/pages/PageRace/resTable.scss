@@ -57,7 +57,7 @@
     padding: 0 16px;
 
     @include constants.mediaMobile {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
     }
 }
 
@@ -181,13 +181,29 @@
 }
 
 
+.res-table-mobile-header {
+    display: flex;
+    font-size: 12px;
+    font-weight: 500;
+    justify-content: flex-end;
+    padding: 4px 0;
+    border-bottom: 1px solid constants.$black5;
+}
+
+.res-table-mobile-header-time {
+    flex-basis: 53px;
+}
+
+.res-table-mobile-header-place {
+    flex-basis: 60px;
+}
+
 .res-table-mobile {
     display: none;
 
     @include constants.mediaMobile {
         display: flex;
         flex-direction: column;
-        border-top: 1px solid constants.$black5;
         border-bottom: 1px solid constants.$black5;
     }
 
@@ -232,10 +248,10 @@
 }
 
 .mobil-medal {
-    flex-basis: 20px;
+    flex-basis: 24px;
     margin-left: 4px;
 
     .medal {
-        width: 20px;
+        width: 24px;
     }
 }

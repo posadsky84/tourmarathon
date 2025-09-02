@@ -24,6 +24,8 @@ $cardsGap: 10px;
     border: constants.$black10 solid;
     transition: all 0.1s ease-in-out;
     overflow: hidden;
+    text-decoration: none;
+    color: initial;
 
     @include constants.mediaTablet {
         flex-basis: calc((100% - $cardsGap) / 2);
@@ -54,9 +56,11 @@ $cardsGap: 10px;
     display: flex;
     flex-direction: row;
     margin-bottom: 16px;
+    max-height: 370px;
 
     @include constants.mediaMobile {
         flex-direction: column;
+        max-height: 100%;
     }
 
     .tm-card-image-wrapper {
@@ -130,6 +134,7 @@ $cardsGap: 10px;
     transition: none;
     background-color: constants.$black5;
     cursor: default;
+    pointer-events: none;
 }
 
 .tm-card.blocked:hover .tm-card-image {

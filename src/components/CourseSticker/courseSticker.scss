@@ -12,6 +12,11 @@
     padding: 8px 4px;
 }
 
+.course-sticker.easy {
+    background-color: constants.$easyGreen;
+    color: #FFFFFF;
+}
+
 .course-sticker.lite {
     background-color: constants.$lightGreen500;
     color: #FFFFFF;
