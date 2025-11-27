@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useGetRaceInfoQuery } from '../../redux/baseApi';
 import Spinner from '../../components/Spinner/Spinner';
@@ -8,6 +8,11 @@ import "./pageRulesPreview.scss";
 const PageRulesPreview = () => {
 
   const params = useParams();
+  const [isPreviewLoading, setPreviewLoading] = useState(true);
+
+   useEffect(() => {
+     setTimeout(() => setPreviewLoading(false), 2000);
+   }, []);
 
   const {
     data,
@@ -53,6 +58,7 @@ const PageRulesPreview = () => {
 
   return (
     <div className="content-column">
+      {isPreviewLoading && <div className="loading-backscreen"><Spinner /></div>}
       <div className="page-main">
         {content}
       </div>
