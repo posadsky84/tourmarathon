@@ -1,15 +1,11 @@
 import './resTable.scss';
 import { useGetTeamsQuery } from '../../redux/baseApi';
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration'
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getStrapiImageUrl, toFineDateLong } from '../../helper';
 import ResTableDesktop from './ResTableDesktop';
 import ResTableMobile from './ResTableMobile';
 import Spinner from '../../components/Spinner/Spinner';
 import { useEffect, useRef } from 'react';
-
-dayjs.extend(duration);
 
 const ResTable = () => {
 
@@ -94,8 +90,10 @@ const ResTable = () => {
         title = (
           <div className="res-head">
             <div className="res-magnet-place">
+                {raceData.magnet.data?.attributes.url &&
                 <img className="race-magnet-image" alt=""
                      src={getStrapiImageUrl(raceData.magnet.data?.attributes.url)}></img>
+                }
             </div>
             <div className="res-title">
                 <div className="res-title-name">{raceData.name}</div>

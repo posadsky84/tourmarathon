@@ -72,8 +72,8 @@ const RunnerCardMobile = ({teamContent, distanceContent, raceContent, runner, ro
       </div>
     </div>
     {isOpened && <div className="run-card-footer-mobile">
-      {teamContent.start ? dayjs(teamContent.start).format('DD.MM.YYYY HH:mm') : ""}
-      {teamContent.finish ? dayjs(teamContent.finish).format('DD.MM.YYYY HH:mm') : ""}
+      {teamContent.start ? dayjs(teamContent.start).utc().format('DD.MM.YYYY HH:mm') : ""}
+      {teamContent.finish ? dayjs(teamContent.finish).utc().format('DD.MM.YYYY HH:mm') : ""}
       {resultToStr(teamContent.result)}
     </div>}
   </>;

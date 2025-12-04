@@ -66,9 +66,9 @@ const PageRunnerDesktop = ({teamsData, runner}) => {
           <div className="runner-table-cell">{teamContent.place}</div>
           <div className="runner-table-cell"><Reward label={teamContent.reward}/></div>
           <div
-            className="runner-table-cell">{teamContent.start ? dayjs(teamContent.start).format('DD.MM.YYYY HH:mm') : ""}</div>
+            className="runner-table-cell">{teamContent.start ? dayjs(teamContent.start).utc().format('DD.MM.YYYY HH:mm') : ""}</div>
           <div
-            className="runner-table-cell">{teamContent.finish ? dayjs(teamContent.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
+            className="runner-table-cell">{teamContent.finish ? dayjs(teamContent.finish).utc().format('DD.MM.YYYY HH:mm') : ""}</div>
           <div className="runner-table-cell">{resultToStr(teamContent.result)}</div>
         </>
         ;

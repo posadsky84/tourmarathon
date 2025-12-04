@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './app.scss';
 import Header from "./components/Header/Header";
 import {createBrowserRouter} from "react-router-dom";
@@ -12,6 +12,12 @@ import PageAllRunners from "./pages/PageAllRunners/PageAllRunners";
 import Footer from "./components/Footer/Footer";
 import PageAbout from "./pages/PageAbout/PageAbout";
 import PageRulesPreview from "./pages/PageRulesPreview/PageRulesPreview";
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import duration from 'dayjs/plugin/duration';
+
+dayjs.extend(duration);
+dayjs.extend(utc);
 
 const App = () => {
 

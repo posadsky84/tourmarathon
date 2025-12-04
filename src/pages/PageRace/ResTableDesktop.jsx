@@ -69,9 +69,9 @@ const ResTableDesktop = ({teamItem, members, runnersChildren, rowNum, params, se
       }
     </div>
     <div
-      className={cellClass}>{teamItem.attributes.start ? dayjs(teamItem.attributes.start).format('DD.MM.YYYY HH:mm') : ""}</div>
+      className={cellClass}>{teamItem.attributes.start ? dayjs(teamItem.attributes.start).utc().format('DD.MM.YYYY HH:mm') : ""}</div>
     <div
-      className={cellClass}>{teamItem.attributes.finish ? dayjs(teamItem.attributes.finish).format('DD.MM.YYYY HH:mm') : ""}</div>
+      className={cellClass}>{teamItem.attributes.finish ? dayjs(teamItem.attributes.finish).utc().format('DD.MM.YYYY HH:mm') : ""}</div>
     <div className={cellClass}>{resultToStr(teamItem.attributes.result)}</div>
     <div className={cellClass}>{teamItem.attributes.place}</div>
     <div className={cellClass}><Reward label={teamItem.attributes.reward}/></div>
