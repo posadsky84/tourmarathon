@@ -43,6 +43,9 @@ export const api = createApi({
     getPageAbout: builder.query({
       query: () => '/page-about',
     }),
+    getDevPageInfo: builder.query({
+      query: () => '/devPage',
+    }),
     getRace: builder.query({
       query: (raceId) => `/races/${raceId}?populate=distances&populate[1]=magnet`,
       transformResponse: (response) => {
@@ -50,6 +53,15 @@ export const api = createApi({
         res.distances.data.sort((a,b) => a.attributes.km < b.attributes.km ? -1 : 1);
         return res;
       },
+
+    }),
+
+    postFeedback: builder.mutation({
+      query: ({message}) => ({
+        url: `/feedbacks`,
+        method: 'POST',
+        body: { data: { message } },
+      }),
     }),
 
   }),
@@ -64,6 +76,8 @@ export const {
   useGetMainPageInfoQuery,
   useGetPageRaceBeforeQuery,
   useGetPageAboutQuery,
+  useGetDevPageInfoQuery,
   useGetRaceQuery,
   useGetRaceInfoQuery,
+  usePostFeedbackMutation,
 } = api

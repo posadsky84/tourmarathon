@@ -13,8 +13,13 @@
 
 .admin-link {
   color: constants.$black80;
-  text-decoration: none;
+  text-decoration: underline;
   margin-left: 4px;
+  cursor: pointer;
+}
+
+.admin-link:hover {
+  text-decoration: underline;
 }
 
 .footer-wrapper {

@@ -1,0 +1,18 @@
+@use 'src/assets/styles/constants';
+
+.page-main {
+    padding: 40px 16px 80px;
+
+    @include constants.mediaMobile {
+        padding-top: 32px;
+    }
+}
+
+.page-main-info {
+    margin-bottom: 24px;
+    line-height: 1.3;
+
+    p + p {
+        margin-top: 8px;
+    }
+}
