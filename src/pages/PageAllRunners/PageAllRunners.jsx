@@ -127,8 +127,10 @@ const PageAllRunners = () => {
   }, [runnersIsSuccess, doSortAlphabet]);
 
   useEffect(() => {
-    doScroll(0);
-    setReadyFlag(true);
+    if (listData.length) {
+      doScroll(0);
+      setReadyFlag(true);
+    }
   }, [listData]);
 
   //Дебаунс для поисковой строки
@@ -190,7 +192,7 @@ const PageAllRunners = () => {
         <div className="all-runners-sort-selector">
           <div className={`all-runners-sort-button ${!doSortAlphabet ? "selected" : ""}`}
                {...(doSortAlphabet ? { onClick: () => setDoSortAlphabet(false) } : {})}
-          >По кол-ву участий</div>
+          >По кол-ву стартов</div>
           <div className={`all-runners-sort-button ${doSortAlphabet ? "selected" : ""}`}
                {...(!doSortAlphabet ? { onClick: () => setDoSortAlphabet(true) } : {})}
           >По алфавиту</div>
@@ -206,6 +208,7 @@ const PageAllRunners = () => {
             .map(item => <div className="table-cell table-head-cell table-cell-crosstab">{item}</div>)}
         </div>
           {!readyFlag && <Spinner />}
+          {/*{<Spinner />}*/}
 
         <div className="res-table-all-runners">
         <AutoSizer>

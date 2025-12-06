@@ -68,8 +68,11 @@ const PageAllRaces = () => {
         return <>
           {divider}
           <div className="all-races-cell caption-cell">
-            <img className="magnet-image" alt=""
-                 src={getStrapiImageUrl(raceItem.attributes.magnet.data?.attributes.url)}></img>
+            {raceItem.attributes.magnet.data?.attributes.url ?
+              <img className="magnet-image" alt=""
+                   src={getStrapiImageUrl(raceItem.attributes.magnet.data?.attributes.url)}></img>
+              : <div className="no-image" />
+            }
             <div className="race-caption">
               <Link className="distance-link" to={`/races/${raceItem.id}`}>{raceItem.attributes.sname}</Link>
               <div className="race-info">{raceItem.attributes.ddate}, {raceItem.attributes.location}</div>

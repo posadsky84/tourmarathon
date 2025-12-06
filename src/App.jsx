@@ -23,6 +23,16 @@ const App = () => {
 
   const location = useLocation();
 
+    useEffect(() => {
+        requestAnimationFrame(() => {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "instant"
+            });
+        });
+    }, [location.pathname]);
+
   return (
     <div className="app-wrapper">
         <Header />
